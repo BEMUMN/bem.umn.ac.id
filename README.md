@@ -14,7 +14,7 @@ This is an official repository of **BEM UMN GEN XV** Website. This repository sh
 
 -   Website URL :
 -
--   ***
+-
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
