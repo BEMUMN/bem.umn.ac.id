@@ -1,8 +1,35 @@
 @import "tailwindcss";
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	/* 1. Definisi Warna Dasar dari Palet Anda */
+	--navy: #011936;
+	--sky-blue: #3e92cc;
+	--gold: #eeae0b;
+	--off-white: #f2f2f2;
+
+	--background: var(--off-white);
+	--foreground: var(--navy);
+
+	--primary: var(--navy);
+	--secondary: var(--sky-blue);
+	--accent: var(--gold);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: var(--navy);
+		--foreground: var(--off-white);
+
+		--primary: var(--off-white);
+		--secondary: var(--sky-blue);
+		--accent: var(--gold);
+	}
+}
+
+body {
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--font-geist-sans);
 }
 
 @theme inline {
@@ -12,15 +39,20 @@
 	--font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+@layer base {
+	body {
+		@apply p-0 m-0;
 	}
 }
 
-body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+@utility responsive-padding-x-sm {
+	@apply px-2 md:px-4 lg:px-8 xl:px-12;
+}
+
+@utility responsive-padding-x-md {
+	@apply px-4 md:px-8 lg:px-12 xl:px-16;
+}
+
+@utility responsive-padding-x-lg {
+	@apply px-6 md:px-10 lg:px-14 xl:px-20;
 }
