@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
-import gsap from "gsap";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
-
-const openSans = Open_Sans({
-	variable: "--font-open-sans",
+export const inter = Inter({
 	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-inter",
+});
+
+// Updated this block to define and export Lora
+export const lora = Lora({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -25,11 +27,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body
-				className={`${openSans} antialiased`}
-			>
-				{children}
-			</body>
+			<body className={`${inter.variable} ${lora.variable} antialiased`}>{children}</body>
 		</html>
 	);
 }

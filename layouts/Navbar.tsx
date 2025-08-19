@@ -36,7 +36,7 @@ const Navbar = () => {
 
 	return (
 		<nav className="w-full z-50 overflow-x-hidden fixed glass-blur bg-transparent">
-			<div className="flex justify-between items-center responsive-padding-x-md py-3">
+			<div className="flex justify-between items-center responsive-padding-x-md py-8">
 				<div className="flex items-center gap-4">
 					<Image
 						src="/svgs/bem-logo.svg"
@@ -45,12 +45,12 @@ const Navbar = () => {
 						height={50}
 					/>
 
-					<Image
+					{/* <Image
 						src="/svgs/gen-logo.svg"
 						alt="GEN XV Logo"
 						width={100}
 						height={100}
-					/>
+					/> */}
                     
 				</div>
 
