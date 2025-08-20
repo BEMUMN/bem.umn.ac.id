@@ -7,53 +7,79 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type GalleryProps = {
-	id: string;
-	images: string[];
-};
-
 const shuffle = (array: string[]): string[] =>
 	[...array].sort(() => Math.random() - 0.5);
+
+const shadowColors = ["#eeae0b70", "#3e92cc70"];
 
 const GalleryColumn = ({ images }: { images: string[] }) => {
 	return (
 		<div className="flex flex-col gap-4">
-			{images.map((src, index) => (
-				<div
-					key={index}
-					className="w-full h-auto rounded-lg overflow-hidden shadow-lg/30"
-				>
-					<Image
-						src={src}
-						alt={`Gallery image ${index + 1}`}
-						width={500}
-						height={750}
-						className="object-cover w-full h-auto"
-						loading={index < 3 ? "eager" : "lazy"}
-					/>
-				</div>
-			))}
-			{images.map((src, index) => (
-				<div
-					key={`dup-${index}`}
-					className="w-full h-auto rounded-lg overflow-hidden shadow-lg/30"
-				>
-					<Image
-						src={src}
-						alt={`Gallery image ${index + 1}`}
-						width={500}
-						height={750}
-						className="object-cover w-full h-auto"
-						loading="lazy"
-					/>
-				</div>
-			))}
+			{images.map((src, index) => {
+				const randomColor =
+					shadowColors[
+						Math.floor(Math.random() * shadowColors.length)
+					];
+
+				return (
+					<div
+						key={index}
+						className="w-full h-auto rounded-lg overflow-hidden"
+						style={{
+							boxShadow: `0 4px 15px ${randomColor}`,
+						}}
+					>
+						<Image
+							src={src}
+							alt={`Gallery image ${index + 1}`}
+							width={500}
+							height={750}
+							className="object-cover w-full h-auto"
+							loading={index < 3 ? "eager" : "lazy"}
+						/>
+					</div>
+				);
+			})}
+
+			{/* Duplicate untuk loop kedua */}
+			{images.map((src, index) => {
+				const randomColor =
+					shadowColors[
+						Math.floor(Math.random() * shadowColors.length)
+					];
+
+				return (
+					<div
+						key={`dup-${index}`}
+						className="w-full h-auto rounded-lg overflow-hidden"
+						style={{
+							boxShadow: `0 4px 15px ${randomColor}`,
+						}}
+					>
+						<Image
+							src={src}
+							alt={`Gallery image ${index + 1}`}
+							width={500}
+							height={750}
+							className="object-cover w-full h-auto"
+							loading="lazy"
+						/>
+					</div>
+				);
+			})}
 		</div>
 	);
 };
 
-const Gallery = ({ id, images }: GalleryProps) => {
-	const mainRef = useRef<HTMLDivElement | null>(null);
+type GalleryProps = {
+	id: string;
+	images: string[];
+	className?: string;
+	// ref: React.RefObject<HTMLDivElement>;
+};
+
+const Gallery = ({ id, images, className }: GalleryProps) => {
+	const mainGalleryRef = useRef<HTMLDivElement | null>(null);
 	const colRefs = useRef<(HTMLDivElement | null)[]>([]);
 
 	const [shuffledImages, setShuffledImages] = useState<string[][]>([]);
@@ -101,7 +127,7 @@ const Gallery = ({ id, images }: GalleryProps) => {
 				.filter(Boolean) as gsap.core.Tween[];
 
 			ScrollTrigger.create({
-				trigger: mainRef.current,
+				trigger: mainGalleryRef.current,
 				start: "top bottom",
 				end: "bottom top",
 				onUpdate: (self) => {
@@ -120,7 +146,7 @@ const Gallery = ({ id, images }: GalleryProps) => {
 					});
 				},
 			});
-		}, mainRef);
+		}, mainGalleryRef);
 
 		return () => ctx.revert();
 	}, [shuffledImages]);
@@ -130,11 +156,11 @@ const Gallery = ({ id, images }: GalleryProps) => {
 	return (
 		<section
 			id={id}
-			className="relative bg-stone-100 h-screen max-h-screen w-full overflow-hidden flex items-center"
+			className={`relative h-screen max-h-screen w-full overflow-hidden flex items-center ${className}`}
 		>
 			<div
-				ref={mainRef}
-				className="w-3/4 h-full grid grid-cols-4 gap-4 p-4 md:col-span-4"
+				ref={mainGalleryRef}
+				className="gallery-column-fade w-1/2 h-full grid grid-cols-4 gap-4 p-4 md:col-span-4"
 			>
 				{shuffledImages.length > 0 &&
 					shuffledImages.map((column, index) => (
@@ -149,13 +175,16 @@ const Gallery = ({ id, images }: GalleryProps) => {
 					))}
 			</div>
 
-			<div className="text-left p-12 min-h-screen">
-				<h2 className="text-4xl lg:text-6xl font-bold text-gray-800 leading-tight">
-					A Showcase of Our Cherished Moments
+			<div className="text-left p-12 min-h-screen max-w-[40%]">
+				<h2 className="text-4xl lg:text-6xl font-bold leading-tight">
+					Commit. Solid. Integrated.
 				</h2>
 				<p className="text-lg text-gray-500 mt-4">
-					Each frame tells a story, a captured moment in time that we
-					hold dear.
+					BEM UMN memiliki tagline organisasi &#39;Commit. Solid.
+					Integrated.&#39; yang menegaskan bagaimana setiap anggota
+					harus memiliki komitmen tinggi untuk melaksanakan tanggung
+					jawabnya, solidaritas yang kuat antara sesama anggota, serta
+					mampu berintegrasi dengan naungan serta kemahasiswaan.
 				</p>
 			</div>
 		</section>

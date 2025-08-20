@@ -11,277 +11,223 @@ import Lenis from "lenis";
 import Hero from "@/layouts/home-page/Hero";
 import Gallery from "@/layouts/home-page/Gallery";
 import { images } from "@/constants/galleryIndex";
+import { supergraphics } from "@/constants/supergraphicIndex";
+import Member from "@/layouts/home-page/Member";
+import Work from "@/layouts/home-page/Work";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
+// ---- Component ----
 export default function Home() {
 	const main = useRef<HTMLDivElement>(null);
+	const superRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-	const superGraphics = {
-		g1: useRef<HTMLDivElement>(null),
-		g2: useRef<HTMLDivElement>(null),
-		g3: useRef<HTMLDivElement>(null),
-		g4: useRef<HTMLDivElement>(null),
-		g5: useRef<HTMLDivElement>(null),
-	};
-
+	// Lenis Smooth Scroll
 	useEffect(() => {
 		const lenis = new Lenis({
-			duration: 3,
-			lerp: 0.07,
-			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+			duration: 0.6,
 			smoothWheel: true,
+			syncTouch: true,
+			gestureOrientation: "vertical",
+			lerp: 1,
+			wheelMultiplier: 0.4,
 		});
 
-		lenis.on("scroll", ScrollTrigger.update);
-
-		const ticker = gsap.ticker.add((time: number) => {
+		function update(time: number) {
 			lenis.raf(time * 1000);
-		});
+		}
 
-		gsap.ticker.add(ticker);
+		gsap.ticker.add(update);
 		gsap.ticker.lagSmoothing(0);
 
 		return () => {
+			gsap.ticker.remove(update);
 			lenis.destroy();
-			gsap.ticker.remove(ticker);
 		};
 	}, []);
 
+	// GSAP Animations
 	useGSAP(
 		() => {
+			const sections = gsap.utils.toArray<HTMLElement>(".snap-section");
+
 			ScrollTrigger.create({
 				trigger: main.current,
 				start: "top top",
 				end: "bottom bottom",
+				scrub: true,
 				snap: {
-					snapTo: [0, 0.5, 1],
-					duration: { min: 0.0, max: 0.5 },
-					ease: "none",
+					snapTo: (value) => {
+						let maxVisibility = 0;
+						let snapIndex = 0;
+
+						sections.forEach((section, i) => {
+							const bounds = section.getBoundingClientRect();
+							const visible =
+								Math.min(window.innerHeight, bounds.bottom) -
+								Math.max(0, bounds.top);
+
+							if (visible > maxVisibility) {
+								maxVisibility = visible;
+								snapIndex = i;
+							}
+						});
+
+						return snapIndex / (sections.length - 1);
+					},
+					duration: 0.6,
+					ease: "power1.inOut",
 				},
 			});
 
-			startIntroAnim();
+			// Intro animation
+			const intro = gsap.timeline({
+				defaults: { ease: "sine.inOut" },
+				onComplete: () => initScrollTriggers(),
+			});
+
+			intro
+				.to(superRefs.current[0], {
+					x: 480,
+					y: 80,
+					rotation: 15,
+					duration: 1,
+				})
+				.to(
+					superRefs.current[1],
+					{ x: -500, y: 150, rotation: -25, duration: 1 },
+					"<"
+				)
+				.to(
+					superRefs.current[2],
+					{ x: -525, rotation: 15, duration: 1 },
+					"<"
+				)
+				.to(
+					superRefs.current[3],
+					{ x: 400, y: -100, rotation: -15, duration: 1 },
+					"<"
+				)
+				.to(
+					superRefs.current[4],
+					{ x: -100, y: -250, rotation: -15, duration: 1 },
+					"<"
+				);
+
+			function initScrollTriggers() {
+				// Hero → Gallery
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: "#hero",
+						start: "+=100 top",
+						endTrigger: "#gallery",
+						end: "bottom bottom",
+						scrub: true,
+					},
+					defaults: { ease: "sine.inOut" },
+				})
+					.to(
+						superRefs.current[0],
+						{ x: -400, y: -100, rotation: -50 },
+						">"
+					)
+					.to(
+						superRefs.current[1],
+						{ x: 500, y: -100, rotation: 50 },
+						"<"
+					)
+					.to(
+						superRefs.current[2],
+						{ x: 350, y: 200, rotation: -50 },
+						"<"
+					)
+					.to(
+						superRefs.current[3],
+						{ x: -400, y: 100, rotation: 50 },
+						"<"
+					)
+					.to(
+						superRefs.current[4],
+						{ x: 300, y: -400, scale: 3.5 },
+						"<"
+					);
+
+				// Gallery → Member
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: "#gallery",
+						start: "top top",
+						endTrigger: "#member",
+						end: "bottom bottom",
+						scrub: true,
+					},
+					defaults: { ease: "sine.inOut" },
+				})
+					.to(superRefs.current[4], { x: 600, y: 50, scale: 1 }, ">")
+					.to(
+						superRefs.current[3],
+						{ x: 400, y: -200, scale: 3.5, rotate: 15 },
+						">"
+					);
+
+				// Member → Work
+				gsap.timeline({
+					scrollTrigger: {
+						trigger: "#member",
+						start: "top top",
+						endTrigger: "#work",
+						end: "bottom bottom",
+						scrub: true,
+					},
+					defaults: { ease: "sine.inOut" },
+				})
+					.to(superRefs.current[3], { x: -600, y: 50, scale: 1 }, ">")
+					.to(
+						superRefs.current[2],
+						{ x: -600, y: -200, scale: 3, rotate: 15 },
+						">"
+					);
+			}
 		},
 		{ scope: main }
 	);
-
-	const startIntroAnim = () => {
-		const intro = gsap.timeline({
-			onComplete: initScrollTrigger,
-			defaults: { ease: "power1.inOut" },
-		});
-
-		intro
-			.to(superGraphics.g1.current, {
-				duration: 1,
-				y: 80,
-				x: 480,
-				rotation: 15,
-			})
-			.to(
-				superGraphics.g2.current,
-				{
-					duration: 1,
-					y: 150,
-					x: -500,
-					rotation: -25,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g3.current,
-				{
-					duration: 1,
-					x: -525,
-					rotation: 15,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g4.current,
-				{
-					duration: 1,
-					y: -100,
-					x: 400,
-					rotation: -15,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g5.current,
-				{
-					duration: 1,
-					y: -250,
-					x: -100,
-					rotation: -15,
-				},
-				"<"
-			);
-	};
-
-	const initScrollTrigger = () => {
-		gsap.timeline({
-			scrollTrigger: {
-				trigger: main.current,
-				start: "top top",
-				endTrigger: "#gallery",
-				end: "bottom bottom",
-				scrub: true,
-			},
-			defaults: {
-				ease: "none",
-			},
-		})
-			.to(
-				superGraphics.g1.current,
-				{
-					y: -100,
-					x: -400,
-					rotation: -50,
-				},
-				">"
-			)
-			.to(
-				superGraphics.g2.current,
-				{
-					y: -100,
-					x: 500,
-					rotation: 50,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g3.current,
-				{
-					y: 200,
-					x: 350,
-					rotation: -50,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g4.current,
-				{
-					y: 100,
-					x: -400,
-					rotation: 50,
-				},
-				"<"
-			)
-			.to(
-				superGraphics.g5.current,
-				{
-					y: -400,
-					x: 300,
-					scale: 4,
-				},
-				"<"
-			);
-
-		// gsap.timeline({
-		// 	scrollTrigger: {
-		// 		trigger: "#gallery",
-		// 		start: "top top",
-		// 		endTrigger: "#about-2",
-		// 		end: "bottom bottom",
-		// 		scrub: true,
-		// 	},
-		// 	defaults: {
-		// 		ease: "none",
-		// 	},
-		// })
-		// 	.to(
-		// 		superGraphics.g5.current,
-		// 		{
-		// 			y: 50,
-		// 			x: 600,
-		// 			scale: 1,
-		// 		},
-		// 		">"
-		// 	)
-
-		// 	.to(
-		// 		superGraphics.g4.current,
-		// 		{
-		// 			y: -200,
-		// 			x: 550,
-		// 			scale: 3.5,
-		// 			rotate: 15,
-		// 		},
-		// 		">"
-		// 	);
-	};
 
 	return (
 		<main
 			ref={main}
 			className="w-full min-h-screen relative overflow-x-hidden"
 		>
-			<Hero id="hero" />
-			<Gallery id="gallery" images={images} />
-			{/* <Gallery id="about-2" /> */}
+			{/* Background */}
+			<div className="fixed inset-0 -z-10 super-bg bg-cover bg-center"></div>
+
+			{/* Sections */}
+			<Hero id="hero" className="snap-section" />
+			<Gallery id="gallery" images={images} className="snap-section" />
+			<Member id="member" className="snap-section" />
+			<Work id="work" className="snap-section" />
+
+			{/* Background Decoration */}
+			{/* <div className="fixed top-30 right-95 w-[500px] h-[500px] bg-secondary/30 blur-3xl rounded-full -z-10"></div>
+			<div className="fixed bottom-30 left-90 w-[400px] h-[400px] bg-accent/20 blur-3xl rounded-full -z-10"></div> */}
+
 			{/* Supergraphics */}
-			<div
-				ref={superGraphics.g1}
-				className="fixed top-[-5%] left-[-15%] rotate-[-50deg] md:scale-100 sm:scale-75 scale-50"
-			>
-				<Image
-					src="/svgs/Supergraphic-1.svg"
-					alt="Supergraphic"
-					width={200}
-					height={200}
-					className="drop-shadow-xl/30"
-				/>
-			</div>
-			<div
-				ref={superGraphics.g2}
-				className="fixed top-[-5%] right-[-15%] rotate-[50deg] md:scale-100 sm:scale-75 scale-50"
-			>
-				<Image
-					src="/svgs/Supergraphic-2.svg"
-					alt="Supergraphic"
-					width={175}
-					height={175}
-					className="drop-shadow-xl/30"
-				/>
-			</div>
-			<div
-				ref={superGraphics.g3}
-				className="fixed top-[50%] right-[-30%] rotate-[-50deg] md:scale-100 sm:scale-75 scale-50"
-			>
-				<Image
-					src="/svgs/Supergraphic-3.svg"
-					alt="Supergraphic"
-					width={225}
-					height={225}
-					className="drop-shadow-xl/30"
-				/>
-			</div>
-			<div
-				ref={superGraphics.g4}
-				className="fixed top-[75%] left-[-20%] rotate-[50deg] md:scale-100 sm:scale-75 scale-50"
-			>
-				<Image
-					src="/svgs/Supergraphic-4.svg"
-					alt="Supergraphic"
-					width={225}
-					height={225}
-					className="drop-shadow-xl/30"
-				/>
-			</div>
-			<div
-				ref={superGraphics.g5}
-				className="fixed top-[112%] right-[20%] rotate-[50deg] md:scale-100 sm:scale-75 scale-50"
-			>
-				<Image
-					src="/svgs/Supergraphic-5.svg"
-					alt="Supergraphic"
-					width={200}
-					height={200}
-					className="drop-shadow-xl/30"
-				/>
-			</div>
+			{supergraphics.map((g, i) => (
+				<div
+					key={i}
+					ref={(el) => {
+						superRefs.current[i] = el;
+					}}
+					className={`fixed md:scale-100 sm:scale-75 scale-50 z-10 ${g.className}`}
+				>
+					<Image
+						src={g.src}
+						alt={`Supergraphic-${i + 1}`}
+						width={g.w}
+						height={g.h}
+						className="drop-shadow-xl/30"
+					/>
+				</div>
+			))}
 		</main>
 	);
 }

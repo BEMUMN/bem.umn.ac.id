@@ -13,6 +13,7 @@
 	--primary: var(--navy);
 	--secondary: var(--sky-blue);
 	--accent: var(--gold);
+
 }
 
 @media (prefers-color-scheme: light) {
@@ -75,4 +76,44 @@ html.lenis {
 .super-bg {
 	background-image: linear-gradient(rgba(242, 242, 242, 0.4), rgba(242, 242, 242, 1)),
                     url("/svgs/Scatter.svg")
+}
+
+.gallery-column-fade {
+    position: relative;
+}
+
+.gallery-column-fade::before {
+    content: "";
+    width: 100%;
+    height: 10%;
+    background: linear-gradient(to bottom, rgba(242, 242, 242, 1), rgba(242, 242, 242, 1), rgba(242, 242, 242, 0.7), rgba(242, 242, 242, 0.4), rgba(242, 242, 242, 0.2), rgba(242, 242, 242, 0));
+    z-index: 1;
+    position: absolute; 
+    top: -10;
+    left: 0;
+    filter: blur(2px);
+}
+
+.gallery-column-fade::after {
+    content: "";
+    width: 100%;
+    height: 10%;
+    background: linear-gradient(to top, rgba(242, 242, 242, 1), rgba(242, 242, 242, 1), rgba(242, 242, 242, 0.7), rgba(242, 242, 242, 0.4), rgba(242, 242, 242, 0.2), rgba(242, 242, 242, 0));
+    z-index: 1;
+    position: absolute; 
+    bottom: -10;
+    left: 0;
+    filter: blur(2px);
+}
+
+.no-select {
+  user-select: none;       /* Standard */
+  -webkit-user-select: none; /* Safari/Chrome */
+  -moz-user-select: none;  /* Firefox */
+  -ms-user-select: none;   /* IE/Edge */
+}
+
+/* Optional: prevent context menu on right-click */
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
 }
