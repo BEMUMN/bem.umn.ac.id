@@ -3,35 +3,35 @@ import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
 export const inter = Inter({
-	subsets: ["latin"],
-	display: "swap",
-	variable: "--font-inter",
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-inter",
 });
 
 // Updated this block to define and export Lora
 export const lora = Lora({
-	subsets: ["latin"],
-	display: "swap",
-	variable: "--font-lora",
+    subsets: ["latin"],
+    display: "swap",
+    variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
-	title: "BEM UMN | GEN XV",
-	description: "Official Website of BEM UMN GEN XV",
+    title: "BEM UMN | GEN XV",
+    description: "Official Website of BEM UMN GEN XV",
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en">
-			<body
-				className={`${inter.variable} ${lora.variable} antialiased no-select`}
-			>
-				{children}
-			</body>
-		</html>
-	);
+    return (
+        <html lang="en">
+            <body
+                className={`${inter.variable} ${lora.variable} no-select antialiased`}
+            >
+                {children}
+            </body>
+        </html>
+    );
 }

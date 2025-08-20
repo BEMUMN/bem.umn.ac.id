@@ -2,121 +2,220 @@
 
 import { divisions } from "@/constants/divisionIndex";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-
-gsap.registerPlugin(TextPlugin);
 
 type MemberProps = {
-	id: string;
-	className?: string;
-};
-
-const overlayColors = ["var(--secondary)", "var(--accent)"];
-
-const animateText = (el: HTMLElement, newText: string) => {
-	if (!el) return;
-
-	gsap.to(el, {
-		duration: 1,
-		text: { value: newText, delimiter: "" },
-		ease: "power2.out",
-	});
+    id: string;
+    className?: string;
 };
 
 const Member = ({ id, className }: MemberProps) => {
-	const textRefs = useRef<(HTMLHeadingElement | null)[]>([]);
-	if (textRefs.current.length !== divisions.length) {
-		textRefs.current = Array(divisions.length).fill(null);
-	}
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const lightRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
-	return (
-		<section
-			id={id}
-			className={`relative w-full h-screen flex items-center justify-end py-20 sm:py-28 ${className}`}
-		>
-			<div className="w-full max-w-7xl px-6 lg:px-12 flex flex-col items-end">
-				<h2 className="text-4xl lg:text-6xl font-extrabold leading-tight text-right">
-					Divisi BEM UMN
-				</h2>
+    useEffect(() => {
+        cardRefs.current.forEach((card) => {
+            if (!card) return;
+            const randomRotate = gsap.utils.random(-10, 10);
+            gsap.set(card, {
+                rotate: randomRotate,
+                transformStyle: "preserve-3d",
+            });
+        });
+    }, []);
 
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 pt-16 justify-items-end">
-					{divisions.map((division, index) => {
-						const overlayColor =
-							overlayColors[index % overlayColors.length];
+    const handleEnter = (index: number) => {
+        const card = cardRefs.current[index];
+        const light = lightRefs.current[index];
+        if (!card) return;
 
-						const handleMouseEnter = () => {
-							const ref = textRefs.current[index];
-							if (ref) {
-								animateText(
-									ref,
-									division.fullName || division.name
-								);
-							}
-						};
+        gsap.to(card, {
+            duration: 0.8,
+            scale: 1.1,
+            ease: "power4.out",
+        });
 
-						const handleMouseLeave = () => {
-							const ref = textRefs.current[index];
-							if (ref) {
-								animateText(ref, division.name);
-							}
-						};
+        if (light) {
+            gsap.to(light, {
+                opacity: 0.35,
+                duration: 0.6,
+                ease: "power2.out",
+            });
+        }
+    };
 
-						return (
-							<div
-								key={division.id}
-								className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl 
-									transition-all duration-500 ease-in-out cursor-pointer
-									w-[320px] h-[320px]"
-								onMouseEnter={handleMouseEnter}
-								onMouseLeave={handleMouseLeave}
-							>
-								{/* Background Image */}
-								<div className="absolute inset-0 w-full h-full overflow-hidden">
-									<Image
-										src={
-											division.imageUrl ||
-											"/placeholder.png"
-										}
-										alt={division.name}
-										fill
-										sizes="320px"
-										className="object-cover transition-transform duration-700 group-hover:scale-110 saturate-[80%]"
-									/>
-								</div>
+    const handleLeave = (index: number) => {
+        const card = cardRefs.current[index];
+        const light = lightRefs.current[index];
+        if (!card) return;
 
-								{/* Overlay warna acak */}
-								<div
-									className="absolute inset-0 opacity-50 group-hover:opacity-80 transition-all duration-500"
-									style={{ backgroundColor: overlayColor }}
-								></div>
+        gsap.to(card, {
+            duration: 0.8,
+            scale: 1,
+            rotateX: 0,
+            rotateY: flippedIndex === index ? 180 : 0,
+            rotate: gsap.utils.random(-10, 10),
+            ease: "power4.inOut",
+        });
 
-								{/* Content */}
-								<div className="relative h-full flex flex-col justify-end p-6">
-									<h3
-										ref={(el) => {
-											textRefs.current[index] = el;
-											if (el && !el.textContent) {
-												el.textContent = division.name;
-											}
-										}}
-										className="text-2xl font-bold mb-2 tracking-wide text-background"
-									></h3>
-									<p className="text-sm opacity-90 group-hover:opacity-100 transition-opacity duration-500 line-clamp-2 text-background">
-										{division.description}
-									</p>
-									<span className="mt-3 text-xs text-background">
-										{division.memberCount} anggota
-									</span>
-								</div>
-							</div>
-						);
-					})}
-				</div>
-			</div>
-		</section>
-	);
+        if (light) {
+            gsap.to(light, {
+                opacity: 0,
+                duration: 0.6,
+                ease: "power2.inOut",
+            });
+        }
+    };
+
+    const handleMove = (e: React.MouseEvent, index: number) => {
+        const card = cardRefs.current[index];
+        const light = lightRefs.current[index];
+        if (!card || !light) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * 12;
+        const rotateY = ((x - centerX) / centerX) * 12;
+
+        gsap.to(card, {
+            rotateX: -rotateX,
+            rotateY: (flippedIndex === index ? 180 : 0) + rotateY / 2,
+            transformPerspective: 1200,
+            transformOrigin: "center",
+            duration: 0.5,
+            ease: "power2.out",
+        });
+
+        gsap.to(light, {
+            x: (x - centerX) / 4,
+            y: (y - centerY) / 4,
+            ease: "power2.out",
+            duration: 0.3,
+        });
+    };
+
+    const handleFlip = (index: number) => {
+        const prevIndex = flippedIndex;
+
+        // Flip back previous card if any
+        if (prevIndex !== null && prevIndex !== index) {
+            const prevCard = cardRefs.current[prevIndex];
+            if (prevCard) {
+                gsap.to(prevCard, {
+                    rotateY: 0,
+                    duration: 0.8,
+                    ease: "power3.inOut",
+                });
+            }
+        }
+
+        // Flip card
+        if (prevIndex === index) {
+            gsap.to(cardRefs.current[index], {
+                rotateY: 0,
+                duration: 0.8,
+                ease: "power3.inOut",
+            });
+            setFlippedIndex(null);
+        } else {
+            gsap.to(cardRefs.current[index], {
+                rotateY: 180,
+                duration: 0.8,
+                ease: "power3.inOut",
+            });
+            setFlippedIndex(index);
+        }
+    };
+
+    return (
+        <section
+            id={id}
+            className={`relative flex max-h-screen min-h-screen w-full items-center justify-end px-12 font-mono ${className}`}
+        >
+            <div className="items-top h-screen max-w-2xl p-20 pr-0">
+                <h2 className="text-start text-6xl font-bold drop-shadow-lg/30">
+                    Divisi BEM UMN
+                </h2>
+                <p className="mt-4 text-lg text-gray-500">
+                    BEM UMN memiliki 6 divisi yang masing-masing memiliki peran
+                    dan tanggung jawab yang berbeda. Setiap divisi berkontribusi
+                    untuk mencapai tujuan bersama dan memastikan kelancaran
+                    organisasi.
+                </p>
+            </div>
+            <div className="w-full max-w-7xl px-12">
+                <div
+                    className="grid grid-cols-3 justify-items-end gap-10"
+                    style={{ perspective: "2000px" }}
+                >
+                    {divisions.map((division, index) => (
+                        <div
+                            key={division.id}
+                            ref={(el) => {
+                                cardRefs.current[index] = el;
+                            }}
+                            onMouseEnter={() => handleEnter(index)}
+                            onMouseLeave={() => handleLeave(index)}
+                            onMouseMove={(e) => handleMove(e, index)}
+                            onClick={() => handleFlip(index)}
+                            className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d]"
+                            role="button"
+                            tabIndex={0}
+                        >
+                            {/* Lighting Overlay */}
+                            <div
+                                ref={(el) => {
+                                    lightRefs.current[index] = el;
+                                }}
+                                className="from-background/60 pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-tr to-transparent opacity-0"
+                            />
+
+                            {/* Front Side */}
+                            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-stone-200 p-3 pt-0 shadow-md/20 duration-300 [backface-visibility:hidden]">
+                                <div className="relative h-[260px] w-full overflow-hidden rounded-sm">
+                                    <Image
+                                        src={division.imageUrl}
+                                        alt={division.name}
+                                        fill
+                                        sizes="280px"
+                                        className="scale-105 object-cover"
+                                    />
+                                </div>
+                                <p className="text-secondary mt-2 text-xl font-semibold">
+                                    {division.name}
+                                </p>
+                                <p className="text-foreground/70 mt-2 text-sm font-normal">
+                                    Click Me !
+                                </p>
+                            </div>
+
+                            {/* Back Side */}
+                            <div className="absolute inset-0 flex [transform:rotateY(180deg)] flex-col items-center justify-center rounded-xl bg-stone-200 p-4 shadow-md [backface-visibility:hidden]">
+                                <h3 className="mb-2 text-center text-lg font-bold text-gray-800">
+                                    {division.fullName || division.name}
+                                </h3>
+                                <p className="mb-4 text-sm text-gray-600">
+                                    Jumlah Anggota:{" "}
+                                    <span className="font-semibold text-gray-900">
+                                        {division.memberCount || 0}
+                                    </span>
+                                </p>
+                                <button className="text-background hover:bg-accent/90 bg-accent text-foreground cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90">
+                                    View Members
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default Member;
