@@ -188,12 +188,12 @@ const Gallery = ({ id, images, className }: GalleryProps) => {
             </div>
 
             <div className="min-h-screen max-w-[40%] p-12 text-left">
-                <h2 className="text-4xl leading-tight font-bold lg:text-6xl drop-shadow-lg/30">
+                <h2 className="text-4xl leading-tight font-bold drop-shadow-lg/30 lg:text-6xl">
                     Commit<span className="text-accent">.</span> Solid
                     <span className="text-accent">.</span> Integrated
                     <span className="text-accent">.</span>
                 </h2>
-                <p className="mt-4 text-lg text-foreground/70">
+                <p className="text-foreground/70 mt-4 text-justify text-lg">
                     BEM UMN memiliki tagline organisasi &#39;Commit. Solid.
                     Integrated.&#39; yang menegaskan bagaimana setiap anggota
                     harus memiliki komitmen tinggi untuk melaksanakan tanggung

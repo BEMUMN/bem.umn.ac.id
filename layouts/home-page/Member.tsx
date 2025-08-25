@@ -142,7 +142,7 @@ const Member = ({ id, className }: MemberProps) => {
                 <h2 className="text-start text-6xl font-bold drop-shadow-lg/30">
                     Divisi BEM UMN
                 </h2>
-                <p className="mt-4 text-lg text-gray-500">
+                <p className="text-foreground/70 mt-4 text-justify text-lg">
                     BEM UMN memiliki 6 divisi yang masing-masing memiliki peran
                     dan tanggung jawab yang berbeda. Setiap divisi berkontribusi
                     untuk mencapai tujuan bersama dan memastikan kelancaran
@@ -185,6 +185,7 @@ const Member = ({ id, className }: MemberProps) => {
                                         fill
                                         sizes="280px"
                                         className="scale-105 object-cover"
+                                        unoptimized
                                     />
                                 </div>
                                 <p className="text-secondary mt-2 text-xl font-semibold">
@@ -200,15 +201,19 @@ const Member = ({ id, className }: MemberProps) => {
                                 <h3 className="mb-2 text-center text-lg font-bold text-gray-800">
                                     {division.fullName || division.name}
                                 </h3>
-                                <p className="mb-4 text-sm text-gray-600">
-                                    Jumlah Anggota:{" "}
-                                    <span className="font-semibold text-gray-900">
-                                        {division.memberCount || 0}
+
+                                <div className="group relative">
+                                    <button
+                                        disabled
+                                        className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100"
+                                    >
+                                        View Members
+                                    </button>
+
+                                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-gray-800 px-4 py-1 text-sm text-background text-center shadow-md transition-all group-hover:scale-100">
+                                        Coming Soon!
                                     </span>
-                                </p>
-                                <button className="text-background hover:bg-accent/90 bg-accent text-foreground cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90">
-                                    View Members
-                                </button>
+                                </div>
                             </div>
                         </div>
                     ))}

@@ -14,6 +14,8 @@ import { images } from "@/constants/galleryIndex";
 import { supergraphics } from "@/constants/supergraphicIndex";
 import Member from "@/layouts/home-page/Member";
 import Work from "@/layouts/home-page/Work";
+import { ChevronDown } from "lucide-react";
+import Footer from "@/layouts/Footer";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -115,30 +117,6 @@ export default function Home() {
                     "<",
                 );
 
-            function addIdleAnimation(el: HTMLElement) {
-                // bikin setter yang selalu update posisi "asli" tanpa bentrok
-                const setY = gsap.quickTo(el, "y", {
-                    duration: 3,
-                    ease: "sine.inOut",
-                });
-
-                let dir = 1;
-                let rafId: number;
-
-                function loop() {
-                    setY(dir * 20); // gerak naik/turun relatif
-                    dir *= -1; // ganti arah
-                    rafId = window.setTimeout(loop, 3000); // ulang setiap 3 detik
-                }
-
-                loop();
-
-                return {
-                    pause: () => clearTimeout(rafId),
-                    resume: loop,
-                };
-            }
-
             function initScrollTriggers() {
                 // Hero → Gallery
                 gsap.timeline({
@@ -225,11 +203,13 @@ export default function Home() {
             {/* Background */}
             <div className="super-bg fixed inset-0 -z-10 bg-cover bg-center"></div>
 
+
             {/* Sections */}
             <Hero id="hero" className="snap-section" />
             <Gallery id="gallery" images={images} className="snap-section" />
             <Member id="member" className="snap-section" />
             <Work id="work" className="snap-section" />
+            <Footer />
 
             {/* Background Decoration */}
             {/* <div className="fixed top-30 right-95 w-[500px] h-[500px] bg-secondary/30 blur-3xl rounded-full -z-10"></div>

@@ -1,13 +1,6 @@
+import { ChevronDown } from "lucide-react";
 import Image from "next/image";
-import { Roboto_Mono, Playfair_Display } from "next/font/google";
 import Link from "next/link";
-
-// Preload font
-const robotoMono = Roboto_Mono({ subsets: ["latin"], weight: ["500", "600"] });
-const playfair = Playfair_Display({
-    subsets: ["latin"],
-    weight: ["400", "700"],
-});
 
 type HeroProps = {
     id: string;
@@ -20,20 +13,23 @@ const Hero = ({ id, className }: HeroProps) => {
             id={id}
             className={`text-foreground relative flex min-h-screen w-full items-center justify-center overflow-hidden ${className} font-monospace`}
         >
+            <div className="text-accent absolute bottom-12 scale-120 animate-bounce">
+                <ChevronDown />
+            </div>
             <div className="max-w-5xl px-6 text-center">
                 {/* Logo + Title */}
-                <div className="flex items-center justify-center gap-4 pb-8">
-                    <Image
-                        src="/svgs/gen-logo.svg"
-                        alt="Hero Graphic"
-                        width={110}
-                        height={110}
-                        className="drop-shadow-lg"
-                        priority
-                    />
+                <div className="flex items-center justify-center gap-4">
                     <h1 className="text-primary text-5xl font-bold md:text-6xl">
                         BEM UMN
                     </h1>
+                    <Image
+                        src="/svgs/gen-logo.svg"
+                        alt="Hero Graphic"
+                        width={200}
+                        height={200}
+                        className="pb-9 drop-shadow-lg"
+                        priority
+                    />
                 </div>
 
                 {/* Tagline */}
@@ -51,28 +47,17 @@ const Hero = ({ id, className }: HeroProps) => {
                 </h2>
 
                 {/* Description */}
-                <p className="text-foreground/70 mx-auto max-w-3xl text-lg leading-relaxed md:text-xl">
+                <p className="text-foreground/70 mx-auto max-w-3xl pb-14 text-lg leading-relaxed md:text-xl">
                     Badan Eksekutif Mahasiswa Universitas Multimedia Nusantara
                     merupakan organisasi kemahasiswaan resmi tingkat universitas
                     di bawah Rektorat Bidang Kemahasiswaan.
                 </p>
 
-                {/* CTA */}
-                <div className="mt-10 flex justify-center gap-4">
-                    <div className="group relative">
-                        <button
-                            disabled
-                            className="bg-secondary disabled:cursor-default rounded-xl px-6 py-3 font-medium text-background opacity-70 shadow-md/30 transition"
-                        >
-                            Join Us !
-                        </button>
-
-                        {/* Tooltip */}
-                        <span className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-gray-800 px-4 py-1 text-sm text-white shadow-md transition-all group-hover:scale-100">
-                            Coming soon!
-                        </span>
-                    </div>
-                </div>
+                <Link href="https://bit.ly/DAFTARBEMUMN2025">
+                    <button className="bg-secondary text-background cursor-pointer rounded-xl px-6 py-3 font-medium hover:shadow-lg/30 hover:scale-105 active:scale-90 shadow-md/30 transition duration-500">
+                        Join Now!
+                    </button>
+                </Link>
             </div>
         </section>
     );
