@@ -54,7 +54,7 @@ const Hero = ({ id, className }: HeroProps) => {
                 </p>
 
                 <Link href="https://bit.ly/DAFTARBEMUMN2025">
-                    <button className="bg-secondary text-background cursor-pointer rounded-xl px-6 py-3 font-medium hover:shadow-lg/30 hover:scale-105 active:scale-90 shadow-md/30 transition duration-500">
+                    <button className="bg-secondary text-background cursor-pointer rounded-xl px-6 py-3 font-medium hover:shadow-lg/30 hover:scale-105 active:scale-95 duration-500 shadow-md/30 transition-500">
                         Join Now!
                     </button>
                 </Link>

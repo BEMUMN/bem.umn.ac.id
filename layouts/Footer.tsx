@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="bg-secondary text-background mt-12 w-full py-4">
+        <footer className="bg-secondary text-background mt-12 w-full py-2">
             <div className="mx-auto flex flex-col items-center justify-center gap-4 px-6 md:flex-row">
                 {/* Left side */}
                 <div>

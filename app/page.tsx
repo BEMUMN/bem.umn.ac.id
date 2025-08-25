@@ -209,7 +209,7 @@ export default function Home() {
             <Gallery id="gallery" images={images} className="snap-section" />
             <Member id="member" className="snap-section" />
             <Work id="work" className="snap-section" />
-            <Footer />
+            {/* <Footer /> */}
 
             {/* Background Decoration */}
             {/* <div className="fixed top-30 right-95 w-[500px] h-[500px] bg-secondary/30 blur-3xl rounded-full -z-10"></div>
