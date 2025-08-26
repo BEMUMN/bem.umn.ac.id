@@ -18,16 +18,16 @@ const Hero = ({ id, className }: HeroProps) => {
             </div>
             <div className="max-w-5xl px-6 text-center">
                 {/* Logo + Title */}
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-baseline justify-center gap-4 pb-6">
                     <h1 className="text-primary text-5xl font-bold md:text-6xl">
                         BEM UMN
                     </h1>
                     <Image
                         src="/svgs/gen-logo.svg"
                         alt="Hero Graphic"
-                        width={200}
-                        height={200}
-                        className="pb-9 drop-shadow-lg"
+                        width={210}
+                        height={210}
+                        className="drop-shadow-lg"
                         priority
                     />
                 </div>
@@ -54,7 +54,7 @@ const Hero = ({ id, className }: HeroProps) => {
                 </p>
 
                 <Link href="https://bit.ly/DAFTARBEMUMN2025">
-                    <button className="bg-secondary text-background cursor-pointer rounded-xl px-6 py-3 font-medium hover:shadow-lg/30 hover:scale-105 active:scale-95 duration-500 shadow-md/30 transition-500">
+                    <button className="bg-secondary text-background transition-500 cursor-pointer rounded-xl px-6 py-3 font-medium shadow-md/30 duration-500 hover:scale-105 hover:shadow-lg/30 active:scale-95">
                         Join Now!
                     </button>
                 </Link>
