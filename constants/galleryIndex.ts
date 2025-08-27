@@ -10,4 +10,5 @@ export const images = [
     "/pngs/gallery/gallery-images-9.jpg",
     "/pngs/gallery/gallery-images-10.jpg",
     "/pngs/gallery/gallery-images-11.jpg",
+    
 ];

@@ -4,6 +4,7 @@ import { divisions } from "@/constants/divisionIndex";
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
+import MemberSwiper from "@/components/MemberSwiper";
 
 type MemberProps = {
     id: string;
@@ -31,12 +32,7 @@ const Member = ({ id, className }: MemberProps) => {
         const light = lightRefs.current[index];
         if (!card) return;
 
-        gsap.to(card, {
-            duration: 0.8,
-            scale: 1.1,
-            ease: "power4.out",
-        });
-
+        gsap.to(card, { duration: 0.8, scale: 1.1, ease: "power4.out" });
         if (light) {
             gsap.to(light, {
                 opacity: 0.35,
@@ -59,7 +55,6 @@ const Member = ({ id, className }: MemberProps) => {
             rotate: gsap.utils.random(-10, 10),
             ease: "power4.inOut",
         });
-
         if (light) {
             gsap.to(light, {
                 opacity: 0,
@@ -103,7 +98,6 @@ const Member = ({ id, className }: MemberProps) => {
     const handleFlip = (index: number) => {
         const prevIndex = flippedIndex;
 
-        // Flip back previous card if any
         if (prevIndex !== null && prevIndex !== index) {
             const prevCard = cardRefs.current[prevIndex];
             if (prevCard) {
@@ -115,7 +109,6 @@ const Member = ({ id, className }: MemberProps) => {
             }
         }
 
-        // Flip card
         if (prevIndex === index) {
             gsap.to(cardRefs.current[index], {
                 rotateY: 0,
@@ -136,88 +129,95 @@ const Member = ({ id, className }: MemberProps) => {
     return (
         <section
             id={id}
-            className={`relative flex max-h-screen min-h-screen w-full items-center justify-end px-12 font-mono ${className}`}
+            className={`relative flex max-h-screen min-h-screen w-full flex-col items-center pt-10 font-mono md:flex-row md:justify-end md:pt-0 md:px-12 ${className}`}
         >
-            <div className="items-top h-screen max-w-2xl p-20 pr-0">
-                <h2 className="text-start text-6xl font-bold drop-shadow-lg/30">
+            <div className="items-top max-w-2xl p-8 md:h-screen md:p-20 md:pr-0">
+                <h2 className="text-start text-4xl font-bold drop-shadow-lg/30 md:text-6xl">
                     Divisi BEM UMN
                 </h2>
-                <p className="text-foreground/70 mt-4 text-justify text-lg">
+                <p className="text-foreground/70 mt-4 text-justify text-base md:text-lg">
                     BEM UMN memiliki 6 divisi yang masing-masing memiliki peran
-                    dan tanggung jawab yang berbeda. Setiap divisi berkontribusi
-                    untuk mencapai tujuan bersama dan memastikan kelancaran
-                    organisasi.
+                    dan tanggung jawab yang berbeda.
                 </p>
             </div>
-            <div className="w-full max-w-7xl px-12">
-                <div
-                    className="grid grid-cols-3 justify-items-end gap-10"
-                    style={{ perspective: "2000px" }}
-                >
-                    {divisions.map((division, index) => (
-                        <div
-                            key={division.id}
-                            ref={(el) => {
-                                cardRefs.current[index] = el;
-                            }}
-                            onMouseEnter={() => handleEnter(index)}
-                            onMouseLeave={() => handleLeave(index)}
-                            onMouseMove={(e) => handleMove(e, index)}
-                            onClick={() => handleFlip(index)}
-                            className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d]"
-                            role="button"
-                            tabIndex={0}
-                        >
-                            {/* Lighting Overlay */}
+
+            {/* === Desktop Grid (default) === */}
+            <div className="hidden w-full max-w-7xl px-12 md:block">
+                <div className="w-full max-w-7xl px-12">
+                    <div
+                        className="grid grid-cols-3 justify-items-end gap-10"
+                        style={{ perspective: "2000px" }}
+                    >
+                        {divisions.map((division, index) => (
                             <div
+                                key={division.id}
                                 ref={(el) => {
-                                    lightRefs.current[index] = el;
+                                    cardRefs.current[index] = el;
                                 }}
-                                className="from-background/60 pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-tr to-transparent opacity-0"
-                            />
+                                onMouseEnter={() => handleEnter(index)}
+                                onMouseLeave={() => handleLeave(index)}
+                                onMouseMove={(e) => handleMove(e, index)}
+                                onClick={() => handleFlip(index)}
+                                className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d]"
+                                role="button"
+                                tabIndex={0}
+                            >
+                                {/* Lighting Overlay */}
+                                <div
+                                    ref={(el) => {
+                                        lightRefs.current[index] = el;
+                                    }}
+                                    className="from-background/60 pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-tr to-transparent opacity-0"
+                                />
 
-                            {/* Front Side */}
-                            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-stone-200 p-3 pt-0 shadow-md/20 duration-300 [backface-visibility:hidden]">
-                                <div className="relative h-[260px] w-full overflow-hidden rounded-sm">
-                                    <Image
-                                        src={division.imageUrl}
-                                        alt={division.name}
-                                        fill
-                                        sizes="280px"
-                                        className="scale-105 object-cover"
-                                        unoptimized
-                                    />
+                                {/* Front Side */}
+                                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-stone-200 p-3 pt-0 shadow-md/20 duration-300 [backface-visibility:hidden]">
+                                    <div className="relative h-[260px] w-full overflow-hidden rounded-sm">
+                                        <Image
+                                            src={division.imageUrl}
+                                            alt={division.name}
+                                            fill
+                                            sizes="280px"
+                                            className="scale-105 object-cover"
+                                            unoptimized
+                                        />
+                                    </div>
+                                    <p className="text-secondary mt-2 text-xl font-semibold">
+                                        {division.name}
+                                    </p>
+
+                                    <p className="text-foreground/70 mt-2 text-sm font-normal">
+                                        Click Me !
+                                    </p>
                                 </div>
-                                <p className="text-secondary mt-2 text-xl font-semibold">
-                                    {division.name}
-                                </p>
-                                <p className="text-foreground/70 mt-2 text-sm font-normal">
-                                    Click Me !
-                                </p>
-                            </div>
+                                {/* Back Side */}
+                                <div className="absolute inset-0 flex [transform:rotateY(180deg)] flex-col items-center justify-center rounded-xl bg-stone-200 p-4 shadow-md [backface-visibility:hidden]">
+                                    <h3 className="mb-2 text-center text-lg font-bold text-gray-800">
+                                        {division.fullname || division.name}
+                                    </h3>
 
-                            {/* Back Side */}
-                            <div className="absolute inset-0 flex [transform:rotateY(180deg)] flex-col items-center justify-center rounded-xl bg-stone-200 p-4 shadow-md [backface-visibility:hidden]">
-                                <h3 className="mb-2 text-center text-lg font-bold text-gray-800">
-                                    {division.fullName || division.name}
-                                </h3>
+                                    <div className="group relative">
+                                        <button
+                                            disabled
+                                            className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100"
+                                        >
+                                            View Members
+                                        </button>
 
-                                <div className="group relative">
-                                    <button
-                                        disabled
-                                        className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100"
-                                    >
-                                        View Members
-                                    </button>
-
-                                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-gray-800 px-4 py-1 text-sm text-background text-center shadow-md transition-all group-hover:scale-100">
-                                        Coming Soon!
-                                    </span>
+                                        <span className="text-background absolute -top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-gray-800 px-4 py-1 text-center text-sm shadow-md transition-all group-hover:scale-100">
+                                            Coming Soon!
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
+            </div>
+
+            {/* === Mobile Carousel (scroll-snap) === */}
+            <div className="block w-full md:hidden">
+                <MemberSwiper divisions={divisions} />
             </div>
         </section>
     );

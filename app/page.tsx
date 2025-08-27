@@ -203,7 +203,6 @@ export default function Home() {
             {/* Background */}
             <div className="super-bg fixed inset-0 -z-10 bg-cover bg-center"></div>
 
-
             {/* Sections */}
             <Hero id="hero" className="snap-section" />
             <Gallery id="gallery" images={images} className="snap-section" />
