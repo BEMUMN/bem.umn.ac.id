@@ -122,6 +122,13 @@ html.lenis {
     filter: blur(10px);
 }
 
+@media (max-width: 768px) {
+    .gallery-column-fade::before,
+    .gallery-column-fade::after {
+        content: none !important;
+    }
+}
+
 .no-select {
     user-select: none; /* Standard */
     -webkit-user-select: none; /* Safari/Chrome */

@@ -171,11 +171,11 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                     subSections[nextIndex].id as SectionId,
                                 );
                             }}
-                            className="text-background border-accent hover:bg-accent/30 scale-75 cursor-pointer rounded-full border-4 px-6 py-2 text-sm font-bold transition"
+                            className="border-accent hover:bg-accent/30 scale-75 cursor-pointer rounded-full border-4 px-6 py-2 text-sm font-bold drop-shadow-lg/30 transition"
                         >
                             <div className="flex flex-col items-center gap-1 px-1 py-2">
-                                <ChevronUp className="text-accent scale-150" />
-                                <ChevronDown className="text-accent scale-150" />
+                                <ChevronUp className="text-accent drop-shadow-lg/30/30 scale-150 drop-shadow-lg" />
+                                <ChevronDown className="text-accent drop-shadow-lg/30/30 scale-150 drop-shadow-lg" />
                             </div>
                         </button>
                     </div>
@@ -232,14 +232,14 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                         <button
                             onClick={handlePrev}
                             disabled={isTransitioning}
-                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
+                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-lg/30 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
                         >
                             <ChevronLeft />
                         </button>
                         <button
                             onClick={handleNext}
                             disabled={isTransitioning}
-                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
+                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-lg/30 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
                         >
                             <ChevronRight />
                         </button>

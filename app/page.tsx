@@ -219,11 +219,11 @@ export default function Home() {
                     ref={(el) => {
                         superRefs.current[i] = el;
                     }}
-                    className={`fixed z-10 scale-50 sm:scale-75 md:scale-100 ${g.className}`}
+                    className={`fixed z-10 scale-50 sm:scale-75 md:scale-100 ${g.className} hidden md:block`}
                 >
                     <Image
                         src={g.src}
-                        alt={`Supergraphic-${i + 1}`}
+                        alt={`supergraphic-${i + 1}`}
                         width={g.w}
                         height={g.h}
                         className="drop-shadow-xl/30"

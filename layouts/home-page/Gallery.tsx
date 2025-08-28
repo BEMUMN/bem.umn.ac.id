@@ -59,14 +59,6 @@ const GalleryColumn = ({ images }: { images: string[] }) => {
                         key={`dup-${index}`}
                         className="relative h-auto w-full overflow-hidden rounded-lg shadow-lg/20"
                     >
-                        {/* Overlay */}
-                        {/* <div
-                            className={`absolute inset-0 opacity-30 transition-opacity duration-500`}
-                            style={{
-                                backgroundColor: randomColor,
-                            }}
-                        /> */}
-
                         {/* Image */}
                         <Image
                             src={src}
@@ -109,8 +101,9 @@ const Gallery = ({ id, images, className }: GalleryProps) => {
 
     useLayoutEffect(() => {
         if (!shuffledImages.length) return;
+        const mm = gsap.matchMedia();
 
-        const ctx = gsap.context(() => {
+        mm.add("(min-width: 768px)", () => {
             const speeds = [15, 20, 35, 50];
 
             const animations = colRefs.current
@@ -158,9 +151,9 @@ const Gallery = ({ id, images, className }: GalleryProps) => {
                     });
                 },
             });
-        }, mainGalleryRef);
+        });
 
-        return () => ctx.revert();
+        return () => mm.revert();
     }, [shuffledImages]);
 
     if (!images || images.length === 0) return null;
@@ -168,11 +161,28 @@ const Gallery = ({ id, images, className }: GalleryProps) => {
     return (
         <section
             id={id}
-            className={`relative flex h-screen max-h-screen w-full items-center overflow-hidden ${className} font-mono`}
+            className={`relative flex h-screen max-h-screen w-full flex-col items-center overflow-hidden font-mono md:flex-row ${className}`}
         >
+            {/* TEXT di atas kalau mobile */}
+            <div className="order-1 min-h-[40vh] w-full p-6 pt-10 text-left md:order-2 md:min-h-screen md:max-w-[40%] md:p-12">
+                <h2 className="text-3xl leading-tight font-bold drop-shadow-lg/30 md:text-6xl">
+                    Commit<span className="text-accent">.</span> Solid
+                    <span className="text-accent">.</span> Integrated
+                    <span className="text-accent">.</span>
+                </h2>
+                <p className="text-foreground/70 mt-4 text-justify text-base md:text-lg">
+                    BEM UMN memiliki tagline organisasi &#39;Commit. Solid.
+                    Integrated.&#39; yang menegaskan bagaimana setiap anggota
+                    harus memiliki komitmen tinggi untuk melaksanakan tanggung
+                    jawabnya, solidaritas yang kuat antara sesama anggota, serta
+                    mampu berintegrasi dengan naungan serta kemahasiswaan.
+                </p>
+            </div>
+
+            {/* GALLERY di bawah kalau mobile */}
             <div
                 ref={mainGalleryRef}
-                className="gallery-column-fade grid h-full w-1/2 grid-cols-4 gap-4 p-4 md:col-span-4"
+                className="gallery-column-fade order-2 grid h-[50vh] w-full grid-cols-3 gap-2 p-4 md:order-1 md:col-span-4 md:h-full md:w-1/2 md:grid-cols-4 md:gap-4"
             >
                 {shuffledImages.length > 0 &&
                     shuffledImages.map((column, index) => (
@@ -185,21 +195,6 @@ const Gallery = ({ id, images, className }: GalleryProps) => {
                             <GalleryColumn images={column} />
                         </div>
                     ))}
-            </div>
-
-            <div className="min-h-screen max-w-[40%] p-12 text-left">
-                <h2 className="text-4xl leading-tight font-bold drop-shadow-lg/30 lg:text-6xl">
-                    Commit<span className="text-accent">.</span> Solid
-                    <span className="text-accent">.</span> Integrated
-                    <span className="text-accent">.</span>
-                </h2>
-                <p className="text-foreground/70 mt-4 text-justify text-lg">
-                    BEM UMN memiliki tagline organisasi &#39;Commit. Solid.
-                    Integrated.&#39; yang menegaskan bagaimana setiap anggota
-                    harus memiliki komitmen tinggi untuk melaksanakan tanggung
-                    jawabnya, solidaritas yang kuat antara sesama anggota, serta
-                    mampu berintegrasi dengan naungan serta kemahasiswaan.
-                </p>
             </div>
         </section>
     );
