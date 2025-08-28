@@ -14,8 +14,6 @@ import { images } from "@/constants/galleryIndex";
 import { supergraphics } from "@/constants/supergraphicIndex";
 import Member from "@/layouts/home-page/Member";
 import Work from "@/layouts/home-page/Work";
-import { ChevronDown } from "lucide-react";
-import Footer from "@/layouts/Footer";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -58,7 +56,7 @@ export default function Home() {
                 end: "bottom bottom",
                 scrub: true,
                 snap: {
-                    snapTo: (value) => {
+                    snapTo: () => {
                         let maxVisibility = 0;
                         let snapIndex = 0;
 
@@ -202,7 +200,6 @@ export default function Home() {
         >
             {/* Background */}
             <div className="super-bg fixed inset-0 -z-10 bg-cover bg-center"></div>
-
 
             {/* Sections */}
             <Hero id="hero" className="snap-section" />

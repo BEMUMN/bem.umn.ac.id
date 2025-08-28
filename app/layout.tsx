@@ -2,14 +2,13 @@ import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 
-export const inter = Inter({
+const inter = Inter({
     subsets: ["latin"],
     display: "swap",
     variable: "--font-inter",
 });
 
-// Updated this block to define and export Lora
-export const lora = Lora({
+const lora = Lora({
     subsets: ["latin"],
     display: "swap",
     variable: "--font-lora",
