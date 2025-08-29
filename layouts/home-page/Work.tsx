@@ -9,6 +9,10 @@ import {
     ChevronUp,
 } from "lucide-react";
 import { subSections, prokers, kegma, lainnya } from "@/constants/workIndex";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
 
 type SectionId = "proker" | "kegma" | "lainnya";
 
@@ -42,7 +46,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
     const originalItems = items.length;
     const totalItems = originalItems * 3;
 
-    // Setup carousel setiap kali section berubah
+    // Setup carousel setiap kali section berubah (desktop)
     useEffect(() => {
         if (!carouselRef.current) return;
         const startDisplay = originalItems;
@@ -68,6 +72,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
         );
     }, [activeSection]);
 
+    // Fungsi geser desktop
     const slideTo = (targetDisplay: number) => {
         if (!carouselRef.current || isTransitioning) return;
         setIsTransitioning(true);
@@ -122,14 +127,14 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
     return (
         <section
             id={id}
-            className={`relative flex max-h-screen min-h-screen w-full items-center justify-start px-12 font-mono ${className}`}
+            className={`relative flex min-h-screen w-full items-center justify-start font-mono md:px-12 ${className}`}
         >
-            <div className="flex min-h-screen w-full justify-around">
+            <div className="min-h-screen w-full justify-around md:flex">
                 {/* Left Text Section */}
-                <div className="relative min-h-[300px] shrink-0 basis-1/3 self-center pr-10">
+                <div className="relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
                     <h1
                         ref={titleRef}
-                        className="text-start text-6xl font-bold drop-shadow-lg/30"
+                        className="text-start text-4xl font-bold drop-shadow-lg/30 md:text-6xl"
                     >
                         {(() => {
                             const activeSectionObj = subSections.find(
@@ -153,13 +158,13 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     </h1>
                     <p
                         ref={descRef}
-                        className="text-foreground/70 mt-4 text-justify text-lg"
+                        className="text-foreground/70 mt-4 text-justify text-base md:text-lg"
                     >
                         {subSections.find((s) => s.id === activeSection)?.desc}
                     </p>
 
                     {/* Subsection Selector */}
-                    <div className="absolute -bottom-24 mt-6 flex">
+                    <div className="-bottom-30 flex md:absolute">
                         <button
                             onClick={() => {
                                 const currentIndex = subSections.findIndex(
@@ -174,8 +179,8 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             className="border-accent hover:bg-accent/30 scale-75 cursor-pointer rounded-full border-4 px-6 py-2 text-sm font-bold drop-shadow-lg/30 transition"
                         >
                             <div className="flex flex-col items-center gap-1 px-1 py-2">
-                                <ChevronUp className="text-accent drop-shadow-lg/30/30 scale-150 drop-shadow-lg" />
-                                <ChevronDown className="text-accent drop-shadow-lg/30/30 scale-150 drop-shadow-lg" />
+                                <ChevronUp className="text-accent scale-150 drop-shadow-lg" />
+                                <ChevronDown className="text-accent scale-150 drop-shadow-lg" />
                             </div>
                         </button>
                     </div>
@@ -186,63 +191,117 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     ref={containerRef}
                     className="relative shrink-0 basis-2/3 self-center"
                 >
-                    <div className="overflow-hidden p-5">
-                        <div
-                            ref={carouselRef}
-                            className="carousel-wrapper flex flex-nowrap gap-10"
+                    {/* Mobile pakai Swiper */}
+                    <div className="block md:hidden">
+                        <Swiper
+                            modules={[Navigation]}
+                            spaceBetween={14}
+                            slidesPerView={1.2}
+                            centeredSlides
+                            navigation={{
+                                prevEl: ".custom-prev",
+                                nextEl: ".custom-next",
+                            }}
                         >
-                            {Array.from({ length: totalItems }).map((_, i) => {
-                                const item = items[i % originalItems]; // item punya title, description, image, gradient
-                                return (
-                                    <div className="carousel-item" key={i}>
+                            {items.map((item, i) => (
+                                <SwiperSlide key={i}>
+                                    <div
+                                        className="relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl shadow-md"
+                                        style={{
+                                            backgroundImage: `url(${item.image})`,
+                                            backgroundSize: "cover",
+                                            backgroundPosition: "center",
+                                        }}
+                                    >
                                         <div
-                                            className="card relative flex aspect-[3/4] w-[428px] min-w-[200px] overflow-hidden rounded-2xl shadow-md/30"
-                                            style={{
-                                                backgroundImage: `url(${item.image})`,
-                                                backgroundSize: "cover",
-                                                backgroundPosition: "center",
-                                            }}
-                                        >
-                                            {/* Overlay gradient (custom dari data) */}
-                                            <div
-                                                className={`absolute inset-0 ${item.gradient} opacity-70`}
-                                            ></div>
-
-                                            {/* Fade hitam bawah */}
-                                            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-
-                                            {/* Content */}
-                                            <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
-                                                <h2 className="text-background text-2xl font-semibold">
-                                                    {item.title}
-                                                </h2>
-                                                <p className="text-md text-background/60">
-                                                    {item.description}
-                                                </p>
-                                            </div>
+                                            className={`absolute inset-0 ${item.gradient} opacity-70`}
+                                        ></div>
+                                        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                        <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
+                                            <h2 className="text-background text-2xl font-semibold">
+                                                {item.title}
+                                            </h2>
+                                            <p className="text-md text-background/60">
+                                                {item.description}
+                                            </p>
                                         </div>
                                     </div>
-                                );
-                            })}
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+
+                        {/* Mobile navigation */}
+                        <div className="ml-5 flex justify-center gap-12 pt-10">
+                            <button className="custom-prev bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90">
+                                <ChevronLeft />
+                            </button>
+                            <button className="custom-next bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90">
+                                <ChevronRight />
+                            </button>
                         </div>
                     </div>
 
-                    {/* Navigator Buttons */}
-                    <div className="ml-5 flex gap-12 pt-5">
-                        <button
-                            onClick={handlePrev}
-                            disabled={isTransitioning}
-                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-lg/30 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
-                        >
-                            <ChevronLeft />
-                        </button>
-                        <button
-                            onClick={handleNext}
-                            disabled={isTransitioning}
-                            className="bg-foreground text-background cursor-pointer rounded-full p-5 drop-shadow-lg/30 drop-shadow-md/30 duration-300 hover:scale-105 hover:shadow-lg/20 active:scale-90"
-                        >
-                            <ChevronRight />
-                        </button>
+                    {/* Desktop pakai GSAP carousel */}
+                    <div className="hidden md:block">
+                        <div className="overflow-hidden p-5">
+                            <div
+                                ref={carouselRef}
+                                className="carousel-wrapper flex flex-nowrap gap-10"
+                            >
+                                {Array.from({ length: totalItems }).map(
+                                    (_, i) => {
+                                        const item = items[i % originalItems];
+                                        return (
+                                            <div
+                                                className="carousel-item"
+                                                key={i}
+                                            >
+                                                <div
+                                                    className="card relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl shadow-md/30 md:w-[428px]"
+                                                    style={{
+                                                        backgroundImage: `url(${item.image})`,
+                                                        backgroundSize: "cover",
+                                                        backgroundPosition:
+                                                            "center",
+                                                    }}
+                                                >
+                                                    <div
+                                                        className={`absolute inset-0 ${item.gradient} opacity-70`}
+                                                    ></div>
+                                                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                                    <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
+                                                        <h2 className="text-background text-2xl font-semibold">
+                                                            {item.title}
+                                                        </h2>
+                                                        <p className="text-md text-background/60">
+                                                            {item.description}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    },
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Desktop Navigator Buttons */}
+                        <div className="ml-5 flex gap-12 pt-5">
+                            <button
+                                onClick={handlePrev}
+                                disabled={isTransitioning}
+                                className="bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90"
+                            >
+                                <ChevronLeft />
+                            </button>
+                            <button
+                                onClick={handleNext}
+                                disabled={isTransitioning}
+                                className="bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90"
+                            >
+                                <ChevronRight />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

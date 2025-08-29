@@ -129,9 +129,9 @@ const Member = ({ id, className }: MemberProps) => {
     return (
         <section
             id={id}
-            className={`relative flex max-h-screen min-h-screen w-full flex-col items-center pt-10 font-mono md:flex-row md:justify-end md:pt-0 md:px-12 ${className}`}
+            className={`relative flex max-h-screen min-h-screen w-full flex-col items-center pt-10 font-mono md:flex-row md:justify-end md:px-12 md:pt-0 ${className}`}
         >
-            <div className="items-top max-w-2xl p-8 md:h-screen md:p-20 md:pr-0">
+            <div className="items-top max-w-2xl px-6 pt-10 md:h-screen md:p-20 md:pr-0">
                 <h2 className="text-start text-4xl font-bold drop-shadow-lg/30 md:text-6xl">
                     Divisi BEM UMN
                 </h2>

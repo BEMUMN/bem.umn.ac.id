@@ -74,8 +74,11 @@ html.lenis {
 
 .super-bg {
     background-image:
-        linear-gradient(rgba(242, 242, 242, 0.4), rgba(242, 242, 242, 1)),
+        linear-gradient(rgba(242, 242, 242, 0.2), rgba(242, 242, 242, 1)),
         url("/svgs/Scatter.svg");
+
+    background-position: center;
+    will-change: transform;
 }
 
 .gallery-column-fade {

@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 export default function Home() {
     const main = useRef<HTMLDivElement>(null);
     const superRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const bgRef = useRef<HTMLDivElement>(null);
 
     // Lenis Smooth Scroll
     useEffect(() => {
@@ -49,6 +50,17 @@ export default function Home() {
     useGSAP(
         () => {
             const sections = gsap.utils.toArray<HTMLElement>(".snap-section");
+
+            gsap.to(bgRef.current, {
+                yPercent: -50,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: main.current,
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: true,
+                },
+            });
 
             ScrollTrigger.create({
                 trigger: main.current,
@@ -199,7 +211,10 @@ export default function Home() {
             className="relative min-h-screen w-full overflow-x-hidden"
         >
             {/* Background */}
-            <div className="super-bg fixed inset-0 -z-10 bg-cover bg-center"></div>
+            <div
+                ref={bgRef}
+                className="super-bg fixed inset-0 -z-10 scale-150 bg-cover bg-center"
+            ></div>
 
             {/* Sections */}
             <Hero id="hero" className="snap-section" />
