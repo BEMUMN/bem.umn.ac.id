@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import MemberSwiper from "@/components/MemberSwiper";
+import Link from "next/link";
 
 type MemberProps = {
     id: string;
@@ -12,7 +13,7 @@ type MemberProps = {
 };
 
 const Member = ({ id, className }: MemberProps) => {
-    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const cardRefs = useRef<(HTMLButtonElement | null)[]>([]);
     const lightRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
@@ -149,7 +150,7 @@ const Member = ({ id, className }: MemberProps) => {
                         style={{ perspective: "2000px" }}
                     >
                         {divisions.map((division, index) => (
-                            <div
+                            <button
                                 key={division.id}
                                 ref={(el) => {
                                     cardRefs.current[index] = el;
@@ -158,9 +159,9 @@ const Member = ({ id, className }: MemberProps) => {
                                 onMouseLeave={() => handleLeave(index)}
                                 onMouseMove={(e) => handleMove(e, index)}
                                 onClick={() => handleFlip(index)}
-                                className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d]"
-                                role="button"
-                                tabIndex={0}
+                                className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d] bg-transparent border-none p-0 focus:outline-none"
+                                type="button"
+                                aria-label={`Flip card for ${division.name}`}
                             >
                                 {/* Lighting Overlay */}
                                 <div
@@ -197,19 +198,16 @@ const Member = ({ id, className }: MemberProps) => {
                                     </h3>
 
                                     <div className="group relative">
-                                        <button
-                                            disabled
-                                            className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100"
-                                        >
-                                            View Members
+                                        <button className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100">
+                                            <Link
+                                                href={`/members/${division.id}`}
+                                            >
+                                                View Members
+                                            </Link>
                                         </button>
-
-                                        <span className="text-background absolute -top-10 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-gray-800 px-4 py-1 text-center text-sm shadow-md transition-all group-hover:scale-100">
-                                            Coming Soon!
-                                        </span>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>
