@@ -1,4 +1,6 @@
 export const navLinks = [
-    { id: "bem-info", label: "BEM Info" },
-    { id: "gallery", label: "Gallery" },
+    { id: "beranda", href: "/", label: "BERANDA" },
+    { id: "tentang-kami", href: "/tentang-kami", label: "TENTANG KAMI" },
+    { id: "divisi", href: "/divisi", label: "DIVISI" },
+    { id: "kegiatan", href: "/kegiatan", label: "KEGIATAN" },
 ];

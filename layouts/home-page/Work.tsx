@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Link from "next/link";
 import {
     ChevronDown,
     ChevronLeft,
@@ -13,6 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
+
 
 type SectionId = "proker" | "kegma" | "lainnya";
 
@@ -132,40 +134,41 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
             <div className="min-h-screen w-full justify-around md:flex">
                 {/* Left Text Section */}
                 <div className="relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
-                    <h1
+                    <div className="inline-flex items-center gap-2 rounded-full border border-azure/30 bg-blue-primary/40 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-azure uppercase">
+                        <span>Aktivitas & Program</span>
+                    </div>
+
+                    <h2
                         ref={titleRef}
-                        className="text-start text-4xl font-bold drop-shadow-lg/30 md:text-6xl"
+                        className="mt-3 text-start font-serif text-3xl font-bold text-white drop-shadow sm:text-4xl md:text-5xl"
                     >
                         {(() => {
                             const activeSectionObj = subSections.find(
                                 (s) => s.id === activeSection,
                             );
-                            const activeTitle = activeSectionObj?.title || "";
-                            if (!activeTitle) return null;
-
-                            const words = activeTitle.split(" ");
-                            if (words.length > 1) {
-                                const mid = Math.ceil(words.length / 2);
-                                return (
-                                    <>
-                                        {words.slice(0, mid).join(" ")} <br />
-                                        {words.slice(mid).join(" ")}
-                                    </>
-                                );
-                            }
-                            return activeTitle;
+                            return activeSectionObj?.title || "Kegiatan Mahasiswa";
                         })()}
-                    </h1>
+                    </h2>
                     <p
                         ref={descRef}
-                        className="text-foreground/70 mt-4 text-justify text-base md:text-lg"
+                        className="mt-4 text-justify font-sans text-sm text-azure/90 md:text-base"
                     >
                         {subSections.find((s) => s.id === activeSection)?.desc}
                     </p>
 
+                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                        <Link
+                            href="/kegiatan"
+                            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-blue-primary px-5 py-2.5 font-sans text-xs font-semibold text-white shadow-lg transition hover:scale-105 hover:bg-dark-blue sm:text-sm"
+                        >
+                            <span>Jelajahi Seluruh Kegiatan</span>
+                        </Link>
+                    </div>
+
                     {/* Subsection Selector */}
-                    <div className="-bottom-30 flex md:absolute">
+                    <div className="mt-8 flex items-center gap-3 md:absolute md:-bottom-24">
                         <button
+                            type="button"
                             onClick={() => {
                                 const currentIndex = subSections.findIndex(
                                     (s) => s.id === activeSection,
@@ -176,15 +179,18 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                     subSections[nextIndex].id as SectionId,
                                 );
                             }}
-                            className="border-accent hover:bg-accent/30 scale-75 cursor-pointer rounded-full border-4 px-6 py-2 text-sm font-bold drop-shadow-lg/30 transition"
+                            className="flex items-center gap-2 rounded-full border border-azure/40 bg-white/10 px-4 py-2 font-sans text-xs font-semibold text-white shadow-md backdrop-blur-sm transition hover:bg-white/20 active:scale-95"
+                            aria-label="Ganti kategori kegiatan"
                         >
-                            <div className="flex flex-col items-center gap-1 px-1 py-2">
-                                <ChevronUp className="text-accent scale-150 drop-shadow-lg" />
-                                <ChevronDown className="text-accent scale-150 drop-shadow-lg" />
+                            <span className="text-azure">Kategori Lainnya</span>
+                            <div className="flex flex-col">
+                                <ChevronUp size={12} className="text-azure" />
+                                <ChevronDown size={12} className="text-azure" />
                             </div>
                         </button>
                     </div>
                 </div>
+
 
                 {/* Carousel Section */}
                 <div

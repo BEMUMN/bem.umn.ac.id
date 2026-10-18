@@ -1,46 +1,54 @@
 @import "tailwindcss";
 
 :root {
-    /* 1. Definisi Warna Dasar dari Palet Anda */
-    --navy: #011936;
-    --sky-blue: #3e92cc;
-    --gold: #eeae0b;
-    --off-white: #f2f2f2;
+    /* Color Palette BEM UMN GEN XVI */
+    --navy-dark: #0f1e3f;
+    --navy-blue: #2f486d;
+    --steel-blue: #6d86a0;
+    --azure: #b3c3d1;
+    --cream-linen: #eee5d9;
+    --concrete: #f2f2f2;
+    --gray-brown: #6c4d38;
+    --camel-brown: #997953;
+    --pale-taupe: #d2c7b8;
+    --white: #ffffff;
 
-    --background: var(--off-white);
-    --foreground: var(--navy);
+    --background: var(--navy-dark);
+    --foreground: var(--white);
 
-    --primary: var(--navy);
-    --secondary: var(--sky-blue);
-    --accent: var(--gold);
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --background: var(--navy);
-        --foreground: var(--off-white);
-
-        --primary: var(--off-white);
-        --secondary: var(--sky-blue);
-        --accent: var(--gold);
-    }
+    --primary: var(--navy-dark);
+    --secondary: var(--navy-blue);
+    --accent: var(--azure);
 }
 
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: var(--font-geist-sans);
+    font-family: var(--font-bricolage), sans-serif;
 }
 
 @theme inline {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
-    --font-sans: var(--font-lora);
-    --font-mono: var(--font-inter);
+    --color-dark-blue: var(--navy-dark);
+    --color-blue-primary: var(--navy-blue);
+    --color-steel-blue: var(--steel-blue);
+    --color-azure: var(--azure);
+    --color-cream: var(--cream-linen);
+    --color-concrete: var(--concrete);
+    --color-gray-brown: var(--gray-brown);
+    --color-camel-brown: var(--camel-brown);
+    --color-pale-taupe: var(--pale-taupe);
+
+    --font-serif: var(--font-garamond), serif;
+    --font-sans: var(--font-bricolage), sans-serif;
+    --font-mono: var(--font-bricolage), sans-serif;
+
     --color-primary: var(--primary);
     --color-secondary: var(--secondary);
     --color-accent: var(--accent);
 }
+
 
 @layer base {
     body {
@@ -74,12 +82,14 @@ html.lenis {
 
 .super-bg {
     background-image:
-        linear-gradient(rgba(242, 242, 242, 0.2), rgba(242, 242, 242, 1)),
-        url("/svgs/Scatter.svg");
+        linear-gradient(rgba(15, 30, 63, 0.75), rgba(15, 30, 63, 0.95)),
+        url("/pngs/texture/texture1.webp");
 
     background-position: center;
+    background-size: cover;
     will-change: transform;
 }
+
 
 .gallery-column-fade {
     position: relative;
