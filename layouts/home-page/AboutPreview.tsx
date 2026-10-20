@@ -34,7 +34,18 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
         >
             <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:justify-between">
                 {/* SISI KIRI: Artistic Typographic Poster Panel (Swiss/Editorial Magazine Style) */}
-                <div className="relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border border-azure/30 bg-gradient-to-br from-blue-primary/40 via-navy-dark to-navy-dark p-8 shadow-2xl backdrop-blur-xl lg:w-5/12 xl:p-10">
+                <div className="scroll-reveal relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border border-azure/30 bg-gradient-to-br from-blue-primary/40 via-navy-dark to-navy-dark p-8 shadow-2xl backdrop-blur-xl lg:w-5/12 xl:p-10">
+                    {/* Tekstur Kanvas Halus Resmi GSM */}
+                    <div
+                        className="absolute inset-0 opacity-15 pointer-events-none"
+                        style={{
+                            backgroundImage: `url('/pngs/texture/ASSET.webp')`,
+                            backgroundRepeat: "repeat",
+                            backgroundSize: "220px auto",
+                        }}
+                        aria-hidden="true"
+                    />
+
                     {/* Background Ornamen Supergrafik Transparan */}
                     <div className="pointer-events-none absolute -right-12 -top-12 opacity-15">
                         <Image
@@ -69,24 +80,24 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                                 <span className="font-serif text-sm font-bold text-white">
                                     BEM UMN Gen XVI
                                 </span>
-                                <p className="font-sans text-[10px] uppercase tracking-wider text-azure">
+                                <p className="font-sans text-[10px] uppercase tracking-wider text-pale-taupe">
                                     Est. 17 November 2008
                                 </p>
                             </div>
                         </div>
 
-                        <span className="rounded-full border border-azure/40 bg-azure/10 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-wider text-azure">
-                            Editorial
+                        <span className="rounded-full border border-camel-brown/40 bg-camel-brown/15 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-wider text-cream">
+                            01 // Profil
                         </span>
                     </div>
 
                     {/* Center Pull Quote: Apple Garamond Grandeur */}
                     <div className="relative z-10 my-8">
-                        <Quote size={28} className="text-azure/50 mb-2" />
+                        <Quote size={28} className="text-pale-taupe/60 mb-2" />
                         <blockquote className="font-serif text-2xl font-semibold leading-snug tracking-wide text-white sm:text-3xl">
                             &ldquo;Wadah kolaborasi yang merangkul setiap perbedaan ide dan sudut pandang, mentransformasikannya menjadi inovasi nyata bagi KBM UMN.&rdquo;
                         </blockquote>
-                        <p className="mt-4 font-sans text-xs font-semibold tracking-wider uppercase text-azure/80">
+                        <p className="mt-4 font-sans text-xs font-semibold tracking-wider uppercase text-pale-taupe">
                             — Komitmen Kabinet Generasi XVI
                         </p>
                     </div>
@@ -95,11 +106,11 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     <div className="relative z-10 border-t border-white/10 pt-4">
                         <div className="grid grid-cols-2 gap-3 text-left font-sans">
                             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                                <span className="text-[10px] uppercase tracking-wider text-azure/70 block">Naungan</span>
+                                <span className="text-[10px] uppercase tracking-wider text-pale-taupe/80 block">Naungan</span>
                                 <span className="text-xs font-bold text-white">Rektorat Kemahasiswaan</span>
                             </div>
                             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                                <span className="text-[10px] uppercase tracking-wider text-azure/70 block">Arah Gerak</span>
+                                <span className="text-[10px] uppercase tracking-wider text-pale-taupe/80 block">Arah Gerak</span>
                                 <span className="text-xs font-bold text-white">Inklusif &amp; Kolaboratif</span>
                             </div>
                         </div>
@@ -107,11 +118,11 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                 </div>
 
                 {/* SISI KANAN: Penjelasan Kelembagaan & 3 Butir Misi */}
-                <div className="flex w-full flex-col justify-between lg:w-7/12 lg:pl-6">
+                <div className="scroll-reveal flex w-full flex-col justify-between lg:w-7/12 lg:pl-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-azure/30 bg-blue-primary/40 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-azure uppercase">
-                            <Building2 size={14} className="text-azure" />
-                            <span>Sekilas BEM UMN</span>
+                        <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase">
+                            <Building2 size={14} className="text-camel-brown" />
+                            <span>01 // Sekilas Lembaga</span>
                         </div>
 
                         <h2 className="mt-4 font-serif text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
@@ -132,7 +143,7 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                                     key={m.num}
                                     className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-navy-dark/60 p-4 transition-all duration-300 hover:border-azure/40 hover:bg-navy-dark/90"
                                 >
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-azure/30 bg-blue-primary/40 font-serif text-sm font-bold text-azure group-hover:scale-105 transition-transform">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-camel-brown/30 bg-blue-primary/40 font-serif text-sm font-bold text-cream group-hover:scale-105 transition-transform">
                                         {m.num}
                                     </div>
                                     <div>

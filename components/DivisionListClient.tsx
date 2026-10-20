@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/layouts/Footer";
-import { DivisionCard, DivisionItem } from "@/components/DivisionCard";
+import { DivisionCard, DivisionItem, divisionSupergraphics } from "@/components/DivisionCard";
 import { MemberCard } from "@/components/MemberCard";
 import { MemberDetailModal } from "@/components/MemberDetailModal";
 import { Member } from "@/constants/divisionMembers";
@@ -191,8 +191,8 @@ export const DivisionListClient = ({
                         {bphDivision && (
                             <section>
                                 <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-                                    <div className="flex items-center gap-2 font-sans text-xs font-bold tracking-widest text-azure uppercase">
-                                        <Shield size={14} className="text-azure" />
+                                    <div className="flex items-center gap-2 font-sans text-xs font-bold tracking-widest text-pale-taupe uppercase">
+                                        <Shield size={14} className="text-camel-brown" />
                                         <span>Tier 01 • Inti Pimpinan Eksekutif</span>
                                     </div>
                                     <span className="font-sans text-[11px] text-concrete/60">
@@ -215,8 +215,8 @@ export const DivisionListClient = ({
                         <section>
                             <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between border-b border-white/10 pb-4 gap-2">
                                 <div>
-                                    <div className="flex items-center gap-2 font-sans text-xs font-bold tracking-widest text-azure uppercase">
-                                        <Layers size={14} className="text-azure" />
+                                    <div className="flex items-center gap-2 font-sans text-xs font-bold tracking-widest text-pale-taupe uppercase">
+                                        <Layers size={14} className="text-camel-brown" />
                                         <span>Tier 02 • Sayap Pengawasan &amp; Relasi Publik</span>
                                     </div>
                                     <h2 className="mt-2 font-serif text-2xl sm:text-3xl font-bold text-white">
@@ -226,7 +226,7 @@ export const DivisionListClient = ({
                                         Membina seluruh rumpun himpunan, UKM, LSO, kegiatan mahasiswa, dan diplomasi publik kampus secara setara.
                                     </p>
                                 </div>
-                                <span className="rounded-full border border-azure/30 bg-blue-primary/40 px-3 py-1 font-sans text-xs font-semibold text-azure self-start sm:self-auto">
+                                <span className="rounded-full border border-camel-brown/40 bg-white/5 px-3 py-1 font-sans text-xs font-semibold text-pale-taupe self-start sm:self-auto">
                                     5 Divisi Setara
                                 </span>
                             </div>
@@ -311,11 +311,15 @@ export const DivisionListClient = ({
 
                         {/* Divisi Header Info Cover Banner (Split-Screen) */}
                         <div className="relative overflow-hidden rounded-3xl border border-azure/30 bg-gradient-to-br from-blue-primary/40 via-navy-dark/95 to-navy-dark p-6 sm:p-10 lg:p-12 shadow-2xl backdrop-blur-xl">
-                            {/* Watermark Supergrafik Background */}
+                            {/* Watermark Supergrafik Background — sesuai identitas divisi */}
                             <div className="pointer-events-none absolute -right-12 -bottom-12 opacity-15">
                                 <Image
-                                    src="/svgs/COLLABORATIVE_supergrafik_1.svg"
-                                    alt="Supergrafik Dekoratif"
+                                    src={
+                                        divisionSupergraphics[currentDivision.id.toUpperCase()] ??
+                                        "/svgs/COLLABORATIVE_supergrafik_1.svg"
+                                    }
+                                    alt=""
+                                    aria-hidden="true"
                                     width={240}
                                     height={240}
                                 />
@@ -323,16 +327,23 @@ export const DivisionListClient = ({
 
                             <div className="relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
                                 {/* Visual Foto Grup Divisi */}
-                                <div className="relative h-60 sm:h-72 w-full overflow-hidden rounded-2xl border border-white/15 bg-navy-dark lg:col-span-5 shadow-inner">
+                                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden rounded-2xl border border-white/15 bg-navy-dark lg:col-span-5 shadow-inner">
+                                    <Image
+                                        src={currentDivision.imageUrl}
+                                        alt=""
+                                        fill
+                                        aria-hidden="true"
+                                        className="object-cover object-center blur-lg opacity-25 scale-110 pointer-events-none"
+                                    />
                                     <Image
                                         src={currentDivision.imageUrl}
                                         alt={`Foto grup ${currentDivision.fullname}`}
                                         fill
                                         sizes="(max-width: 1024px) 100vw, 450px"
-                                        className="object-cover object-center"
+                                        className="relative z-10 object-contain object-center p-2"
                                         priority
                                     />
-                                    <div className="absolute top-3 left-3 rounded-full bg-dark-blue/90 px-3 py-1 font-serif text-xs font-bold text-azure backdrop-blur-md border border-white/10">
+                                    <div className="absolute top-3 left-3 z-20 rounded-full bg-dark-blue/90 px-3 py-1 font-serif text-xs font-bold text-azure backdrop-blur-md border border-white/10">
                                         {currentDivision.name}
                                     </div>
                                 </div>

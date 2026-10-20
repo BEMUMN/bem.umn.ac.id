@@ -87,8 +87,8 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
                 {/* Modal Header Bar */}
                 <div className="relative flex items-center justify-between border-b border-white/10 bg-blue-primary/40 px-6 py-4 backdrop-blur-md sm:px-8">
                     <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-azure/30 bg-azure/10 px-3 py-1 font-sans text-xs font-semibold tracking-wide text-azure uppercase">
-                            <Building2 size={13} />
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-camel-brown/40 bg-camel-brown/10 px-3 py-1 font-sans text-xs font-semibold tracking-wide text-pale-taupe uppercase">
+                            <Building2 size={13} className="text-camel-brown" />
                             <span>{divisionName || member.divisionId || "BEM UMN Gen XVI"}</span>
                         </span>
                     </div>
@@ -142,8 +142,8 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
                                 >
                                     {member.name}
                                 </h3>
-                                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-azure/40 bg-blue-primary/60 px-3.5 py-1 font-sans text-xs font-semibold text-cream">
-                                    <Briefcase size={13} />
+                                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-camel-brown/40 bg-blue-primary/60 px-3.5 py-1 font-sans text-xs font-semibold text-cream">
+                                    <Briefcase size={13} className="text-camel-brown" />
                                     <span>{member.role}</span>
                                 </div>
                             </div>
@@ -185,8 +185,8 @@ export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
 
                                 {/* Quotes / Pesan-pesan */}
                                 <div className="mt-1 rounded-2xl border border-white/10 bg-navy-dark/90 p-4">
-                                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-azure">
-                                        <Quote size={14} className="text-azure" />
+                                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-pale-taupe">
+                                        <Quote size={14} className="text-camel-brown" />
                                         <span>Quotes &amp; Pesan</span>
                                     </div>
                                     <p className="mt-2 font-serif text-sm italic leading-relaxed text-concrete/90 sm:text-base">

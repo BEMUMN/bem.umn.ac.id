@@ -40,8 +40,8 @@ export default function KegmaCard({ kegma, onClick, indexNumber }: KegmaCardProp
                             {indexNumber}
                         </span>
                     )}
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-azure/30 bg-white/10 px-3 py-1 font-sans text-[11px] font-semibold tracking-wide text-azure backdrop-blur-md">
-                        <Sparkles size={11} className="text-azure animate-pulse" />
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-camel-brown/40 bg-white/10 px-3 py-1 font-sans text-[11px] font-semibold tracking-wide text-pale-taupe backdrop-blur-md">
+                        <Sparkles size={11} className="text-camel-brown animate-pulse" />
                         {kegma.category}
                     </span>
                 </div>
@@ -72,7 +72,7 @@ export default function KegmaCard({ kegma, onClick, indexNumber }: KegmaCardProp
                     <h3 className="font-serif text-xl font-bold tracking-wide text-white group-hover:text-azure transition-colors sm:text-2xl">
                         {kegma.title}
                     </h3>
-                    <span className="font-sans text-[10px] font-semibold uppercase tracking-wider text-azure/70">
+                    <span className="font-sans text-[10px] font-semibold uppercase tracking-wider text-pale-taupe/90">
                         {kegma.supervisor.split(" ")[0]}
                     </span>
                 </div>

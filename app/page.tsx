@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Lenis from "lenis";
 
 import Navbar from "@/layouts/Navbar";
@@ -16,7 +15,7 @@ import Work from "@/layouts/home-page/Work";
 import Footer from "@/layouts/Footer";
 import { supergraphics } from "@/constants/supergraphicIndex";
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
     const main = useRef<HTMLDivElement>(null);
@@ -25,6 +24,14 @@ export default function Home() {
 
     // Lenis Smooth Scroll Setup
     useEffect(() => {
+        // Hormati preferensi reduced-motion
+        if (
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+            return;
+        }
+
         const lenis = new Lenis({
             duration: 0.8,
             smoothWheel: true,
@@ -50,9 +57,21 @@ export default function Home() {
     // GSAP Animations (Orkestrasi 4 Supergrafik Resmi GEN XVI)
     useGSAP(
         () => {
-            const sections = gsap.utils.toArray<HTMLElement>(".snap-section");
+            const prefersReducedMotion =
+                typeof window !== "undefined" &&
+                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            // Parallax latar belakang
+            if (prefersReducedMotion) {
+                // Tampilan statis tenang tanpa animasi gerak berlebih
+                gsap.set(superRefs.current[0], { x: 300, y: 50, opacity: 0.2 });
+                gsap.set(superRefs.current[1], { x: -300, y: 80, opacity: 0.2 });
+                gsap.set(superRefs.current[2], { x: -350, opacity: 0.2 });
+                gsap.set(superRefs.current[3], { x: 250, y: -60, opacity: 0.2 });
+                gsap.set(".scroll-reveal", { opacity: 1, y: 0 });
+                return;
+            }
+
+            // Parallax latar belakang halus mengikuti scroll alami pengguna
             gsap.to(bgRef.current, {
                 yPercent: -30,
                 ease: "none",
@@ -64,34 +83,61 @@ export default function Home() {
                 },
             });
 
-            // ScrollTrigger snap halus antar-section
-            ScrollTrigger.create({
-                trigger: main.current,
-                start: "top top",
-                end: "bottom bottom",
-                scrub: true,
-                snap: {
-                    snapTo: () => {
-                        let maxVisibility = 0;
-                        let snapIndex = 0;
+            // Animasi Konten Alami Saat Scroll (Slide-in/Fade-in saat masuk, Slide-out/Fade-out saat keluar)
+            const revealElements = gsap.utils.toArray<HTMLElement>(".scroll-reveal");
 
-                        sections.forEach((section, i) => {
-                            const bounds = section.getBoundingClientRect();
-                            const visible =
-                                Math.min(window.innerHeight, bounds.bottom) -
-                                Math.max(0, bounds.top);
+            revealElements.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                const inInitialView = rect.top < window.innerHeight && rect.bottom > 0;
 
-                            if (visible > maxVisibility) {
-                                maxVisibility = visible;
-                                snapIndex = i;
-                            }
+                // Elemen yang sudah ada di viewport saat load langsung tampil tanpa flash
+                if (!inInitialView) {
+                    gsap.set(el, { opacity: 0, y: 35 });
+                } else {
+                    gsap.set(el, { opacity: 1, y: 0 });
+                }
+
+                ScrollTrigger.create({
+                    trigger: el,
+                    start: "top 88%",
+                    end: "bottom 12%",
+                    onEnter: () => {
+                        gsap.to(el, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.7,
+                            ease: "power2.out",
+                            overwrite: "auto",
                         });
-
-                        return snapIndex / (sections.length - 1);
                     },
-                    duration: 0.6,
-                    ease: "power2.inOut",
-                },
+                    onLeave: () => {
+                        gsap.to(el, {
+                            opacity: 0,
+                            y: -25,
+                            duration: 0.5,
+                            ease: "power2.in",
+                            overwrite: "auto",
+                        });
+                    },
+                    onEnterBack: () => {
+                        gsap.to(el, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.7,
+                            ease: "power2.out",
+                            overwrite: "auto",
+                        });
+                    },
+                    onLeaveBack: () => {
+                        gsap.to(el, {
+                            opacity: 0,
+                            y: 35,
+                            duration: 0.5,
+                            ease: "power2.in",
+                            overwrite: "auto",
+                        });
+                    },
+                });
             });
 
             // Intro animation untuk 4 motif supergrafik
@@ -219,16 +265,25 @@ export default function Home() {
             <Navbar />
 
             {/* 1. HERO SECTION (Centerpiece Identity) */}
-            <Hero id="hero" className="snap-section" />
+            <Hero id="hero" />
+
+            {/* Subtle Divider 1 */}
+            <div className="relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
             {/* 2. SEKILAS TENTANG KAMI & VISI MISI (Editorial Magazine) */}
-            <AboutPreview id="tentang" className="snap-section" />
+            <AboutPreview id="tentang" />
+
+            {/* Subtle Divider 2 */}
+            <div className="relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-azure/20 to-transparent" />
 
             {/* 3. NILAI ATAU IDENTITAS KABINET (Bento Grid 4 Supergrafik) */}
-            <Values id="nilai" className="snap-section" />
+            <Values id="nilai" />
+
+            {/* Subtle Divider 3 */}
+            <div className="relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-camel-brown/30 to-transparent" />
 
             {/* 4. HIGHLIGHT KEGIATAN MAHASISWA & PROKER */}
-            <Work id="kegiatan" className="snap-section" />
+            <Work id="kegiatan" />
 
             {/* 5. FOOTER INSTITUSIONAL */}
             <Footer />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/layouts/Footer";
 import { DivisionDetailClient } from "@/components/DivisionDetailClient";
+import { divisionSupergraphics } from "@/components/DivisionCard";
 import { divisions } from "@/constants/divisionIndex";
 import { divisionMembers, DivisionKey } from "@/constants/divisionMembers";
 import { ArrowLeft, Building2, ChevronRight } from "lucide-react";
@@ -79,7 +80,21 @@ export default async function DivisionDetailPage({ params }: PageProps) {
 
                 {/* Hero / Header Divisi */}
                 <section className="mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <div className="overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-blue-primary/40 via-dark-blue to-dark-blue p-6 shadow-2xl backdrop-blur-xl sm:p-10">
+                    <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-blue-primary/40 via-dark-blue to-dark-blue p-6 shadow-2xl backdrop-blur-xl sm:p-10">
+                        {/* Watermark Supergrafik — sesuai identitas divisi */}
+                        <div className="pointer-events-none absolute -right-12 -bottom-12 opacity-15">
+                            <Image
+                                src={
+                                    divisionSupergraphics[divisionId] ??
+                                    "/svgs/COLLABORATIVE_supergrafik_1.svg"
+                                }
+                                alt=""
+                                aria-hidden="true"
+                                width={240}
+                                height={240}
+                            />
+                        </div>
+
                         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
                             {/* Teks Informasi Divisi */}
                             <div className="lg:col-span-7">
@@ -112,17 +127,24 @@ export default async function DivisionDetailPage({ params }: PageProps) {
 
                             {/* Foto Grup Representatif */}
                             <div className="lg:col-span-5">
-                                <div className="relative h-64 w-full overflow-hidden rounded-2xl border border-white/20 bg-dark-blue/80 shadow-2xl sm:h-72">
+                                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden rounded-2xl border border-white/20 bg-dark-blue/80 shadow-2xl">
+                                    <Image
+                                        src={division.imageUrl}
+                                        alt=""
+                                        fill
+                                        aria-hidden="true"
+                                        className="object-cover object-center blur-lg opacity-25 scale-110 pointer-events-none"
+                                    />
                                     <Image
                                         src={division.imageUrl}
                                         alt={`Foto grup ${division.fullname}`}
                                         fill
                                         sizes="(max-width: 1024px) 100vw, 420px"
-                                        className="object-cover object-center"
+                                        className="relative z-10 object-contain object-center p-2"
                                         priority
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-dark-blue/60 via-transparent to-transparent"></div>
-                                    <span className="absolute bottom-3 left-3 rounded-full bg-dark-blue/80 px-3 py-1 font-serif text-xs font-bold text-cream backdrop-blur-sm">
+                                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-dark-blue/30 via-transparent to-transparent pointer-events-none"></div>
+                                    <span className="absolute bottom-3 left-3 z-20 rounded-full bg-dark-blue/80 px-3 py-1 font-serif text-xs font-bold text-cream backdrop-blur-sm border border-white/10">
                                         {division.name} GEN XVI
                                     </span>
                                 </div>

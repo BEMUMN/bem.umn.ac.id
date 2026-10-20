@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Menu, X } from "lucide-react";
 
@@ -13,6 +13,39 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [visible, setVisible] = useState(true);
+    const lastScrollY = useRef(0);
+
+    // Deteksi arah scroll untuk slide-out saat scroll ke bawah dan slide-in saat scroll ke atas
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = Math.max(0, window.scrollY);
+
+            // Selalu tampilkan jika berada di dekat puncak halaman
+            if (currentScrollY <= 60) {
+                setVisible(true);
+                lastScrollY.current = currentScrollY;
+                return;
+            }
+
+            const delta = currentScrollY - lastScrollY.current;
+
+            // Threshold 6px mencegah getaran visual pada micro-scroll
+            if (Math.abs(delta) > 6) {
+                if (delta > 0) {
+                    // Scroll ke bawah: sembunyikan header
+                    setVisible(false);
+                } else {
+                    // Scroll ke atas: tampilkan header kembali
+                    setVisible(true);
+                }
+                lastScrollY.current = currentScrollY;
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     useGSAP(() => {
         const navTween = gsap.timeline({
@@ -33,8 +66,15 @@ const Navbar = () => {
         });
     });
 
+    // Pertahankan header tetap tampak jika menu mobile sedang dibuka
+    const isVisible = visible || mobileMenuOpen;
+
     return (
-        <header className="fixed top-0 left-0 z-50 w-full px-4 pt-4 md:px-8 md:pt-6">
+        <header
+            className={`fixed top-0 left-0 z-50 w-full px-4 pt-4 md:px-8 md:pt-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+                isVisible ? "translate-y-0" : "-translate-y-full pointer-events-none"
+            }`}
+        >
             <nav
                 id="navbar-capsule"
                 aria-label="Navigasi Utama"

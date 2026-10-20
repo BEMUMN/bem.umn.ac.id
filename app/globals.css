@@ -35,6 +35,7 @@ body {
     --color-steel-blue: var(--steel-blue);
     --color-azure: var(--azure);
     --color-cream: var(--cream-linen);
+    --color-cream-linen: var(--cream-linen);
     --color-concrete: var(--concrete);
     --color-gray-brown: var(--gray-brown);
     --color-camel-brown: var(--camel-brown);
@@ -82,11 +83,11 @@ html.lenis {
 
 .super-bg {
     background-image:
-        linear-gradient(rgba(15, 30, 63, 0.75), rgba(15, 30, 63, 0.95)),
-        url("/pngs/texture/texture1.webp");
-
+        linear-gradient(rgba(15, 30, 63, 0.82), rgba(15, 30, 63, 0.96)),
+        url("/pngs/texture/ASSET.webp");
     background-position: center;
-    background-size: cover;
+    background-size: 320px auto;
+    background-repeat: repeat;
     will-change: transform;
 }
 
@@ -110,7 +111,7 @@ html.lenis {
     );
     z-index: 1;
     position: absolute;
-    top: -30;
+    top: -30px;
     left: 0;
     filter: blur(10px);
 }
@@ -130,7 +131,7 @@ html.lenis {
     );
     z-index: 1;
     position: absolute;
-    bottom: -30;
+    bottom: -30px;
     left: 0;
     filter: blur(10px);
 }
@@ -152,4 +153,17 @@ html.lenis {
 /* Optional: prevent context menu on right-click */
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */
+}
+
+/* Fallback & Reduced Motion untuk Reveal Content Tentang Kami */
+.tt-reveal {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tt-reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+    }
 }

@@ -16,7 +16,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 
 
-type SectionId = "proker" | "kegma" | "lainnya";
+type SectionId = "proker" | "kegma" | "organisasi" | "lainnya";
 
 interface WorkItem {
     title: string;
@@ -28,6 +28,7 @@ interface WorkItem {
 const sectionData: Record<SectionId, WorkItem[]> = {
     proker: prokers,
     kegma: kegma,
+    organisasi: lainnya,
     lainnya: lainnya,
 };
 
@@ -76,7 +77,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
 
     // Fungsi geser desktop
     const slideTo = (targetDisplay: number) => {
-        if (!carouselRef.current || isTransitioning) return;
+        if (!carouselRef.current || isTransitioning || originalItems === 0) return;
         setIsTransitioning(true);
 
         gsap.to(carouselRef.current, {
@@ -84,6 +85,10 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
             duration: 0.6,
             ease: "power3.inOut",
             onComplete: () => {
+                if (originalItems === 0) {
+                    setIsTransitioning(false);
+                    return;
+                }
                 const modulo = targetDisplay % originalItems;
                 const logical = modulo + 1;
                 setCurrentIndex(logical);
@@ -129,13 +134,13 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
     return (
         <section
             id={id}
-            className={`relative flex min-h-screen w-full items-center justify-start font-mono md:px-12 ${className}`}
+            className={`relative flex min-h-screen w-full items-center justify-start font-sans md:px-12 ${className}`}
         >
             <div className="min-h-screen w-full justify-around md:flex">
                 {/* Left Text Section */}
-                <div className="relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
-                    <div className="inline-flex items-center gap-2 rounded-full border border-azure/30 bg-blue-primary/40 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-azure uppercase">
-                        <span>Aktivitas & Program</span>
+                <div className="scroll-reveal relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
+                    <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase">
+                        <span>03 // Program &amp; Kegiatan</span>
                     </div>
 
                     <h2
@@ -151,43 +156,41 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     </h2>
                     <p
                         ref={descRef}
-                        className="mt-4 text-justify font-sans text-sm text-azure/90 md:text-base"
+                        className="mt-4 text-justify font-sans text-sm leading-relaxed text-concrete/90 md:text-base"
                     >
                         {subSections.find((s) => s.id === activeSection)?.desc}
                     </p>
 
-                    <div className="mt-6 flex flex-wrap items-center gap-3">
+                    {/* Direct Segmented Category Tabs */}
+                    <div className="mt-6 flex flex-wrap items-center gap-2" role="tablist" aria-label="Pilih kategori program kerja dan kegiatan">
+                        {subSections.map((s) => {
+                            const isActive = s.id === activeSection;
+                            return (
+                                <button
+                                    key={s.id}
+                                    type="button"
+                                    role="tab"
+                                    aria-selected={isActive}
+                                    onClick={() => changeSection(s.id as SectionId)}
+                                    className={`rounded-full px-3.5 py-1.5 font-sans text-xs font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-95 ${
+                                        isActive
+                                            ? "bg-azure text-navy-dark shadow-md shadow-azure/20 font-bold border border-azure"
+                                            : "border border-white/15 bg-white/5 text-pale-taupe hover:bg-white/10 hover:text-white"
+                                    }`}
+                                >
+                                    {s.title}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap items-center gap-3">
                         <Link
                             href="/kegiatan"
-                            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-blue-primary px-5 py-2.5 font-sans text-xs font-semibold text-white shadow-lg transition hover:scale-105 hover:bg-dark-blue sm:text-sm"
+                            className="inline-flex items-center gap-2 rounded-full border border-azure/50 bg-azure px-6 py-3 font-sans text-xs sm:text-sm font-bold text-navy-dark shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-95"
                         >
                             <span>Jelajahi Seluruh Kegiatan</span>
                         </Link>
-                    </div>
-
-                    {/* Subsection Selector */}
-                    <div className="mt-8 flex items-center gap-3 md:absolute md:-bottom-24">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                const currentIndex = subSections.findIndex(
-                                    (s) => s.id === activeSection,
-                                );
-                                const nextIndex =
-                                    (currentIndex + 1) % subSections.length;
-                                changeSection(
-                                    subSections[nextIndex].id as SectionId,
-                                );
-                            }}
-                            className="flex items-center gap-2 rounded-full border border-azure/40 bg-white/10 px-4 py-2 font-sans text-xs font-semibold text-white shadow-md backdrop-blur-sm transition hover:bg-white/20 active:scale-95"
-                            aria-label="Ganti kategori kegiatan"
-                        >
-                            <span className="text-azure">Kategori Lainnya</span>
-                            <div className="flex flex-col">
-                                <ChevronUp size={12} className="text-azure" />
-                                <ChevronDown size={12} className="text-azure" />
-                            </div>
-                        </button>
                     </div>
                 </div>
 
@@ -195,7 +198,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                 {/* Carousel Section */}
                 <div
                     ref={containerRef}
-                    className="relative shrink-0 basis-2/3 self-center"
+                    className="scroll-reveal relative shrink-0 basis-2/3 self-center"
                 >
                     {/* Mobile pakai Swiper */}
                     <div className="block md:hidden">
@@ -212,7 +215,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             {items.map((item, i) => (
                                 <SwiperSlide key={i}>
                                     <div
-                                        className="relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl shadow-md"
+                                        className="relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl border border-white/10 shadow-lg"
                                         style={{
                                             backgroundImage: `url(${item.image})`,
                                             backgroundSize: "cover",
@@ -222,12 +225,12 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                         <div
                                             className={`absolute inset-0 ${item.gradient} opacity-70`}
                                         ></div>
-                                        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
                                         <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
-                                            <h2 className="text-background text-2xl font-semibold">
+                                            <h3 className="font-serif text-2xl font-bold text-white drop-shadow-md">
                                                 {item.title}
-                                            </h2>
-                                            <p className="text-md text-background/60">
+                                            </h3>
+                                            <p className="mt-1 font-sans text-xs leading-relaxed text-concrete/90 drop-shadow">
                                                 {item.description}
                                             </p>
                                         </div>
@@ -237,12 +240,20 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                         </Swiper>
 
                         {/* Mobile navigation */}
-                        <div className="ml-5 flex justify-center gap-12 pt-10">
-                            <button className="custom-prev bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90">
-                                <ChevronLeft />
+                        <div className="ml-5 flex justify-center gap-8 pt-8">
+                            <button
+                                type="button"
+                                aria-label="Item kegiatan sebelumnya"
+                                className="custom-prev cursor-pointer rounded-full border border-azure/30 bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-90"
+                            >
+                                <ChevronLeft size={22} />
                             </button>
-                            <button className="custom-next bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90">
-                                <ChevronRight />
+                            <button
+                                type="button"
+                                aria-label="Item kegiatan berikutnya"
+                                className="custom-next cursor-pointer rounded-full border border-azure/30 bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-90"
+                            >
+                                <ChevronRight size={22} />
                             </button>
                         </div>
                     </div>
@@ -263,7 +274,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                                 key={i}
                                             >
                                                 <div
-                                                    className="card relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl shadow-md/30 md:w-[428px]"
+                                                    className="card relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all duration-500 hover:-translate-y-1.5 hover:border-azure/40 md:w-[428px]"
                                                     style={{
                                                         backgroundImage: `url(${item.image})`,
                                                         backgroundSize: "cover",
@@ -274,12 +285,12 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                                     <div
                                                         className={`absolute inset-0 ${item.gradient} opacity-70`}
                                                     ></div>
-                                                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-                                                    <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
-                                                        <h2 className="text-background text-2xl font-semibold">
+                                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                                                    <div className="absolute bottom-0 z-10 w-full p-6 text-center text-white">
+                                                        <h3 className="font-serif text-2xl font-bold tracking-wide text-white drop-shadow-md lg:text-3xl">
                                                             {item.title}
-                                                        </h2>
-                                                        <p className="text-md text-background/60">
+                                                        </h3>
+                                                        <p className="mt-2 font-sans text-xs leading-relaxed text-concrete/90 drop-shadow sm:text-sm">
                                                             {item.description}
                                                         </p>
                                                     </div>
@@ -292,20 +303,24 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                         </div>
 
                         {/* Desktop Navigator Buttons */}
-                        <div className="ml-5 flex gap-12 pt-5">
+                        <div className="ml-5 flex gap-6 pt-5">
                             <button
+                                type="button"
                                 onClick={handlePrev}
                                 disabled={isTransitioning}
-                                className="bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90"
+                                aria-label="Item kegiatan sebelumnya"
+                                className="cursor-pointer rounded-full border border-azure/30 bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-90 disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                                <ChevronLeft />
+                                <ChevronLeft size={22} />
                             </button>
                             <button
+                                type="button"
                                 onClick={handleNext}
                                 disabled={isTransitioning}
-                                className="bg-foreground text-background cursor-pointer rounded-full p-5 duration-300 hover:scale-105 hover:shadow-lg active:scale-90"
+                                aria-label="Item kegiatan berikutnya"
+                                className="cursor-pointer rounded-full border border-azure/30 bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/20 hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-90 disabled:opacity-40 disabled:cursor-not-allowed"
                             >
-                                <ChevronRight />
+                                <ChevronRight size={22} />
                             </button>
                         </div>
                     </div>
