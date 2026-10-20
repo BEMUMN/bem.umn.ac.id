@@ -11,7 +11,7 @@ export default function Hero({ id, className = "" }: HeroProps) {
                 rel="preload"
                 as="image"
                 type="image/avif"
-                imageSrcSet="/images/pelantikan-480.avif 480w, /images/pelantikan-960.avif 960w, /images/pelantikan-1600.avif 1600w"
+                imageSrcSet="/images/pelantikan-480.avif 480w, /images/pelantikan-720.avif 720w, /images/pelantikan-960.avif 960w, /images/pelantikan-1600.avif 1600w"
                 imageSizes="(max-width: 639px) 90vw, 45vw"
                 fetchPriority="high"
             />

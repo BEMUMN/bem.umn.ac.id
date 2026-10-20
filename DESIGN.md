@@ -17,7 +17,7 @@ Sumber implementasi: `app/globals.css`, bukan warna inline di komponen.
 - Steel #6D86A0, brown #6C4D38, camel #997953 disediakan untuk identitas resmi.
 - Kontras ink/paper 13.18:1, action/paper 7.43:1, white/action 9.26:1.
 - Display: Newsreader 400; text: Bricolage Grotesque 400–700. Self-hosted WOFF2 Latin, next/font/local, swap.
-- Newsreader retains its optical-size axis; Bricolage uses optical size 18 for the reading/UI face to avoid shipping unused optical variants.
+- Newsreader uses optical size 48 for display; Bricolage uses optical size 18 for the reading/UI face. Both avoid shipping unused optical variants.
 - Hero clamp(3.25rem, 7.4vw, 7.4rem), leading .98, tracking -.045em.
 - Section clamp(2.5rem, 5vw, 5rem), leading 1.05, tracking -.03em.
 - Title clamp(1.5rem, 2.3vw, 2.5rem), leading 1.15.

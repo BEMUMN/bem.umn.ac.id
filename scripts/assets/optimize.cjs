@@ -45,7 +45,9 @@ async function main() {
             .toBuffer();
         placeholders[name] =
             `data:image/webp;base64,${blur.toString("base64")}`;
-        for (const width of widths) {
+        for (const width of name === "pelantikan"
+            ? [480, 720, 960, 1600]
+            : widths) {
             for (const format of ["webp", "avif"]) {
                 const file = `${name}-${width}.${format}`;
                 const image = sharp(path.join(root, source))

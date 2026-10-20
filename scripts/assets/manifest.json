@@ -14,6 +14,20 @@
     "height": 270
   },
   {
+    "file": "/images/pelantikan-720.webp",
+    "source": "public/pngs/gallery/background.webp",
+    "bytes": 26312,
+    "width": 720,
+    "height": 405
+  },
+  {
+    "file": "/images/pelantikan-720.avif",
+    "source": "public/pngs/gallery/background.webp",
+    "bytes": 18134,
+    "width": 720,
+    "height": 405
+  },
+  {
     "file": "/images/pelantikan-960.webp",
     "source": "public/pngs/gallery/background.webp",
     "bytes": 38914,

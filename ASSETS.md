@@ -21,10 +21,10 @@ Semua aset produksi disimpan lokal. Tidak ada hotlink, stok baru, wajah sintetis
 
 | Aset | Ukuran | Sumber/lisensi | Pemakaian |
 | --- | ---: | --- | --- |
-| public/fonts/redesign/newsreader-latin.woff2 | 57268 B | [Newsreader / Production Type](https://github.com/productiontype/Newsreader), SIL OFL 1.1; newsreader-OFL.txt | Display, judul, angka besar |
+| public/fonts/redesign/newsreader-latin.woff2 | 22808 B | [Newsreader / Production Type](https://github.com/productiontype/Newsreader), SIL OFL 1.1; newsreader-OFL.txt | Display, judul, angka besar |
 | public/fonts/redesign/bricolage-grotesque-latin.woff2 | 41456 B | [Bricolage / Atelier Triay](https://github.com/ateliertriay/bricolage), SIL OFL 1.1; bricolage-grotesque-OFL.txt | Teks dan kontrol |
 
-Kedua font merupakan subset Latin WOFF2 yang diunduh melalui Google Fonts dan di-host sendiri. next/font/local menyediakan swap dan preload. Newsreader dibatasi ke bobot 400 yang dipakai, sambil mempertahankan sumbu optical size 6–72; sumber CSS: https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&display=swap. Bricolage memakai optical size 18 untuk teks, tetap variable weight 400–700; sumber CSS: https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@18,400..700&display=swap. TTF Bricolage asli dipakai generator OG. Apple Garamond lama tetap tersimpan sebagai sumber warisan, tetapi tidak dimuat oleh halaman; lisensinya belum terdokumentasi.
+Kedua font merupakan subset Latin WOFF2 yang diunduh melalui Google Fonts dan di-host sendiri. next/font/local menyediakan swap dan preload. Newsreader dibatasi ke bobot 400 yang dipakai, dengan optical size 48 untuk display; sumber CSS: https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@48,400&display=swap. Bricolage memakai optical size 18 untuk teks, tetap variable weight 400–700; sumber CSS: https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@18,400..700&display=swap. TTF Bricolage asli dipakai generator OG. Apple Garamond lama tetap tersimpan sebagai sumber warisan, tetapi tidak dimuat oleh halaman; lisensinya belum terdokumentasi.
 
 ## Seleksi dan pascaproduksi
 
@@ -34,7 +34,7 @@ Satu master terpilih menghasilkan enam turunan produksi (tiga ukuran × dua form
 
 Master resolusi penuh: assets-source/open-leaf.png, assets-source/shared-sheets.png, assets-source/paper-horizon.png. Ketiganya ada secara lokal dan diabaikan Git melalui assets-source/.gitignore. Salinan tool ada di /Users/jgo/.codex/generated_images/01a15a25-979a-7472-ae43-421bfbf20019/. File produksi dan preview dicatat Git sehingga checkout dapat dibangun tanpa master. Master tidak dapat direproduksi bit-identik dari prompt; tool tidak memberikan seed. Script optimasi dan geometri kode deterministik tanpa randomness.
 
-Postproduction: rotate sesuai orientasi, resize maksimum sumber tanpa upscale, selected paper saturation 0.85 dan brightness 0.98, AVIF quality 44 dan WebP quality 68, metadata dibuang oleh sharp. Nama 1600 menunjukkan slot target; sumber 1446/1536 px tetap pada ukuran aslinya dan srcset memakai lebar sebenarnya. Foto dokumentasi tidak diberi grading yang mengubah isi. Logo KEGMA quality 80, fit-inside 320 px. LQIP 16 px untuk foto nonkritis, dimensi eksplisit, eager/prioritas tinggi untuk gambar utama, lazy-load sisanya. Native picture/img menampilkan foto tanpa menunggu hidrasi; foto hero tidak memakai placeholder yang harus dilepas oleh JavaScript. Foto memiliki alt sesuai subjek asli; gambar dekoratif memiliki alt kosong atau aria-hidden. Tidak ada teks informasi utama pada raster halaman.
+Postproduction: rotate sesuai orientasi, resize maksimum sumber tanpa upscale, selected paper saturation 0.85 dan brightness 0.98, AVIF quality 44 dan WebP quality 68, metadata dibuang oleh sharp. Nama 1600 menunjukkan slot target; sumber 1446/1536 px tetap pada ukuran aslinya dan srcset memakai lebar sebenarnya. Foto dokumentasi tidak diberi grading yang mengubah isi. Logo KEGMA quality 80, fit-inside 320 px. Pelantikan memiliki tambahan kandidat 720 px agar perangkat seluler ber-DPR menengah tidak perlu mengunduh 960 px. LQIP 16 px untuk foto nonkritis, dimensi eksplisit, eager/prioritas tinggi untuk gambar utama, lazy-load sisanya. Native picture/img menampilkan foto tanpa menunggu hidrasi; foto hero tidak memakai placeholder yang harus dilepas oleh JavaScript. Foto memiliki alt sesuai subjek asli; gambar dekoratif memiliki alt kosong atau aria-hidden. Tidak ada teks informasi utama pada raster halaman.
 
 ## Reproduksi
 
@@ -55,6 +55,8 @@ Ukuran adalah byte file, bukan transfer gzip. Semua raster baru di bawah 150 KB.
 | --- | --- | ---: | --- | --- |
 | /images/pelantikan-480.webp | 480×270 | 14866 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
 | /images/pelantikan-480.avif | 480×270 | 11130 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
+| /images/pelantikan-720.webp | 720×405 | 26312 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
+| /images/pelantikan-720.avif | 720×405 | 18134 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
 | /images/pelantikan-960.webp | 960×540 | 38914 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
 | /images/pelantikan-960.avif | 960×540 | 25317 | public/pngs/gallery/background.webp | Hero dokumentasi asli |
 | /images/pelantikan-1600.webp | 1600×899 | 76656 | public/pngs/gallery/background.webp | Hero dokumentasi asli |

@@ -19,7 +19,7 @@ export default function ResponsivePhoto({
     className,
 }: Props) {
     const srcSet = (format: string) =>
-        [480, 960, 1600]
+        (name === "pelantikan" ? [480, 720, 960, 1600] : [480, 960, 1600])
             .map(
                 (size) =>
                     `/images/${name}-${size}.${format} ${Math.min(size, width)}w`,

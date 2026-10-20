@@ -37,8 +37,8 @@ Audit, screenshots, Lighthouse report and source inventory: docs/redesign/before
 - AVIF/WebP picture sources, real-width srcset descriptors, LQIP, explicit dimensions, image priority and lazy loading. Asset provenance, prompts, reproduction and exact sizes are in ASSETS.md.
 - Removed three unreferenced legacy UI modules (Gallery, Member, MemberSwiper), including the gallery pointing to absent JPGs. Original data and source assets remain; installed libraries and lockfile remain unchanged.
 - Formatted edited source using the existing Prettier configuration. Full lint explicitly includes layouts, clearing all ten inherited warnings.
-- Performance follow-up: Newsreader reduced from 131,848 to 57,268 bytes by retaining only the used weight and optical-size axis. Native picture/img renders pre-encoded photographs before hydration; LQIP is reserved for noncritical images. Save-Data is applied in the document head before the first paint.
-- Critical transfer follow-up: Bricolage reduced from 76,868 to 41,456 bytes with optical size 18 and variable weights 400–700. Small header/cabinet logos use lossless derivatives of unchanged official SVGs (8,124 and 11,864 bytes). Hero navigation no longer prefetches other pages during the initial load.
+- Performance follow-up: Newsreader reduced from 131,848 to 22,808 bytes with weight 400 and optical size 48 for display. Native picture/img renders pre-encoded photographs before hydration; LQIP is reserved for noncritical images. Save-Data is applied in the document head before the first paint.
+- Critical transfer follow-up: Bricolage reduced from 76,868 to 41,456 bytes with optical size 18 and variable weights 400–700. Small header/cabinet logos use lossless derivatives of unchanged official SVGs (8,124 and 11,864 bytes). Hero navigation no longer prefetches other pages during the initial load. A 720 px photograph derivative avoids oversized downloads on mid-DPR mobile screens.
 
 ## Validation
 
