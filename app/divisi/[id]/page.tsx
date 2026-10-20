@@ -1,202 +1,25 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/layouts/Footer";
+import ResponsivePhoto from "@/components/ResponsivePhoto";
 import { DivisionDetailClient } from "@/components/DivisionDetailClient";
-import { divisionSupergraphics } from "@/components/DivisionCard";
 import { divisions } from "@/constants/divisionIndex";
-import { divisionMembers, DivisionKey } from "@/constants/divisionMembers";
-import { ArrowLeft, Building2, ChevronRight } from "lucide-react";
+import { divisionMembers, type DivisionKey } from "@/constants/divisionMembers";
 
-
-type PageProps = {
-    params: Promise<{ id: string }>;
-};
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const resolvedParams = await params;
-    const divisionId = resolvedParams.id.toUpperCase();
-    const division = divisions.find((d) => d.id.toUpperCase() === divisionId);
-
-    if (!division) {
-        return {
-            title: "Divisi Tidak Ditemukan | BEM UMN GEN XVI",
-        };
-    }
-
-    return {
-        title: `${division.name} - ${division.fullname} | BEM UMN GEN XVI`,
-        description: division.description,
-    };
+type Props = { params: Promise<{ id: string }> };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const id = (await params).id.toUpperCase();
+    const division = divisions.find(d => d.id === id);
+    if (!division) return { title: "Divisi Tidak Ditemukan | BEM UMN GEN XVI" };
+    return { title: `${division.name} - ${division.fullname} | BEM UMN GEN XVI`, description: division.description, openGraph: { title: `${division.fullname} | BEM UMN GEN XVI`, description: division.description, images: [{ url: `/images/social/divisi-${id.toLowerCase()}.png`, width: 1200, height: 630 }] } };
 }
-
-export default async function DivisionDetailPage({ params }: PageProps) {
-    const resolvedParams = await params;
-    const divisionId = resolvedParams.id.toUpperCase() as DivisionKey;
-
-    const division = divisions.find((d) => d.id.toUpperCase() === divisionId);
-    if (!division || !(divisionId in divisionMembers)) {
-        return notFound();
-    }
-
-    const members = divisionMembers[divisionId];
-    const leader = members[0];
-    const otherDivisions = divisions.filter((d) => d.id.toUpperCase() !== divisionId);
-
-    return (
-        <div className="relative min-h-screen bg-dark-blue text-white selection:bg-azure selection:text-dark-blue">
-            {/* Tekstur Global */}
-            <div className="super-bg fixed inset-0 -z-30 scale-125 bg-cover bg-center opacity-40"></div>
-
-            <Navbar />
-
-            <main className="relative z-10 pt-28 pb-16 md:pt-36">
-                {/* Breadcrumbs & Navigation */}
-                <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-wrap items-center gap-2 text-xs font-sans text-azure/80">
-                        <Link href="/" className="hover:text-white transition">
-                            Beranda
-                        </Link>
-                        <ChevronRight size={12} />
-                        <Link href="/divisi" className="hover:text-white transition">
-                            Divisi
-                        </Link>
-                        <ChevronRight size={12} />
-                        <span className="font-semibold text-white">{division.name}</span>
-                    </div>
-
-                    <div className="mt-4">
-                        <Link
-                            href="/divisi"
-                            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-sans text-xs font-semibold text-azure transition hover:bg-white/20 hover:text-white"
-                        >
-                            <ArrowLeft size={14} />
-                            <span>Kembali ke Seluruh Divisi</span>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Hero / Header Divisi */}
-                <section className="mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-br from-blue-primary/40 via-dark-blue to-dark-blue p-6 shadow-2xl backdrop-blur-xl sm:p-10">
-                        {/* Watermark Supergrafik — sesuai identitas divisi */}
-                        <div className="pointer-events-none absolute -right-12 -bottom-12 opacity-15">
-                            <Image
-                                src={
-                                    divisionSupergraphics[divisionId] ??
-                                    "/svgs/COLLABORATIVE_supergrafik_1.svg"
-                                }
-                                alt=""
-                                aria-hidden="true"
-                                width={240}
-                                height={240}
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
-                            {/* Teks Informasi Divisi */}
-                            <div className="lg:col-span-7">
-                                <div className="inline-flex items-center gap-2 rounded-full border border-azure/30 bg-blue-primary/60 px-3.5 py-1 font-sans text-xs font-bold text-cream uppercase">
-                                    <Building2 size={13} />
-                                    <span>Divisi Resmi BEM UMN Gen XVI</span>
-                                </div>
-
-                                <h1 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                                    {division.fullname} ({division.name})
-                                </h1>
-
-                                <p className="mt-4 font-sans text-sm leading-relaxed text-concrete/90 sm:text-base">
-                                    {division.description}
-                                </p>
-
-                                <div className="mt-6 flex flex-wrap items-center gap-4 border-t border-white/10 pt-6 text-xs font-sans">
-                                    <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-                                        <span className="text-azure">Total Anggota:</span>{" "}
-                                        <strong className="text-white">{members.length} Orang</strong>
-                                    </div>
-                                    {leader && (
-                                        <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-2">
-                                            <span className="text-azure">{leader.role}:</span>{" "}
-                                            <strong className="text-white">{leader.name}</strong>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Foto Grup Representatif */}
-                            <div className="lg:col-span-5">
-                                <div className="relative h-64 sm:h-72 lg:h-80 w-full overflow-hidden rounded-2xl border border-white/20 bg-dark-blue/80 shadow-2xl">
-                                    <Image
-                                        src={division.imageUrl}
-                                        alt=""
-                                        fill
-                                        aria-hidden="true"
-                                        className="object-cover object-center blur-lg opacity-25 scale-110 pointer-events-none"
-                                    />
-                                    <Image
-                                        src={division.imageUrl}
-                                        alt={`Foto grup ${division.fullname}`}
-                                        fill
-                                        sizes="(max-width: 1024px) 100vw, 420px"
-                                        className="relative z-10 object-contain object-center p-2"
-                                        priority
-                                    />
-                                    <div className="absolute inset-0 z-10 bg-gradient-to-t from-dark-blue/30 via-transparent to-transparent pointer-events-none"></div>
-                                    <span className="absolute bottom-3 left-3 z-20 rounded-full bg-dark-blue/80 px-3 py-1 font-serif text-xs font-bold text-cream backdrop-blur-sm border border-white/10">
-                                        {division.name} GEN XVI
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Daftar Anggota Divisi */}
-                <section className="mx-auto mt-14 max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                        <div>
-                            <h2 className="font-serif text-2xl font-bold text-white sm:text-3xl">
-                                Susunan Anggota ({members.length})
-                            </h2>
-                            <p className="font-sans text-xs text-azure sm:text-sm">
-                                Pengurus yang bertugas di Divisi {division.name} periode 2026. Klik untuk melihat detail profil.
-                            </p>
-                        </div>
-                    </div>
-
-                    <DivisionDetailClient
-                        members={members}
-                        divisionName={division.fullname}
-                    />
-                </section>
-
-                {/* Divisi Lainnya */}
-                <section className="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <h3 className="font-serif text-xl font-bold text-white">
-                        Eksplorasi Divisi Lainnya
-                    </h3>
-                    <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-                        {otherDivisions.map((other) => (
-                            <Link
-                                key={other.id}
-                                href={`/divisi/${other.id.toLowerCase()}`}
-                                className="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-4 transition duration-300 hover:border-azure/40 hover:bg-white/10"
-                            >
-                                <span className="font-serif text-sm font-bold text-white group-hover:text-azure transition">
-                                    {other.name}
-                                </span>
-                                <span className="mt-2 text-[11px] font-sans text-concrete/70 line-clamp-1">
-                                    {other.fullname}
-                                </span>
-                            </Link>
-                        ))}
-                    </div>
-                </section>
-            </main>
-
-            <Footer />
-        </div>
-    );
+export default async function DivisionDetailPage({ params }: Props) {
+    const id = (await params).id.toUpperCase() as DivisionKey;
+    const division = divisions.find(d => d.id === id);
+    if (!division || !(id in divisionMembers)) notFound();
+    const members = divisionMembers[id];
+    return <><Navbar /><main id="main-content" tabIndex={-1}><div className="container page-intro"><div className="breadcrumb"><Link href="/">Beranda</Link><span aria-hidden="true">/</span><Link href="/divisi">Divisi</Link><span aria-hidden="true">/</span><span>{division.name}</span></div><Link className="text-link" href="/divisi"><ArrowLeft size={18} aria-hidden="true" />Kembali ke seluruh divisi</Link><section className="division-detail-hero mt-8"><div><h1>{division.fullname}</h1><p>{division.description}</p><dl className="about-facts"><div><dt>Total anggota</dt><dd>{members.length} orang</dd></div>{members[0] && <div><dt>{members[0].role}</dt><dd>{members[0].name}</dd></div>}</dl><p className="mt-6 small">{division.name} GEN XVI · Periode 2026</p></div><div className="division-photo"><ResponsivePhoto name={`divisi-${id === "SULSO" ? "lso" : id.toLowerCase()}`} alt={`Foto grup ${division.fullname}`} width={1446} height={2576} eager /></div></section></div><section className="container section"><div className="section-head"><h2>Susunan anggota.</h2><p>Pengurus yang bertugas di Divisi {division.name} periode 2026. Klik untuk melihat detail profil.</p></div><DivisionDetailClient members={members} divisionName={division.fullname} /></section><section className="container page-body"><h2>Divisi lainnya.</h2><div className="directory-links">{divisions.filter(d => d.id !== id).map(d => <Link className="directory-link" key={d.id} href={`/divisi/${d.id.toLowerCase()}`}><strong>{d.name}</strong><span>{d.fullname}</span><ArrowUpRight size={20} aria-hidden="true" /></Link>)}</div></section></main><Footer /></>;
 }

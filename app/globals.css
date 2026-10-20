@@ -391,3 +391,9 @@
 }
 html[data-save-data] *,html[data-save-data] *::before,html[data-save-data] *::after { animation: none !important; transition: none !important; }
 html[data-save-data] .hero-photo::after { display: none; }
+.member-select { background: transparent; color: inherit; border: 0; padding: 0; text-align: left; }
+.member-card .actions:empty { display: none; }
+[tabindex="-1"]:focus:not(:focus-visible) { outline: none; }
+.profile-values { background: var(--paper-light); }
+.profile-division-list { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-7); }
+@media (max-width: 639px) { .profile-division-list { grid-template-columns: 1fr; gap: var(--space-5); } }
