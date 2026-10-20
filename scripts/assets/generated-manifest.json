@@ -1,0 +1,93 @@
+[
+  {
+    "file": "/images/social/home.png",
+    "bytes": 11703,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/tentang-kami.png",
+    "bytes": 12852,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi.png",
+    "bytes": 14064,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/kegiatan.png",
+    "bytes": 16272,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-bph.png",
+    "bytes": 15120,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-sukm.png",
+    "bytes": 16718,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-sufak.png",
+    "bytes": 15231,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-sulso.png",
+    "bytes": 18275,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-pr.png",
+    "bytes": 14109,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "/images/social/divisi-sukma.png",
+    "bytes": 18484,
+    "width": 1200,
+    "height": 630,
+    "source": "Official logo, repository titles, deterministic paper geometry"
+  },
+  {
+    "file": "app/icon.png",
+    "bytes": 20523,
+    "width": 512,
+    "height": 512,
+    "source": "public/svgs/LOGO_BEM.svg"
+  },
+  {
+    "file": "app/apple-icon.png",
+    "bytes": 6429,
+    "width": 180,
+    "height": 180,
+    "source": "public/svgs/LOGO_BEM.svg"
+  },
+  {
+    "file": "app/favicon.ico",
+    "bytes": 3307,
+    "width": 48,
+    "height": 48,
+    "source": "public/svgs/LOGO_BEM.svg"
+  }
+]

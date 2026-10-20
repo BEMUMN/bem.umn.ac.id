@@ -24,6 +24,23 @@ Audit, screenshots, Lighthouse report and source inventory: docs/redesign/before
 - News/announcements source and whether adding those routes is in scope. No new news/aspiration routes are introduced.
 - Period 2026 vs 2026/2027, OMB vs UMN NEXT, name spelling discrepancies between reference document and active constants. Active data remains authoritative for rendering.
 - Existing homepage descriptions of supergraphic shapes differ from GSM; wording retained pending confirmation.
+- Existing profile counts (10 Himpunan, 25+ Ormawa), institutional/legal wording, and historical date remain as supplied; redesign does not validate those institutional claims.
+- New short navigation/status labels and 404 copy are editorial UI proposals; institutional review can adjust them without changing interaction logic.
+
+## Full rollout and polish
+
+- Profile now renders its history, vision/mission, logo philosophy, GSM palette and divisions on the server.
+- Six real division photographs anchor the directory. Original member records, search, roster selection, profile dialogs and individual division URLs remain available.
+- Activity catalog retains all six KEGMA, six programs, official outbound URLs, categories and full descriptions. Search, reset, keyboard tabs, native disclosure and deep-link anchors work together.
+- Shared native dialog handles Escape, Tab/Shift+Tab, backdrop dismissal, body scroll lock and focus restoration. Returning from a roster restores focus to its division.
+- Original legacy member redirects and unknown-division 404 behavior remain. Added a custom 404, ten local OG images and icons derived from the unchanged official logo.
+- AVIF/WebP picture sources, real-width srcset descriptors, LQIP, explicit dimensions, image priority and lazy loading. Asset provenance, prompts, reproduction and exact sizes are in ASSETS.md.
+- Removed three unreferenced legacy UI modules (Gallery, Member, MemberSwiper), including the gallery pointing to absent JPGs. Original data and source assets remain; installed libraries and lockfile remain unchanged.
+- Formatted edited source using the existing Prettier configuration. Full lint explicitly includes layouts, clearing all ten inherited warnings.
+
+## Validation
+
+See docs/redesign/QA.md for the final responsive matrix, interaction checks, accessibility audit, asset tests, before/after screenshots and Lighthouse comparison. Reports distinguish local lab results from field performance; INP requires real user observations.
 
 ## Asset budget note
 

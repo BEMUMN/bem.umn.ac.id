@@ -48,6 +48,16 @@ Editorial folded-paper compositions derived from the idea of opening a shared pa
 - Missing individual portraits use initials derived from existing names. Original data/files remain untouched; no synthetic faces.
 - Footer: address, existing channels, navigation, then a large live-text BEM UMN close. Placeholder channels stay explicit and non-clickable.
 
+## Information order
+
+Home: identity and original documentation → programs and activities → institutional profile → division links → four cabinet values → contact. Programs move ahead of long institutional explanation because they serve recurring student visits. Division detail is one click from the homepage directory; the full roster and activity catalog remain top-level navigation destinations.
+
+Profile uses a dated history spread, a dark vision/mission field, the official logo and GSM palette, values, then division links. Directory uses the original group portraits; catalog uses original event logos with searchable descriptions. News and aspiration destinations remain content TODOs because the existing repo provides neither source nor functioning routes.
+
+## Asset delivery
+
+One image-generated paper composition, real institutional photographs, unchanged official marks, and deterministic paper geometry for 404/social previews. ASSETS.md contains complete prompts, source/license records, file dimensions and sizes. Images use AVIF/WebP with local LQIP; social images are generated PNGs outside the page's critical render path.
+
 ## Do / don't
 
 Use original photos, real data, semantically named sections, predictable links, visible focus, explicit dimensions, and lazy loading below the fold. Keep content in existing constants and JSX; adding content must not require changing animation logic.

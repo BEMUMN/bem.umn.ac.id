@@ -7,5 +7,17 @@ import Footer from "@/layouts/Footer";
 import PeoplePreview from "@/layouts/home-page/PeoplePreview";
 
 export default function Home() {
-    return <><Navbar /><main id="main-content" tabIndex={-1}><Hero id="hero" /><Work id="kegiatan" /><AboutPreview id="tentang" /><PeoplePreview /><Values id="nilai" /></main><Footer /></>;
+    return (
+        <>
+            <Navbar />
+            <main id="main-content" tabIndex={-1}>
+                <Hero id="hero" />
+                <Work id="kegiatan" />
+                <AboutPreview id="tentang" />
+                <PeoplePreview />
+                <Values id="nilai" />
+            </main>
+            <Footer />
+        </>
+    );
 }
