@@ -1,5 +1,19 @@
 [
   {
+    "file": "/images/bem-mark.webp",
+    "bytes": 8124,
+    "width": 128,
+    "height": 128,
+    "source": "public/svgs/LOGO_BEM.svg"
+  },
+  {
+    "file": "/images/cabinet-mark.webp",
+    "bytes": 11864,
+    "width": 336,
+    "height": 155,
+    "source": "public/svgs/BEM_GEN_16_LOGO_DARK.svg"
+  },
+  {
     "file": "/images/social/home.png",
     "bytes": 11703,
     "width": 1200,

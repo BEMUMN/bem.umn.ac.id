@@ -22,9 +22,9 @@ Semua aset produksi disimpan lokal. Tidak ada hotlink, stok baru, wajah sintetis
 | Aset | Ukuran | Sumber/lisensi | Pemakaian |
 | --- | ---: | --- | --- |
 | public/fonts/redesign/newsreader-latin.woff2 | 57268 B | [Newsreader / Production Type](https://github.com/productiontype/Newsreader), SIL OFL 1.1; newsreader-OFL.txt | Display, judul, angka besar |
-| public/fonts/redesign/bricolage-grotesque-latin.woff2 | 76868 B | [Bricolage / Atelier Triay](https://github.com/ateliertriay/bricolage), SIL OFL 1.1; bricolage-grotesque-OFL.txt | Teks dan kontrol |
+| public/fonts/redesign/bricolage-grotesque-latin.woff2 | 41456 B | [Bricolage / Atelier Triay](https://github.com/ateliertriay/bricolage), SIL OFL 1.1; bricolage-grotesque-OFL.txt | Teks dan kontrol |
 
-Kedua font merupakan subset Latin WOFF2 yang diunduh melalui Google Fonts dan di-host sendiri. next/font/local menyediakan swap dan preload. Newsreader dibatasi ke bobot 400 yang dipakai, sambil mempertahankan sumbu optical size 6–72; sumber CSS: https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&display=swap. TTF Bricolage asli dipakai generator OG. Apple Garamond lama tetap tersimpan sebagai sumber warisan, tetapi tidak dimuat oleh halaman; lisensinya belum terdokumentasi.
+Kedua font merupakan subset Latin WOFF2 yang diunduh melalui Google Fonts dan di-host sendiri. next/font/local menyediakan swap dan preload. Newsreader dibatasi ke bobot 400 yang dipakai, sambil mempertahankan sumbu optical size 6–72; sumber CSS: https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&display=swap. Bricolage memakai optical size 18 untuk teks, tetap variable weight 400–700; sumber CSS: https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@18,400..700&display=swap. TTF Bricolage asli dipakai generator OG. Apple Garamond lama tetap tersimpan sebagai sumber warisan, tetapi tidak dimuat oleh halaman; lisensinya belum terdokumentasi.
 
 ## Seleksi dan pascaproduksi
 
@@ -108,10 +108,14 @@ Ukuran adalah byte file, bukan transfer gzip. Semua raster baru di bawah 150 KB.
 | /images/logo_umn_festival.webp | 267×320 | 23666 | public/svgs/logo_kegma/LOGO_UMN_FESTIVAL.webp | Katalog kegiatan dan modal |
 | /images/logo_umn_next.webp | 320×320 | 16510 | public/svgs/logo_kegma/LOGO_UMN_NEXT.webp | Katalog kegiatan dan modal |
 
-## Gambar berbagi dan ikon
+## Logo teroptimasi, gambar berbagi dan ikon
+
+Navigasi memakai bem-mark.webp (128 px) dan logo kabinet hero memakai cabinet-mark.webp (336 px). Keduanya rasterisasi lossless dari SVG resmi dengan proporsi dan warna asli; bukan varian logo baru. Sumber SVG tetap utuh. Turunan ini menghindari unduhan SVG besar untuk logo yang tampil kecil.
 
 | File | Dimensi | Byte | Sumber |
 | --- | --- | ---: | --- |
+| /images/bem-mark.webp | 128×128 | 8124 | public/svgs/LOGO_BEM.svg |
+| /images/cabinet-mark.webp | 336×155 | 11864 | public/svgs/BEM_GEN_16_LOGO_DARK.svg |
 | /images/social/home.png | 1200×630 | 11703 | Official logo, repository titles, deterministic paper geometry |
 | /images/social/tentang-kami.png | 1200×630 | 12852 | Official logo, repository titles, deterministic paper geometry |
 | /images/social/divisi.png | 1200×630 | 14064 | Official logo, repository titles, deterministic paper geometry |

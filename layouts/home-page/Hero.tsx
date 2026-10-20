@@ -34,7 +34,11 @@ export default function Hero({ id, className = "" }: HeroProps) {
                                 menciptakan inovasi yang berdampak nyata bagi
                                 seluruh civitas akademika.
                             </p>
-                            <Link className="button" href="/tentang-kami">
+                            <Link
+                                className="button"
+                                href="/tentang-kami"
+                                prefetch={false}
+                            >
                                 Kenali BEM Gen XVI{" "}
                                 <ArrowUpRight size={18} aria-hidden="true" />
                             </Link>
@@ -65,7 +69,8 @@ export default function Hero({ id, className = "" }: HeroProps) {
                                 BEM UMN GEN XVI
                             </span>
                             <Image
-                                src="/svgs/BEM_GEN_16_LOGO_DARK.svg"
+                                src="/images/cabinet-mark.webp"
+                                unoptimized
                                 className="hero-logo"
                                 width={2442}
                                 height={1130}
@@ -80,7 +85,11 @@ export default function Hero({ id, className = "" }: HeroProps) {
                             Program &amp; kegiatan{" "}
                             <ArrowDown size={16} aria-hidden="true" />
                         </a>
-                        <Link href="/divisi" className="text-link">
+                        <Link
+                            href="/divisi"
+                            className="text-link"
+                            prefetch={false}
+                        >
                             Divisi &amp; anggota{" "}
                             <ArrowUpRight size={16} aria-hidden="true" />
                         </Link>

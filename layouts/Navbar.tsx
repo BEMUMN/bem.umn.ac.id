@@ -45,11 +45,12 @@ export default function Navbar() {
                 <Link href="/" className="brand" onClick={() => setOpen(false)}>
                     <Image
                         className="brand-mark"
-                        src="/svgs/LOGO_BEM.svg"
+                        src="/images/bem-mark.webp"
                         alt=""
                         width={44}
                         height={44}
                         priority
+                        unoptimized
                     />
                     <span>
                         <span className="brand-name">BEM UMN</span>

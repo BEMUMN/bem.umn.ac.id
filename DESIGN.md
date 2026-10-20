@@ -17,6 +17,7 @@ Sumber implementasi: `app/globals.css`, bukan warna inline di komponen.
 - Steel #6D86A0, brown #6C4D38, camel #997953 disediakan untuk identitas resmi.
 - Kontras ink/paper 13.18:1, action/paper 7.43:1, white/action 9.26:1.
 - Display: Newsreader 400; text: Bricolage Grotesque 400–700. Self-hosted WOFF2 Latin, next/font/local, swap.
+- Newsreader retains its optical-size axis; Bricolage uses optical size 18 for the reading/UI face to avoid shipping unused optical variants.
 - Hero clamp(3.25rem, 7.4vw, 7.4rem), leading .98, tracking -.045em.
 - Section clamp(2.5rem, 5vw, 5rem), leading 1.05, tracking -.03em.
 - Title clamp(1.5rem, 2.3vw, 2.5rem), leading 1.15.
@@ -59,6 +60,12 @@ Profile uses a dated history spread, a dark vision/mission field, the official l
 ## Asset delivery
 
 One image-generated paper composition, real institutional photographs, unchanged official marks, and deterministic paper geometry for 404/social previews. ASSETS.md contains complete prompts, source/license records, file dimensions and sizes. Images use AVIF/WebP with local LQIP; social images are generated PNGs outside the page's critical render path.
+
+Small navigation and cabinet marks use proportionate lossless raster derivatives of the original SVGs. Large original files remain available and are retained in the institutional profile/footer where relevant. Hero links do not prefetch destination pages, leaving the initial mobile connection available for visible content.
+
+## Updating content
+
+Member records live in constants/divisionMembers.ts, divisions in constants/divisionIndex.ts, activities/programs in constants/workIndex.ts and contact channels in constants/contactIndex.ts. Institutional narrative stays in TentangKamiContent and AboutPreview. Replace source group photographs at their existing paths, then run scripts/assets/optimize.cjs. Update metadata/social previews with scripts/assets/generate.cjs. No animation logic needs editing for a new member or program.
 
 ## Do / don't
 

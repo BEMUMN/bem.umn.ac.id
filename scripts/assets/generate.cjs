@@ -61,6 +61,22 @@ async function main() {
             .png()
             .toBuffer();
     const manifest = [];
+    for (const [name, source, width] of [
+        ["bem-mark", "public/svgs/LOGO_BEM.svg", 128],
+        ["cabinet-mark", "public/svgs/BEM_GEN_16_LOGO_DARK.svg", 336],
+    ]) {
+        const info = await sharp(path.join(root, source))
+            .resize({ width })
+            .webp({ lossless: true })
+            .toFile(path.join(root, `public/images/${name}.webp`));
+        manifest.push({
+            file: `/images/${name}.webp`,
+            bytes: info.size,
+            width: info.width,
+            height: info.height,
+            source,
+        });
+    }
     // Geometry is fixed: no randomness or external assets are required.
     for (const [name, title, caption] of routes) {
         const background = Buffer.from(
