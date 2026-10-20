@@ -1,22 +1,49 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({
-    subsets: ["latin"],
+const appleGaramond = localFont({
+    src: [
+        {
+            path: "../public/fonts/AppleGaramond.ttf",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/AppleGaramond-Italic.ttf",
+            weight: "400",
+            style: "italic",
+        },
+    ],
+    variable: "--font-garamond",
     display: "swap",
-    variable: "--font-inter",
 });
 
-const lora = Lora({
-    subsets: ["latin"],
+const bricolageGrotesque = localFont({
+    src: [
+        {
+            path: "../public/fonts/Bricolage Grotesque Regular.ttf",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/Bricolage Grotesque Medium.ttf",
+            weight: "500",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/Bricolage Grotesque Bold.ttf",
+            weight: "700",
+            style: "normal",
+        },
+    ],
+    variable: "--font-bricolage",
     display: "swap",
-    variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
-    title: "BEM UMN | GEN XV",
-    description: "Official Website of BEM UMN GEN XV",
+    title: "BEM UMN | GEN XVI",
+    description: "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
 };
 
 export default function RootLayout({
@@ -25,9 +52,9 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="id">
             <body
-                className={`${inter.variable} ${lora.variable} no-select antialiased`}
+                className={`${appleGaramond.variable} ${bricolageGrotesque.variable} no-select antialiased`}
             >
                 {children}
             </body>

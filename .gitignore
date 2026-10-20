@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI coding agent configuration and local skills
+.agents/
+.agents/**
+AGENTS.MD
+AGENTS.md
+
+# Gemini local configuration (if present)
+.gemini/
+
+# Local development notes - do not commit
+/DEVELOPMENT_GUIDE.md
+/DEVELOPMENT_HANDOFF_18_OKTOBER_2026.md

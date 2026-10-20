@@ -1,155 +1,146 @@
 export type Member = {
+    id?: string;
     name: string;
     role: string;
-    imageUrl: string;
+    divisionId?: DivisionKey;
+    imageUrl?: string;
+    nim?: string;
+    major?: string;
+    quote?: string;
+    instagram?: string;
+    email?: string;
+    linkedin?: string;
 };
 
-export type DivisionKey = "BPH" | "PR" | "SUKMA" | "SUFAK" | "SUKM" | "SULSO";
+export type DivisionKey = "BPH" | "SUKM" | "SUFAK" | "SULSO" | "PR" | "SUKMA";
 
-export const divisionMembers: Record<
-    string,
-    { name: string; role: string; imageUrl: string }[]
-> = {
+export const divisionMembers: Record<DivisionKey, Member[]> = {
     BPH: [
         {
-            name: "Septia Rosa Tambunan",
+            name: "Josephin Narumi S.",
             role: "Ketua",
-            imageUrl: "/pngs/gallery/###.png",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Kevin Lim",
+            name: "Caroline Sandra C.",
             role: "Wakil Ketua",
-            imageUrl: "/pngs/gallery/###.png",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Romi Andreas",
-            role: "Sekretaris Bendahara I",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Nicho Febrianto",
+            role: "Sekretaris Bendahara 1",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Jonathan Cahyo Wisang Panjaitan",
-            role: "Sekretaris Bendahara II",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-    ],
-
-    PR: [
-        {
-            name: "Prajna Ananda Citra",
-            role: "PR Internal I",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Jeanice Caroliine",
-            role: "PR Internal II",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Andi Bintang Rihhadatul Aisy",
-            role: "PR Eksternal I",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Evelyn Tanata",
-            role: "PR Eksternal II",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Ranita Ivana Kols",
+            role: "Sekretaris Bendahara 2",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
     ],
 
-    SUKMA: [
+
+    SUKM: [
         {
-            name: "Edwin Valerio",
-            role: "Supervisor MAXIMA 2025",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Fransiscus NJ Marco",
+            role: "SUKM Sains & Sosial",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Phei In",
-            role: "Supervisor Mister & Miss UMN 20255",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Nobel Joseph T.",
+            role: "SUKM Olahraga",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Valerie Onassis Halim",
-            role: "Supervisor OMB UMN 2025",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Zahra Ariestya",
+            role: "SUKM Seni Budaya 1",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Samuel Matthew Samadikun",
-            role: "Supervisor UMN Festival 2025",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Angela Felicia Florenza",
-            role: "Supervisor STARLIGHT 2025",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Ladya Azka",
-            role: "Supervisor UMN ECO 2025",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Asri Ainun Utami",
+            role: "SUKM Seni Budaya 2",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
     ],
 
     SUFAK: [
         {
-            name: "Neisya Arsy Argya",
-            role: "Supervisor Fakultas Bisnis",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Josephin Narumi Setiawan",
-            role: "Supervisor Fakultas Teknik dan Informatika",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Indira Sukma Dewi",
-            role: "Supervisor Fakultas Ilmu Komunikasi",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Gabriel Imanullah Putra Pribowo",
-            role: "Supervisor Fakultas Seni dan Desain",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-    ],
-
-    SUKM: [
-        {
-            name: "El Jalaluddin Raaqi",
-            role: "Supervisor UKM Olahraga I",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
             name: "Rafly Tandean",
-            role: "Supervisor UKM Olahraga II",
-            imageUrl: "/pngs/gallery/###.png",
+            role: "SUFAK I'MKOM & FSD",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Reynaldo",
-            role: "Supersvisor UKM Sains dan Sosial",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Valerie Oryza",
+            role: "SUFAK Teknik & Informatika",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Debian Vinca Mawangi",
-            role: "Supervisor UKM Seni Budaya I",
-            imageUrl: "/pngs/gallery/###.png",
-        },
-        {
-            name: "Keira Nicole Fu",
-            role: "Supervisor UKM Seni Budaya II",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Helen Christian",
+            role: "SUFAK Bisnis",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
     ],
 
     SULSO: [
         {
-            name: "Ibrahim Zaidan",
-            role: "Supervisor Lembaga Semi Otonom dan Bazar I",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "M. Kynan Khalfani",
+            role: "Supervisor LSO",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+    ],
+
+    PR: [
+        {
+            name: "Velice Cathrina C.",
+            role: "PR Internal 1",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
         {
-            name: "Nicho Febrianto",
-            role: "Supervisor Lembaga Semi Otonom dan Bazar II",
-            imageUrl: "/pngs/gallery/###.png",
+            name: "Josyca Nauli P.",
+            role: "PR Internal 2",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Kevin Lim",
+            role: "PR Eksternal 1",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Excellin Alodia Joy",
+            role: "PR Eksternal 2",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+    ],
+
+    SUKMA: [
+        {
+            name: "Sonny Ferdinand",
+            role: "SUKMA MAXIMA",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Vassel Goleyu",
+            role: "SUKMA Mister & Miss UMN",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Cornellius Susanto",
+            role: "SUKMA UMN Festival",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Hanna Pauline H.",
+            role: "SUKMA Starlight",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Selena Clarisa L.",
+            role: "SUKMA UMN ECO",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
+        },
+        {
+            name: "Gven Carrey Gunawan",
+            role: "SUKMA OMB UMN",
+            imageUrl: "/pngs/members/anggota/tes_foto_anggota.webp",
         },
     ],
 };
