@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 
 const values = [
     {
@@ -52,7 +52,7 @@ export default function Values({ id }: { id: string }) {
                 <div className="values-list">
                     {values.map((value) => (
                         <article className="value-entry" key={value.name}>
-                            <Image
+                            <LocalImage
                                 src={`/svgs/${value.image}.svg`}
                                 alt={`Supergrafik ${value.name}`}
                                 width={80}

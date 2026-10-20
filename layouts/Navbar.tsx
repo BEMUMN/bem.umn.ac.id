@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import { usePathname } from "next/navigation";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navLinks } from "@/constants";
@@ -43,14 +43,13 @@ export default function Navbar() {
         <header className="site-header" ref={header}>
             <nav className="site-nav container" aria-label="Navigasi utama">
                 <Link href="/" className="brand" onClick={() => setOpen(false)}>
-                    <Image
+                    <LocalImage
                         className="brand-mark"
                         src="/images/bem-mark.webp"
                         alt=""
                         width={44}
                         height={44}
                         priority
-                        unoptimized
                     />
                     <span>
                         <span className="brand-name">BEM UMN</span>

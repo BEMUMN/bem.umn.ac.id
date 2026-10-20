@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { contactConfig } from "@/constants/contactIndex";
@@ -80,13 +80,13 @@ export default function Footer() {
                 </p>
                 <div className="footer-bottom">
                     <div className="footer-logos">
-                        <Image
+                        <LocalImage
                             src="/svgs/WHITE_LOGO_BEM.svg"
                             width={36}
                             height={50}
                             alt="BEM UMN"
                         />
-                        <Image
+                        <LocalImage
                             src="/svgs/LOGO_UMN_WHITE.svg"
                             width={40}
                             height={50}

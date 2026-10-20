@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -38,7 +38,7 @@ export default function AboutPreview({ id }: { id: string }) {
                             ide dan sudut pandang, mentransformasikannya menjadi
                             inovasi nyata bagi KBM UMN.”
                         </blockquote>
-                        <Image
+                        <LocalImage
                             src="/svgs/COLLABORATIVE_supergrafik_1.svg"
                             width={128}
                             height={128}

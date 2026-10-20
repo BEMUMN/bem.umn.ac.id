@@ -39,6 +39,7 @@ Audit, screenshots, Lighthouse report and source inventory: docs/redesign/before
 - Formatted edited source using the existing Prettier configuration. Full lint explicitly includes layouts, clearing all ten inherited warnings.
 - Performance follow-up: Newsreader reduced from 131,848 to 22,808 bytes with weight 400 and optical size 48 for display. Native picture/img renders pre-encoded photographs before hydration; LQIP is reserved for noncritical images. Save-Data is applied in the document head before the first paint.
 - Critical transfer follow-up: Bricolage reduced from 76,868 to 41,456 bytes with optical size 18 and variable weights 400–700. Small header/cabinet logos use lossless derivatives of unchanged official SVGs (8,124 and 11,864 bytes). Hero navigation no longer prefetches other pages during the initial load. A 720 px photograph derivative avoids oversized downloads on mid-DPR mobile screens.
+- Pre-encoded artwork and official SVGs use the small LocalImage component with native lazy loading, dimensions and priority hints. Next Image remains for future real individual portraits that need runtime sizing. Homepage first-load JavaScript is about 111 kB, down from 201 kB at baseline.
 
 ## Validation
 

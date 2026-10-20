@@ -47,6 +47,8 @@ node scripts/assets/generate.cjs
 
 Generator memakai sharp dan TypeScript yang sudah ada di dependency tree terkunci; tidak ada dependency tambahan atau perubahan lockfile. generate.cjs mengambil palet dari app/globals.css dan nama divisi dari constants/divisionIndex.ts. Geometri tetap, bukan acak. Versi encoder/font renderer berbeda dapat menghasilkan byte berbeda; source/palette/layout tetap sama. Tanpa master imagegen, optimize.cjs mempertahankan turunan yang dicatat. Gambar OG dapat memunculkan peringatan cache Fontconfig pada sandbox macOS, tetapi fontfile lokal diberikan eksplisit dan render sudah diperiksa.
 
+LocalImage merender aset yang sudah dioptimasi sebagai img native, dengan dimensi, alt, lazy loading dan preload untuk aset prioritas. Pengecualian lint no-img-element dibatasi pada komponen ini karena optimasi dilakukan saat pembuatan aset; alt tetap diwajibkan oleh tipe dan linter aksesibilitas. Next Image tetap menangani potret individu nyata jika ditambahkan ke data nanti.
+
 ## Manifest produksi terperinci
 
 Ukuran adalah byte file, bukan transfer gzip. Semua raster baru di bawah 150 KB. Foto teroptimasi maksimum 81,964 B. Inventaris sumber lama lengkap ada di docs/redesign/before/asset-inventory.json. SVG resmi di atas 15 KB dipertahankan byte-for-byte sebagai pengecualian demi keutuhan logo; berkas ini bukan aset baru.

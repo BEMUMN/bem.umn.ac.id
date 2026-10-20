@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import ResponsivePhoto from "@/components/ResponsivePhoto";
@@ -68,12 +68,11 @@ export default function Hero({ id, className = "" }: HeroProps) {
                                 <br />
                                 BEM UMN GEN XVI
                             </span>
-                            <Image
+                            <LocalImage
                                 src="/images/cabinet-mark.webp"
-                                unoptimized
                                 className="hero-logo"
-                                width={2442}
-                                height={1130}
+                                width={336}
+                                height={155}
                                 alt="Logo resmi Generasi XVI"
                             />
                         </figcaption>

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import { ArrowUpRight } from "lucide-react";
 import type { KegmaDetail } from "@/constants/workIndex";
 
@@ -15,13 +15,12 @@ export default function KegmaCard({ kegma, onClick }: Props) {
             aria-haspopup="dialog"
             aria-label={`Buka rincian kegiatan ${kegma.title}`}
         >
-            <Image
+            <LocalImage
                 src={logo}
                 alt=""
                 className="kegma-logo"
                 width={128}
                 height={128}
-                unoptimized
             />
             <div>
                 <h3>{kegma.title}</h3>

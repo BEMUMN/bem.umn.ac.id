@@ -1,4 +1,4 @@
-import Image from "next/image";
+import LocalImage from "@/components/LocalImage";
 import Link from "next/link";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import Navbar from "@/layouts/Navbar";
@@ -236,7 +236,7 @@ export default function TentangKamiContent() {
                 <section className="section container">
                     <div className="profile-spread">
                         <div className="profile-logo">
-                            <Image
+                            <LocalImage
                                 src="/svgs/BEM_GEN_16_LOGO_LIGHT.svg"
                                 width={2519}
                                 height={1166}
@@ -305,7 +305,7 @@ export default function TentangKamiContent() {
                         <div className="values-list">
                             {pillars.map((p) => (
                                 <article className="value-entry" key={p.title}>
-                                    <Image
+                                    <LocalImage
                                         src={p.supergraphic}
                                         width={80}
                                         height={80}
