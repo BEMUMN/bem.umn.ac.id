@@ -32,6 +32,8 @@ One signature: a paper plane opens over the hero photograph once, with transform
 
 Duration tokens: 120 ms press, 220 ms controls, 150 ms route, 640 ms hero, 900 ms photo. Easing cubic-bezier(.22,1,.36,1). No scroll interception or JS-dependent reveal visibility. `prefers-reduced-motion` and Save-Data remove expressive motion. Text remains visible on first paint.
 
+A small head script sets the Save-Data root attribute before first paint. Root hydration warning suppression is limited to that intentional attribute difference. The hero photograph uses native eager decoding without a client-controlled placeholder.
+
 ## Asset style lock
 
 Editorial folded-paper compositions derived from the idea of opening a shared page: broad rectangular sheets, deliberate creases and crisp edges, matte uncoated paper with restrained fine grain, navy #0F1E3F and blue #2F486D against linen #EEE5D9, with sparse azure #B3C3D1. Soft directional light from the upper left, shallow physical relief, generous negative space and asymmetric balance. Tactile, youthful and institutional; no lettering, logos, people, glossy surfaces or decorative blobs.

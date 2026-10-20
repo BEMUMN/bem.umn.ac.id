@@ -1,4 +1,3 @@
-import Image from "next/image";
 import placeholders from "@/constants/photo-placeholders.json";
 
 type Props = {
@@ -27,17 +26,24 @@ export default function ResponsivePhoto({
             )
             .join(", ");
     return (
-        <picture className={className}>
+        <picture
+            className={`responsive-photo ${className ?? ""}`}
+            style={
+                eager
+                    ? undefined
+                    : {
+                          backgroundImage: `url("${placeholders[name as keyof typeof placeholders]}")`,
+                      }
+            }
+        >
             <source type="image/avif" srcSet={srcSet("avif")} sizes={sizes} />
             <source type="image/webp" srcSet={srcSet("webp")} sizes={sizes} />
-            <Image
+            <img
                 src={`/images/${name}-960.webp`}
                 alt={alt}
                 width={width}
                 height={height}
-                unoptimized
-                placeholder="blur"
-                blurDataURL={placeholders[name as keyof typeof placeholders]}
+                decoding={eager ? "sync" : "async"}
                 loading={eager ? "eager" : "lazy"}
                 fetchPriority={eager ? "high" : undefined}
             />

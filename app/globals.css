@@ -393,6 +393,12 @@
     padding-block: var(--space-3);
     font-size: var(--type-title);
 }
+.responsive-photo {
+    display: block;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+}
 .hero {
     position: relative;
     padding-top: var(--space-7);

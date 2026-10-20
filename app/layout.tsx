@@ -7,7 +7,7 @@ const newsreader = localFont({
     src: "../public/fonts/redesign/newsreader-latin.woff2",
     variable: "--font-newsreader",
     display: "swap",
-    weight: "400 600",
+    weight: "400",
 });
 const bricolage = localFont({
     src: "../public/fonts/redesign/bricolage-grotesque-latin.woff2",
@@ -43,7 +43,14 @@ export default function RootLayout({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="id">
+        <html lang="id" suppressHydrationWarning>
+            <head>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: "try{if(navigator.connection?.saveData)document.documentElement.setAttribute('data-save-data','')}catch{}",
+                    }}
+                />
+            </head>
             <body className={`${newsreader.variable} ${bricolage.variable}`}>
                 <a className="skip-link" href="#main-content">
                     Langsung ke konten

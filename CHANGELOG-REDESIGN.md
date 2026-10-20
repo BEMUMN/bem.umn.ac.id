@@ -37,6 +37,7 @@ Audit, screenshots, Lighthouse report and source inventory: docs/redesign/before
 - AVIF/WebP picture sources, real-width srcset descriptors, LQIP, explicit dimensions, image priority and lazy loading. Asset provenance, prompts, reproduction and exact sizes are in ASSETS.md.
 - Removed three unreferenced legacy UI modules (Gallery, Member, MemberSwiper), including the gallery pointing to absent JPGs. Original data and source assets remain; installed libraries and lockfile remain unchanged.
 - Formatted edited source using the existing Prettier configuration. Full lint explicitly includes layouts, clearing all ten inherited warnings.
+- Performance follow-up: Newsreader reduced from 131,848 to 57,268 bytes by retaining only the used weight and optical-size axis. Native picture/img renders pre-encoded photographs before hydration; LQIP is reserved for noncritical images. Save-Data is applied in the document head before the first paint.
 
 ## Validation
 
