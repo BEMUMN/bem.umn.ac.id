@@ -54,3 +54,5 @@ Potret disimpan di `public/pngs/members/anggota/<divisi>/` dan dipetakan melalui
 Untuk memeriksa pemetaan dan interaksi foto, jalankan `scripts/qa/member-photos.cjs` dengan variabel lingkungan Playwright/Chrome seperti contoh di atas. Hasilnya disimpan di `coverage/member-photos/`.
 
 Pemeriksaan UI: `scripts/qa/original-polish.cjs` mencakup 10 halaman pada lima lebar layar. `scripts/qa/ui-polish.cjs` memeriksa pencarian pengurus, pemulihan fokus, filter kegiatan, dialog, dan kategori beranda. Keduanya memakai variabel lingkungan alat yang sama seperti contoh di atas.
+
+Foto grup divisi memakai crop tampilan yang diatur per divisi di `components/DivisionPhoto.tsx`. File asli tidak diubah; pengguna dapat membuka foto utuh atau ukuran aslinya. Pemeriksaan komponen ini tersedia melalui `scripts/qa/division-photos.cjs`, dengan hasil di `coverage/division-photos/`.

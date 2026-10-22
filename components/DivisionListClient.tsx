@@ -8,7 +8,7 @@ import { MemberRoster } from "@/components/MemberRoster";
 import { DivisionHeader } from "@/components/DivisionHeader";
 import { MemberDetailModal } from "@/components/MemberDetailModal";
 import { Member } from "@/constants/divisionMembers";
-import { ArrowLeft, Calendar, Layers, Shield } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 
 type DivisionListPageProps = {
     divisions: DivisionItem[];
@@ -187,126 +187,47 @@ export const DivisionListClient = ({
                     LEVEL 1: TAMPILAN 6 DIVISI (TIER 1 BPH & TIER 2 W-FORMATION)
                    ======================================================== */}
                 {!activeDivisionId && (
-                    <div className="mx-auto mt-14 max-w-7xl space-y-16 px-4 sm:px-6 lg:px-8">
-                        {/* ----------------------------------------------------
-                            TIER 1: CORE EXECUTIVE (BPH) — FEATURED ANCHOR
-                           ---------------------------------------------------- */}
-                        {bphDivision && (
-                            <section>
-                                <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
-                                    <div className="text-pale-taupe flex items-center gap-2 font-sans text-xs font-bold tracking-widest uppercase">
-                                        <Shield
-                                            size={14}
-                                            className="text-camel-brown"
-                                        />
-                                        <span>
-                                            Tier 01 • Inti Pimpinan Eksekutif
-                                        </span>
-                                    </div>
-                                    <span className="text-concrete/60 font-sans text-[11px]">
-                                        Fokus Kebijakan, Legalitas, &amp;
-                                        Finansial
-                                    </span>
-                                </div>
-
-                                <DivisionCard
-                                    division={bphDivision}
-                                    variant="featured"
-                                    onSelect={handleSelectDivision}
-                                    clusterBadge="Pimpinan Tertinggi Eksekutif"
-                                />
-                            </section>
-                        )}
-
-                        {/* ----------------------------------------------------
-                            TIER 2: SAYAP OPERASIONAL & PENGAWASAN (W-FORMATION)
-                           ---------------------------------------------------- */}
-                        <section>
-                            <div className="mb-8 flex flex-col justify-between gap-2 border-b border-white/10 pb-4 sm:flex-row sm:items-end">
-                                <div>
-                                    <div className="text-pale-taupe flex items-center gap-2 font-sans text-xs font-bold tracking-widest uppercase">
-                                        <Layers
-                                            size={14}
-                                            className="text-camel-brown"
-                                        />
-                                        <span>
-                                            Tier 02 • Sayap Pengawasan &amp;
-                                            Relasi Publik
-                                        </span>
-                                    </div>
-                                    <h2 className="mt-2 font-serif text-2xl font-bold text-white sm:text-3xl">
-                                        Lima Pilar Pelaksana Lembaga
-                                    </h2>
-                                    <p className="text-concrete/75 mt-1 font-sans text-xs sm:text-sm">
-                                        Membina seluruh rumpun himpunan, UKM,
-                                        LSO, kegiatan mahasiswa, dan diplomasi
-                                        publik kampus secara setara.
-                                    </p>
-                                </div>
-                                <span className="border-camel-brown/40 text-pale-taupe self-start rounded-full border bg-white/5 px-3 py-1 font-sans text-xs font-semibold sm:self-auto">
-                                    5 Divisi Setara
-                                </span>
-                            </div>
-
-                            {/* FORMASI HURUF "W" (3 Kartu di Baris Atas, 2 Kartu di Sela-Sela Bawah) */}
-                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6 lg:gap-8">
-                                {/* Baris Atas Kolom 1-2: 02. SUKM */}
-                                {tier2Divisions[0] && (
-                                    <div className="md:col-span-1 lg:col-span-2">
-                                        <DivisionCard
-                                            division={tier2Divisions[0]}
-                                            indexNumber="02"
-                                            onSelect={handleSelectDivision}
-                                        />
-                                    </div>
-                                )}
-
-                                {/* Baris Atas Kolom 3-4: 03. SUFAK */}
-                                {tier2Divisions[1] && (
-                                    <div className="md:col-span-1 lg:col-span-2">
-                                        <DivisionCard
-                                            division={tier2Divisions[1]}
-                                            indexNumber="03"
-                                            onSelect={handleSelectDivision}
-                                        />
-                                    </div>
-                                )}
-
-                                {/* Baris Atas Kolom 5-6: 04. SULSO */}
-                                {tier2Divisions[2] && (
-                                    <div className="md:col-span-1 lg:col-span-2">
-                                        <DivisionCard
-                                            division={tier2Divisions[2]}
-                                            indexNumber="04"
-                                            onSelect={handleSelectDivision}
-                                        />
-                                    </div>
-                                )}
-
-                                {/* Baris Bawah Di Antara Kartu 1 & 2: 05. SUKMA (lg:col-start-2 lg:col-span-2) */}
-                                {tier2Divisions[3] && (
-                                    <div className="md:col-span-1 lg:col-span-2 lg:col-start-2">
-                                        <DivisionCard
-                                            division={tier2Divisions[3]}
-                                            indexNumber="05"
-                                            onSelect={handleSelectDivision}
-                                        />
-                                    </div>
-                                )}
-
-                                {/* Baris Bawah Di Antara Kartu 2 & 3: 06. PR (lg:col-start-4 lg:col-span-2) */}
-                                {tier2Divisions[4] && (
-                                    <div className="w-full md:col-span-2 md:mx-auto md:max-w-md lg:col-span-2 lg:col-start-4 lg:mx-0 lg:max-w-none">
-                                        <DivisionCard
-                                            division={tier2Divisions[4]}
-                                            indexNumber="06"
-                                            onSelect={handleSelectDivision}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        </section>
-                    </div>
+                    <section
+                        className="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8"
+                        aria-label="Daftar divisi BEM UMN"
+                    >
+                        <div className="mb-6 flex flex-wrap items-end justify-between gap-3 border-b border-white/10 pb-4">
+                            <h2 className="font-serif text-2xl text-white sm:text-3xl">
+                                Kenali Divisi Kami
+                            </h2>
+                            <p className="text-azure text-xs">
+                                Pilih foto untuk memperbesar, atau buka daftar
+                                pengurus.
+                            </p>
+                        </div>
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+                            {[bphDivision, ...tier2Divisions]
+                                .filter((division): division is DivisionItem =>
+                                    Boolean(division),
+                                )
+                                .map((division, index) => (
+                                    <DivisionCard
+                                        key={division.id}
+                                        division={division}
+                                        variant={
+                                            index === 0
+                                                ? "featured"
+                                                : "standard"
+                                        }
+                                        indexNumber={String(index + 1).padStart(
+                                            2,
+                                            "0",
+                                        )}
+                                        clusterBadge={
+                                            index === 0
+                                                ? "Inti Pimpinan Eksekutif"
+                                                : undefined
+                                        }
+                                        onSelect={handleSelectDivision}
+                                    />
+                                ))}
+                        </div>
+                    </section>
                 )}
 
                 {/* ========================================================

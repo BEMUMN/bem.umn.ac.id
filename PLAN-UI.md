@@ -61,7 +61,7 @@ Tujuan: pengguna cepat membedakan KEGMA dan program kerja serta membuka rinciann
 
 ## Hasil penerapan
 
-- Header divisi bersama menampilkan foto grup utuh; pencarian anggota dan hasil kosong konsisten pada direktori maupun halaman detail. Tombol kembali memulihkan fokus.
+- Header divisi bersama menampilkan foto grup besar dengan crop per divisi dan akses foto utuh; pencarian anggota dan hasil kosong konsisten pada direktori maupun halaman detail. Tombol kembali memulihkan fokus.
 - Hero lebih jelas, ruang pada layar pendek disesuaikan, dan jarak section serta bayangan dikurangi. Logo, font, warna navy, foto, dan urutan section dipertahankan.
 - Kartu KEGMA memakai susunan logo/judul/ringkasan yang seragam; kartu program kerja sejajar. Filter kategori memiliki status aktif dan hasil kosong yang benar untuk setiap kategori.
 - Dialog kegiatan memakai fokus keyboard, Escape, backdrop, dan pemulihan fokus. Footer serta tautan navigasi diperjelas; jumlah pengurus diturunkan dari data aktif, bukan angka tetap.
@@ -69,3 +69,5 @@ Tujuan: pengguna cepat membedakan KEGMA dan program kerja serta membuka rinciann
 - Bukti visual lokal berada di `coverage/ui-polish/` (diabaikan Git); skrip pemeriksaan ada di `scripts/qa/`.
 
 Validasi: build dan lint lulus tanpa warning; 50 kombinasi halaman/viewport lulus; 22 profil dan 41 foto diperiksa pada enam divisi; alur pencarian, filter, dialog, serta keyboard diperiksa pada 320 dan 1440 px. Pengujian browser menggunakan Chrome lokal.
+
+Penyempurnaan foto divisi: enam kartu ditampilkan dalam dua kolom pada tablet/desktop, dengan foto sebagai bidang utama di atas teks. Crop 4:3 pada kartu dan 16:9 pada header desktop mengurangi ruang kosong; semua wajah diperiksa secara visual. Foto utuh dapat dibuka melalui dialog dan tautan ukuran asli. Build/lint serta pemeriksaan enam foto pada lima lebar layar lulus.
