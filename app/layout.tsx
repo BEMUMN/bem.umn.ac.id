@@ -54,7 +54,7 @@ export default function RootLayout({
     return (
         <html lang="id">
             <body
-                className={`${appleGaramond.variable} ${bricolageGrotesque.variable} no-select antialiased`}
+                className={`${appleGaramond.variable} ${bricolageGrotesque.variable} antialiased`}
             >
                 {children}
             </body>

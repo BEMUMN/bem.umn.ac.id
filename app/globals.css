@@ -31,6 +31,7 @@ body {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-dark-blue: var(--navy-dark);
+    --color-navy-dark: var(--navy-dark);
     --color-blue-primary: var(--navy-blue);
     --color-steel-blue: var(--steel-blue);
     --color-azure: var(--azure);
@@ -165,5 +166,24 @@ html.lenis {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
+    }
+}
+
+/* Small refinements to the original dark identity. */
+html { scroll-padding-top: 7rem; }
+:focus-visible { outline: 2px solid var(--azure); outline-offset: 4px; }
+nav a[aria-current="page"] { border-color: var(--azure); background-color: var(--navy-dark); }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+#hero { min-height: 100svh; }
+@media (max-width: 639px) {
+    #tentang, #nilai, #kegiatan { padding-block: 4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

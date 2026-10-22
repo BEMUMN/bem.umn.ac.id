@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Menu, X } from "lucide-react";
@@ -15,6 +16,28 @@ const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [visible, setVisible] = useState(true);
     const lastScrollY = useRef(0);
+    const headerRef = useRef<HTMLElement>(null);
+    const toggleRef = useRef<HTMLButtonElement>(null);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        if (!mobileMenuOpen) return;
+        const onKey = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setMobileMenuOpen(false);
+                toggleRef.current?.focus();
+            }
+        };
+        const onPointer = (event: PointerEvent) => {
+            if (!headerRef.current?.contains(event.target as Node)) setMobileMenuOpen(false);
+        };
+        document.addEventListener("keydown", onKey);
+        document.addEventListener("pointerdown", onPointer);
+        return () => {
+            document.removeEventListener("keydown", onKey);
+            document.removeEventListener("pointerdown", onPointer);
+        };
+    }, [mobileMenuOpen]);
 
     // Deteksi arah scroll untuk slide-out saat scroll ke bawah dan slide-in saat scroll ke atas
     useEffect(() => {
@@ -48,6 +71,7 @@ const Navbar = () => {
     }, []);
 
     useGSAP(() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
         const navTween = gsap.timeline({
             scrollTrigger: {
                 trigger: "main",
@@ -71,6 +95,8 @@ const Navbar = () => {
 
     return (
         <header
+            ref={headerRef}
+            onFocusCapture={() => setVisible(true)}
             className={`fixed top-0 left-0 z-50 w-full px-4 pt-4 md:px-8 md:pt-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
                 isVisible ? "translate-y-0" : "-translate-y-full pointer-events-none"
             }`}
@@ -84,7 +110,7 @@ const Navbar = () => {
                 <Link
                     href="/"
                     aria-label="Kembali ke Beranda BEM UMN"
-                    className="group flex items-center gap-3 transition-opacity hover:opacity-90"
+                    className="group flex min-w-0 items-center gap-2 sm:gap-3 transition-opacity hover:opacity-90"
                 >
                     <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 p-1 ring-1 ring-white/30 transition group-hover:scale-105 md:h-12 md:w-12">
                         <Image
@@ -97,10 +123,10 @@ const Navbar = () => {
                         />
                     </div>
                     <div className="flex flex-col text-left font-sans">
-                        <span className="text-xs font-bold tracking-wide text-white drop-shadow-sm sm:text-sm md:text-base">
+                        <span className="text-[10px] font-bold tracking-wide text-white drop-shadow-sm sm:text-sm md:text-base">
                             Badan Eksekutif Mahasiswa
                         </span>
-                        <span className="text-[10px] font-medium tracking-wider text-azure/90 sm:text-xs">
+                        <span className="text-[9px] font-medium tracking-wider text-azure/90 sm:text-xs">
                             Universitas Multimedia Nusantara
                         </span>
                     </div>
@@ -112,7 +138,8 @@ const Navbar = () => {
                         <li key={link.id}>
                             <Link
                                 href={link.href}
-                                className="inline-flex w-32 items-center justify-center rounded-full border border-azure/30 bg-blue-primary/60 py-2.5 font-sans text-xs font-semibold tracking-wider text-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white hover:bg-dark-blue hover:shadow-md active:scale-95"
+                                aria-current={pathname === link.href ? "page" : undefined}
+                                className="inline-flex min-h-11 w-28 xl:w-32 items-center justify-center rounded-full border border-azure/30 bg-blue-primary/60 py-2.5 font-sans text-xs font-semibold tracking-wider text-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white hover:bg-dark-blue hover:shadow-md active:scale-95"
                             >
                                 {link.label}
                             </Link>
@@ -124,9 +151,12 @@ const Navbar = () => {
                 <div className="flex lg:hidden">
                     <button
                         type="button"
+                        ref={toggleRef}
+                        aria-expanded={mobileMenuOpen}
+                        aria-controls="mobile-navigation"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        aria-label="Buka menu navigasi"
-                        className="rounded-full border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/20 active:scale-95"
+                        aria-label={mobileMenuOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+                        className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/20 active:scale-95"
                     >
                         {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
@@ -135,14 +165,15 @@ const Navbar = () => {
 
             {/* Mobile Dropdown Menu */}
             {mobileMenuOpen && (
-                <div className="mx-auto mt-2 max-w-sm rounded-3xl border border-white/20 bg-dark-blue/95 p-4 shadow-2xl backdrop-blur-2xl lg:hidden">
+                <div id="mobile-navigation" className="mx-auto mt-2 max-w-sm rounded-3xl border border-white/20 bg-dark-blue/95 p-4 shadow-2xl backdrop-blur-2xl lg:hidden">
                     <ul className="flex flex-col gap-2">
                         {navLinks.map((link) => (
                             <li key={link.id}>
                                 <Link
                                     href={link.href}
+                                aria-current={pathname === link.href ? "page" : undefined}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="flex w-full items-center justify-center rounded-full border border-azure/20 bg-blue-primary/40 py-2.5 font-sans text-sm font-semibold tracking-wide text-white transition hover:bg-blue-primary hover:text-white"
+                                    className="flex min-h-11 w-full items-center justify-center rounded-full border border-azure/20 bg-blue-primary/40 py-2.5 font-sans text-sm font-semibold tracking-wide text-white transition hover:bg-blue-primary hover:text-white"
                                 >
                                     {link.label}
                                 </Link>

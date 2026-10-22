@@ -35,7 +35,7 @@ export default function Home() {
         const lenis = new Lenis({
             duration: 0.8,
             smoothWheel: true,
-            syncTouch: true,
+            syncTouch: false,
             gestureOrientation: "vertical",
             lerp: 0.1,
             wheelMultiplier: 0.6,
@@ -83,60 +83,15 @@ export default function Home() {
                 },
             });
 
-            // Animasi Konten Alami Saat Scroll (Slide-in/Fade-in saat masuk, Slide-out/Fade-out saat keluar)
-            const revealElements = gsap.utils.toArray<HTMLElement>(".scroll-reveal");
-
-            revealElements.forEach((el) => {
-                const rect = el.getBoundingClientRect();
-                const inInitialView = rect.top < window.innerHeight && rect.bottom > 0;
-
-                // Elemen yang sudah ada di viewport saat load langsung tampil tanpa flash
-                if (!inInitialView) {
-                    gsap.set(el, { opacity: 0, y: 35 });
-                } else {
-                    gsap.set(el, { opacity: 1, y: 0 });
-                }
-
-                ScrollTrigger.create({
-                    trigger: el,
-                    start: "top 88%",
-                    end: "bottom 12%",
-                    onEnter: () => {
-                        gsap.to(el, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.7,
-                            ease: "power2.out",
-                            overwrite: "auto",
-                        });
-                    },
-                    onLeave: () => {
-                        gsap.to(el, {
-                            opacity: 0,
-                            y: -25,
-                            duration: 0.5,
-                            ease: "power2.in",
-                            overwrite: "auto",
-                        });
-                    },
-                    onEnterBack: () => {
-                        gsap.to(el, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.7,
-                            ease: "power2.out",
-                            overwrite: "auto",
-                        });
-                    },
-                    onLeaveBack: () => {
-                        gsap.to(el, {
-                            opacity: 0,
-                            y: 35,
-                            duration: 0.5,
-                            ease: "power2.in",
-                            overwrite: "auto",
-                        });
-                    },
+            // Reveal once; keep content readable when revisiting a section.
+            gsap.utils.toArray<HTMLElement>(".scroll-reveal").forEach((el) => {
+                if (el.getBoundingClientRect().top < window.innerHeight) return;
+                gsap.from(el, {
+                    opacity: 0,
+                    y: 24,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    scrollTrigger: { trigger: el, start: "top 92%", once: true },
                 });
             });
 

@@ -98,14 +98,14 @@ export default function KegiatanClient({
                         <div
                             role="tablist"
                             aria-label="Kategori Kegiatan & Program Kerja"
-                            className="inline-flex rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-md"
+                            className="inline-flex flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-md"
                         >
                             <button
                                 type="button"
                                 role="tab"
                                 aria-selected={activeTab === "all"}
                                 onClick={() => setActiveTab("all")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
                                     activeTab === "all"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"
@@ -123,7 +123,7 @@ export default function KegiatanClient({
                                 role="tab"
                                 aria-selected={activeTab === "kegma"}
                                 onClick={() => setActiveTab("kegma")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
                                     activeTab === "kegma"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"
@@ -141,7 +141,7 @@ export default function KegiatanClient({
                                 role="tab"
                                 aria-selected={activeTab === "proker"}
                                 onClick={() => setActiveTab("proker")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
                                     activeTab === "proker"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"

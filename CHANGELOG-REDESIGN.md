@@ -1,3 +1,5 @@
+> Historical record: the Lembar Terbuka redesign was superseded at the user’s request. The active UI restores the original design with small refinements; see [current notes](docs/original-polish/README.md). Performance scores below describe the previous redesign, not the restored UI.
+
 # Redesign changelog
 
 ## Scope

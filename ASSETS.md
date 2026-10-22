@@ -1,3 +1,5 @@
+> Historical record: the Lembar Terbuka redesign was superseded at the user’s request. The active UI restores the original design with small refinements; see [current notes](docs/original-polish/README.md). Performance scores below describe the previous redesign, not the restored UI.
+
 # Manifest aset — Lembar Terbuka
 
 Semua aset produksi disimpan lokal. Tidak ada hotlink, stok baru, wajah sintetis, atau dokumentasi kegiatan buatan. Foto dan identitas resmi bersumber dari repo pada commit 3227a0d; hak atas materi institusi tetap mengikuti sumber semula, bukan diklaim sebagai aset bebas.

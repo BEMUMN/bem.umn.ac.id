@@ -11,7 +11,7 @@ const Hero = ({ id, className }: HeroProps) => {
     return (
         <section
             id={id}
-            className={`relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden px-4 pt-28 pb-10 sm:px-6 md:pt-36 ${className}`}
+            className={`relative isolate flex min-h-screen w-full flex-col items-center justify-between overflow-hidden px-4 pt-28 pb-10 sm:px-6 md:pt-36 ${className}`}
         >
             {/* Latar Belakang Pelantikan dengan Gradasi & Tekstur */}
             <div className="absolute inset-0 -z-20">
@@ -42,7 +42,7 @@ const Hero = ({ id, className }: HeroProps) => {
             {/* CENTER CONTENT */}
             <div className="scroll-reveal relative z-10 my-auto flex w-full max-w-5xl flex-col items-center text-center">
                 {/* Floating Micro-Badge */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/10 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase shadow-lg backdrop-blur-md">
+                <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/10 px-4 py-1.5 font-sans text-[10px] leading-relaxed sm:text-xs font-semibold tracking-wider text-pale-taupe uppercase shadow-lg backdrop-blur-md">
                     <Sparkles size={14} className="animate-pulse text-camel-brown" />
                     <span>Universitas Multimedia Nusantara • Kabinet Generasi XVI</span>
                 </div>
