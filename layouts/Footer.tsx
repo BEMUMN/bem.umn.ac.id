@@ -53,10 +53,10 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
 
 const Footer = () => {
     return (
-        <footer className="relative mt-24 w-full border-t border-white/15 bg-gradient-to-b from-navy-dark via-dark-blue to-[#081226] text-white overflow-hidden">
+        <footer className="from-navy-dark via-dark-blue relative mt-24 w-full overflow-hidden border-t border-white/15 bg-gradient-to-b to-[#081226] text-white">
             {/* Latar Belakang Tekstur GSM Halus */}
             <div
-                className="absolute inset-0 opacity-10 pointer-events-none"
+                className="pointer-events-none absolute inset-0 opacity-10"
                 style={{
                     backgroundImage: `url('/pngs/texture/ASSET.webp')`,
                     backgroundRepeat: "repeat",
@@ -66,19 +66,19 @@ const Footer = () => {
             />
 
             {/* Subtle Gradient Glow Bar di Bagian Atas */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-azure/60 to-transparent" />
+            <div className="via-azure/60 absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+            <div className="relative z-10 mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6 lg:px-8">
                 {/* GRID UTAMA 4 KOLOM */}
                 <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
                     {/* KOLOM 1: IDENTITAS LEMBAGA & CO-BRANDING (Span 4) */}
-                    <div className="lg:col-span-4 flex flex-col justify-between">
+                    <div className="flex flex-col justify-between lg:col-span-4">
                         <div>
                             {/* Logo Co-branding BEM UMN & Universitas Multimedia Nusantara */}
                             <div className="flex items-center gap-4">
                                 <Link
                                     href="/"
-                                    className="group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-azure rounded-xl p-1"
+                                    className="group focus-visible:ring-azure flex items-center gap-2.5 rounded-xl p-1 focus:outline-none focus-visible:ring-2"
                                     aria-label="Kembali ke Beranda BEM UMN"
                                 >
                                     <Image
@@ -92,7 +92,7 @@ const Footer = () => {
                                         <span className="font-serif text-sm font-bold tracking-wider text-white">
                                             BEM UMN
                                         </span>
-                                        <span className="font-sans text-[10px] font-bold text-azure tracking-widest uppercase">
+                                        <span className="text-azure font-sans text-[10px] font-bold tracking-widest uppercase">
                                             GEN XVI
                                         </span>
                                     </div>
@@ -111,12 +111,15 @@ const Footer = () => {
                                 </div>
                             </div>
 
-                            <p className="mt-4 font-sans text-xs leading-relaxed text-concrete/80 max-w-sm">
+                            <p className="text-concrete/80 mt-4 max-w-sm font-sans text-sm leading-6">
                                 {contactConfig.description}
                             </p>
 
-                            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-3 py-1 font-sans text-[11px] font-semibold text-pale-taupe">
-                                <Sparkles size={12} className="text-camel-brown" />
+                            <div className="border-camel-brown/40 text-pale-taupe mt-4 inline-flex items-center gap-2 rounded-full border bg-white/5 px-3 py-1 font-sans text-[11px] font-semibold">
+                                <Sparkles
+                                    size={12}
+                                    className="text-camel-brown"
+                                />
                                 <span>{contactConfig.tagline}</span>
                             </div>
                         </div>
@@ -124,15 +127,15 @@ const Footer = () => {
 
                     {/* KOLOM 2: NAVIGASI CEPAT (Span 2) */}
                     <div className="lg:col-span-2">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
+                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
                             Navigasi
                         </span>
-                        <ul className="mt-4 space-y-2.5 font-sans text-xs text-concrete/85">
+                        <ul className="text-concrete/85 mt-3 space-y-0 font-sans text-xs">
                             {navLinks.map((link) => (
                                 <li key={link.id}>
                                     <Link
                                         href={link.href}
-                                        className="inline-flex items-center gap-1.5 transition-colors hover:text-azure focus:outline-none focus-visible:text-azure focus-visible:underline"
+                                        className="hover:text-azure focus-visible:text-azure inline-flex min-h-11 items-center gap-1.5 transition-colors focus:outline-none focus-visible:underline"
                                     >
                                         <span className="text-white/40">›</span>
                                         <span>{link.label}</span>
@@ -144,18 +147,21 @@ const Footer = () => {
 
                     {/* KOLOM 3: SEKRETARIAT & KANAL KONTAK (Span 3) */}
                     <div className="lg:col-span-3">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
+                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
                             Sekretariat &amp; Kontak
                         </span>
 
                         {/* Alamat Resmi Kampus */}
-                        <div className="mt-4 flex items-start gap-2.5 text-xs text-concrete/85">
-                            <MapPin size={16} className="shrink-0 text-azure mt-0.5" />
+                        <div className="text-concrete/85 mt-4 flex items-start gap-2.5 text-xs">
+                            <MapPin
+                                size={16}
+                                className="text-azure mt-0.5 shrink-0"
+                            />
                             <div className="font-sans leading-relaxed">
-                                <strong className="text-white block font-medium">
+                                <strong className="block font-medium text-white">
                                     {contactConfig.address.campus}
                                 </strong>
-                                <span className="text-[11px] text-concrete/75 block mt-0.5">
+                                <span className="text-concrete/75 mt-0.5 block text-[11px]">
                                     {contactConfig.address.full}
                                 </span>
                             </div>
@@ -168,13 +174,22 @@ const Footer = () => {
                                     key={ch.id}
                                     className="flex items-center justify-between gap-2 font-sans text-xs"
                                 >
-                                    <div className="flex items-center gap-2 text-concrete/80">
-                                        {ch.id === "line" && <LineIcon className="w-3.5 h-3.5 text-azure" />}
-                                        {ch.id === "email" && <Mail size={14} className="text-azure" />}
-                                        {ch.id === "whatsapp" && <WhatsAppIcon className="w-3.5 h-3.5 text-azure" />}
+                                    <div className="text-concrete/80 flex items-center gap-2">
+                                        {ch.id === "line" && (
+                                            <LineIcon className="text-azure h-3.5 w-3.5" />
+                                        )}
+                                        {ch.id === "email" && (
+                                            <Mail
+                                                size={14}
+                                                className="text-azure"
+                                            />
+                                        )}
+                                        {ch.id === "whatsapp" && (
+                                            <WhatsAppIcon className="text-azure h-3.5 w-3.5" />
+                                        )}
                                         <span>{ch.name}:</span>
                                     </div>
-                                    <span className="rounded-md bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-pale-taupe/90">
+                                    <span className="text-pale-taupe/90 rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium">
                                         {ch.value}
                                     </span>
                                 </div>
@@ -184,32 +199,54 @@ const Footer = () => {
 
                     {/* KOLOM 4: MEDIA SOSIAL RESMI (Span 3) */}
                     <div className="lg:col-span-3">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
+                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
                             Media Sosial Resmi
                         </span>
-                        <p className="mt-2 font-sans text-[11px] text-concrete/70">
-                            Ikuti publikasi dan agenda resmi BEM UMN Gen XVI melalui kanal berikut:
+                        <p className="text-concrete/70 mt-2 font-sans text-[11px]">
+                            Ikuti publikasi dan agenda resmi BEM UMN Gen XVI
+                            melalui kanal berikut:
                         </p>
 
                         <div className="mt-4 grid grid-cols-2 gap-2.5">
                             {contactConfig.socials.map((s) => {
-                                const isExternal = !s.isPlaceholder && s.href !== "#";
+                                const isExternal =
+                                    !s.isPlaceholder && s.href !== "#";
 
                                 const content = (
                                     <>
                                         <div className="flex items-center gap-2">
-                                            {s.id === "instagram" && <Instagram size={15} className="text-azure" />}
-                                            {s.id === "linkedin" && <Linkedin size={15} className="text-azure" />}
-                                            {s.id === "tiktok" && <TikTokIcon className="w-3.5 h-3.5 text-azure" />}
-                                            {s.id === "facebook" && <Facebook size={15} className="text-azure" />}
+                                            {s.id === "instagram" && (
+                                                <Instagram
+                                                    size={15}
+                                                    className="text-azure"
+                                                />
+                                            )}
+                                            {s.id === "linkedin" && (
+                                                <Linkedin
+                                                    size={15}
+                                                    className="text-azure"
+                                                />
+                                            )}
+                                            {s.id === "tiktok" && (
+                                                <TikTokIcon className="text-azure h-3.5 w-3.5" />
+                                            )}
+                                            {s.id === "facebook" && (
+                                                <Facebook
+                                                    size={15}
+                                                    className="text-azure"
+                                                />
+                                            )}
                                             <span className="font-sans text-xs font-semibold text-white">
                                                 {s.name}
                                             </span>
                                         </div>
                                         {isExternal ? (
-                                            <ArrowUpRight size={13} className="text-azure/80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                                            <ArrowUpRight
+                                                size={13}
+                                                className="text-azure/80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                            />
                                         ) : (
-                                            <span className="text-[9px] font-sans font-medium text-pale-taupe/70 bg-white/5 px-1.5 py-0.5 rounded">
+                                            <span className="text-pale-taupe/70 rounded bg-white/5 px-1.5 py-0.5 font-sans text-[9px] font-medium">
                                                 Segera
                                             </span>
                                         )}
@@ -224,7 +261,7 @@ const Footer = () => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             aria-label={s.ariaLabel}
-                                            className="group flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 transition-all duration-300 hover:border-azure/60 hover:bg-white/10 hover:shadow-lg hover:shadow-azure/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-95"
+                                            className="group hover:border-azure/60 hover:shadow-azure/10 focus-visible:ring-azure flex min-h-11 items-center justify-between gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 transition-all duration-300 hover:bg-white/10 hover:shadow-lg focus:outline-none focus-visible:ring-2 active:scale-95"
                                         >
                                             {content}
                                         </a>
@@ -235,7 +272,7 @@ const Footer = () => {
                                     <div
                                         key={s.id}
                                         aria-label={s.ariaLabel}
-                                        className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 opacity-75 cursor-default"
+                                        className="flex cursor-default items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 opacity-75"
                                     >
                                         {content}
                                     </div>
@@ -246,11 +283,11 @@ const Footer = () => {
                 </div>
 
                 {/* BOTTOM BAR: COPYRIGHT & KREDIT RESMI */}
-                <div className="mt-14 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-concrete/70">
+                <div className="text-concrete/70 mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 font-sans text-xs sm:flex-row">
                     <p className="order-1 text-center sm:text-left">
                         Copyright &copy; 2026 BEM Gen XVI
                     </p>
-                    <p className="order-2 text-center sm:text-right font-medium text-pale-taupe">
+                    <p className="text-pale-taupe order-2 text-center font-medium sm:text-right">
                         Design &amp; Develop by BEM Gen XVI
                     </p>
                 </div>

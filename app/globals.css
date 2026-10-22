@@ -51,7 +51,6 @@ body {
     --color-accent: var(--accent);
 }
 
-
 @layer base {
     body {
         @apply m-0 p-0;
@@ -92,7 +91,6 @@ html.lenis {
     will-change: transform;
 }
 
-
 /* Fallback & Reduced Motion untuk Reveal Content Tentang Kami */
 .tt-reveal {
     opacity: 1;
@@ -107,20 +105,73 @@ html.lenis {
 }
 
 /* Small refinements to the original dark identity. */
-html { scroll-padding-top: 7rem; }
-:focus-visible { outline: 2px solid var(--azure); outline-offset: 4px; }
-nav a[aria-current="page"] { border-color: var(--azure); background-color: var(--navy-dark); }
-h1, h2, h3 { text-wrap: balance; }
-p { text-wrap: pretty; }
-#hero { min-height: 100svh; }
+html {
+    scroll-padding-top: 7rem;
+}
+:focus-visible {
+    outline: 2px solid var(--azure);
+    outline-offset: 4px;
+}
+nav a[aria-current="page"] {
+    border-color: var(--azure);
+    background-color: var(--navy-dark);
+}
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+p {
+    text-wrap: pretty;
+}
+#hero {
+    min-height: 100svh;
+}
 @media (max-width: 639px) {
-    #tentang, #nilai, #kegiatan { padding-block: 4rem; }
+    #tentang,
+    #nilai,
+    #kegiatan {
+        padding-block: 4rem;
+    }
 }
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* Preserve the navy identity while keeping compact screens comfortable. */
+#tentang,
+#nilai,
+#kegiatan {
+    padding-block: clamp(4rem, 7vw, 6rem);
+}
+#hero .hero-content {
+    padding-block: 1rem;
+}
+@media (max-height: 760px) {
+    #hero {
+        padding-top: 7rem;
+        padding-bottom: 1.5rem;
+    }
+    #hero .hero-content > p:first-of-type {
+        margin-top: 1.25rem;
+    }
+    #hero .hero-mark {
+        height: clamp(5rem, 16svh, 8rem);
+    }
+    #hero .hero-actions {
+        margin-top: 1.25rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    button:hover,
+    a:hover {
+        transform: none;
     }
 }

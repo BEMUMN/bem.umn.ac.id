@@ -1,7 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Compass, Sparkles, Building2, Quote, CheckCircle2 } from "lucide-react";
+import {
+    ArrowRight,
+    Compass,
+    Sparkles,
+    Building2,
+    Quote,
+    CheckCircle2,
+} from "lucide-react";
 
 type AboutPreviewProps = {
     id: string;
@@ -30,14 +37,14 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
     return (
         <section
             id={id}
-            className={`relative flex min-h-screen w-full items-center justify-center px-4 py-24 sm:px-6 md:px-12 ${className}`}
+            className={`relative flex w-full items-center justify-center px-4 py-24 sm:px-6 md:px-12 ${className}`}
         >
             <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 lg:flex-row lg:items-stretch lg:justify-between">
                 {/* SISI KIRI: Artistic Typographic Poster Panel (Swiss/Editorial Magazine Style) */}
-                <div className="scroll-reveal relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border border-azure/30 bg-gradient-to-br from-blue-primary/40 via-navy-dark to-navy-dark p-8 shadow-2xl backdrop-blur-xl lg:w-5/12 xl:p-10">
+                <div className="scroll-reveal border-azure/30 from-blue-primary/40 via-navy-dark to-navy-dark relative flex w-full flex-col justify-between overflow-hidden rounded-3xl border bg-gradient-to-br p-8 shadow-lg backdrop-blur-xl lg:w-5/12 xl:p-10">
                     {/* Tekstur Kanvas Halus Resmi GSM */}
                     <div
-                        className="absolute inset-0 opacity-15 pointer-events-none"
+                        className="pointer-events-none absolute inset-0 opacity-15"
                         style={{
                             backgroundImage: `url('/pngs/texture/ASSET.webp')`,
                             backgroundRepeat: "repeat",
@@ -47,7 +54,7 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     />
 
                     {/* Background Ornamen Supergrafik Transparan */}
-                    <div className="pointer-events-none absolute -right-12 -top-12 opacity-15">
+                    <div className="pointer-events-none absolute -top-12 -right-12 opacity-15">
                         <Image
                             src="/svgs/INCLUSIVE_supergrafik_2.svg"
                             alt="Supergrafik Inclusive"
@@ -80,13 +87,13 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                                 <span className="font-serif text-sm font-bold text-white">
                                     BEM UMN Gen XVI
                                 </span>
-                                <p className="font-sans text-[10px] uppercase tracking-wider text-pale-taupe">
+                                <p className="text-pale-taupe font-sans text-[10px] tracking-wider uppercase">
                                     Est. 17 November 2008
                                 </p>
                             </div>
                         </div>
 
-                        <span className="rounded-full border border-camel-brown/40 bg-camel-brown/15 px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-wider text-cream">
+                        <span className="border-camel-brown/40 bg-camel-brown/15 text-cream rounded-full border px-3 py-1 font-sans text-[10px] font-bold tracking-wider uppercase">
                             01 // Profil
                         </span>
                     </div>
@@ -94,10 +101,13 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     {/* Center Pull Quote: Apple Garamond Grandeur */}
                     <div className="relative z-10 my-8">
                         <Quote size={28} className="text-pale-taupe/60 mb-2" />
-                        <blockquote className="font-serif text-2xl font-semibold leading-snug tracking-wide text-white sm:text-3xl">
-                            &ldquo;Wadah kolaborasi yang merangkul setiap perbedaan ide dan sudut pandang, mentransformasikannya menjadi inovasi nyata bagi KBM UMN.&rdquo;
+                        <blockquote className="font-serif text-2xl leading-snug font-semibold tracking-wide text-white sm:text-3xl">
+                            &ldquo;Wadah kolaborasi yang merangkul setiap
+                            perbedaan ide dan sudut pandang,
+                            mentransformasikannya menjadi inovasi nyata bagi KBM
+                            UMN.&rdquo;
                         </blockquote>
-                        <p className="mt-4 font-sans text-xs font-semibold tracking-wider uppercase text-pale-taupe">
+                        <p className="text-pale-taupe mt-4 font-sans text-xs font-semibold tracking-wider uppercase">
                             — Komitmen Kabinet Generasi XVI
                         </p>
                     </div>
@@ -106,12 +116,20 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     <div className="relative z-10 border-t border-white/10 pt-4">
                         <div className="grid grid-cols-2 gap-3 text-left font-sans">
                             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                                <span className="text-[10px] uppercase tracking-wider text-pale-taupe/80 block">Naungan</span>
-                                <span className="text-xs font-bold text-white">Rektorat Kemahasiswaan</span>
+                                <span className="text-pale-taupe/80 block text-[10px] tracking-wider uppercase">
+                                    Naungan
+                                </span>
+                                <span className="text-xs font-bold text-white">
+                                    Rektorat Kemahasiswaan
+                                </span>
                             </div>
                             <div className="rounded-xl border border-white/10 bg-white/5 p-3">
-                                <span className="text-[10px] uppercase tracking-wider text-pale-taupe/80 block">Arah Gerak</span>
-                                <span className="text-xs font-bold text-white">Inklusif &amp; Kolaboratif</span>
+                                <span className="text-pale-taupe/80 block text-[10px] tracking-wider uppercase">
+                                    Arah Gerak
+                                </span>
+                                <span className="text-xs font-bold text-white">
+                                    Inklusif &amp; Kolaboratif
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -120,20 +138,23 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                 {/* SISI KANAN: Penjelasan Kelembagaan & 3 Butir Misi */}
                 <div className="scroll-reveal flex w-full flex-col justify-between lg:w-7/12 lg:pl-6">
                     <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase">
+                        <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                             <Building2 size={14} className="text-camel-brown" />
                             <span>01 // Sekilas Lembaga</span>
                         </div>
 
-                        <h2 className="mt-4 font-serif text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+                        <h2 className="mt-4 font-serif text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">
                             Mewadahi Aspirasi Mahasiswa, <br />
                             Mendorong Inovasi Berkelanjutan
                         </h2>
 
-                        <p className="mt-4 font-sans text-sm leading-relaxed text-concrete/90 sm:text-base">
-                            Badan Eksekutif Mahasiswa Universitas Multimedia Nusantara (BEM UMN) adalah
-                            lembaga eksekutif tertinggi di tingkat universitas. Sebagai episentrum dinamika
-                            kemahasiswaan, BEM UMN menaungi Himpunan Mahasiswa, UKM, LSO, serta 6 Kegiatan Mahasiswa (KEGMA).
+                        <p className="text-concrete/90 mt-4 font-sans text-sm leading-relaxed sm:text-base">
+                            Badan Eksekutif Mahasiswa Universitas Multimedia
+                            Nusantara (BEM UMN) adalah lembaga eksekutif
+                            tertinggi di tingkat universitas. Sebagai episentrum
+                            dinamika kemahasiswaan, BEM UMN menaungi Himpunan
+                            Mahasiswa, UKM, LSO, serta 6 Kegiatan Mahasiswa
+                            (KEGMA).
                         </p>
 
                         {/* 3 Butir Misi Cards Minimalis */}
@@ -141,16 +162,16 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                             {missionPoints.map((m) => (
                                 <div
                                     key={m.num}
-                                    className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-navy-dark/60 p-4 transition-all duration-300 hover:border-azure/40 hover:bg-navy-dark/90"
+                                    className="group bg-navy-dark/60 hover:border-azure/40 hover:bg-navy-dark/90 flex items-start gap-4 rounded-2xl border border-white/10 p-4 transition-all duration-300"
                                 >
-                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-camel-brown/30 bg-blue-primary/40 font-serif text-sm font-bold text-cream group-hover:scale-105 transition-transform">
+                                    <div className="border-camel-brown/30 bg-blue-primary/40 text-cream flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border font-serif text-sm font-bold transition-transform group-hover:scale-105">
                                         {m.num}
                                     </div>
                                     <div>
-                                        <h3 className="font-serif text-base font-bold text-white group-hover:text-azure transition-colors">
+                                        <h3 className="group-hover:text-azure font-serif text-base font-bold text-white transition-colors">
                                             {m.title}
                                         </h3>
-                                        <p className="mt-1 font-sans text-xs leading-relaxed text-azure/80 sm:text-sm">
+                                        <p className="text-azure/80 mt-1 font-sans text-xs leading-relaxed sm:text-sm">
                                             {m.desc}
                                         </p>
                                     </div>
@@ -163,10 +184,15 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     <div className="mt-8 pt-4">
                         <Link
                             href="/tentang-kami"
-                            className="group inline-flex items-center gap-2 rounded-full border border-azure/50 bg-azure px-6 py-3 font-sans text-xs sm:text-sm font-bold text-navy-dark shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-azure"
+                            className="group border-azure/50 bg-azure text-navy-dark focus-visible:ring-azure inline-flex items-center gap-2 rounded-full border px-6 py-3 font-sans text-xs font-bold shadow-sm transition-all duration-300 hover:scale-105 hover:bg-white focus:outline-none focus-visible:ring-2 sm:text-sm"
                         >
-                            <span>Pelajari Visi, Misi &amp; Filosofi Lengkap</span>
-                            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                            <span>
+                                Pelajari Visi, Misi &amp; Filosofi Lengkap
+                            </span>
+                            <ArrowRight
+                                size={16}
+                                className="transition-transform group-hover:translate-x-1"
+                            />
                         </Link>
                     </div>
                 </div>
