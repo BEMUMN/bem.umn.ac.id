@@ -1,299 +1,222 @@
 "use client";
 
-import React, { useEffect, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-    X,
-    User as UserIcon,
-    Instagram,
-    Linkedin,
-    Mail,
-    ExternalLink,
-    Quote,
-    GraduationCap,
-    Hash,
-    Briefcase,
-    Building2,
-} from "lucide-react";
+import { X, ArrowUpRight } from "lucide-react";
 import type { Member } from "@/constants/divisionMembers";
 
-interface MemberDetailModalProps {
+type Props = {
     member: Member | null;
     onClose: () => void;
     divisionName?: string;
-}
+};
 
-export const MemberDetailModal: React.FC<MemberDetailModalProps> = ({
+export const MemberDetailModal = ({ member, ...props }: Props) =>
+    member ? (
+        <MemberDialog key={member.name} member={member} {...props} />
+    ) : null;
+
+function MemberDialog({
     member,
     onClose,
     divisionName,
-}) => {
-    // Keyboard accessibility: ESC to close
-    const handleKeyDown = useCallback(
-        (e: KeyboardEvent) => {
-            if (e.key === "Escape") {
-                onClose();
-            }
-        },
-        [onClose],
-    );
-
+}: Omit<Props, "member"> & { member: Member }) {
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    const [selected, setSelected] = useState(0);
+    const photos = member.photos?.length
+        ? member.photos
+        : member.imageUrl
+          ? [member.imageUrl]
+          : [];
+    const initials = member.name
+        .split(" ")
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join("");
     useEffect(() => {
-        if (member) {
-            document.body.style.overflow = "hidden";
-            window.addEventListener("keydown", handleKeyDown);
-        } else {
-            document.body.style.overflow = "unset";
-        }
-
+        const dialog = dialogRef.current;
+        const opener = document.activeElement as HTMLElement | null;
+        const overflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        dialog?.showModal();
         return () => {
-            document.body.style.overflow = "unset";
-            window.removeEventListener("keydown", handleKeyDown);
+            dialog?.close();
+            document.body.style.overflow = overflow;
+            opener?.focus({ preventScroll: true });
         };
-    }, [member, handleKeyDown]);
+    }, []);
 
-    if (!member) return null;
-
-    const instagramUrl = member.instagram
-        ? member.instagram.startsWith("http")
-            ? member.instagram
-            : `https://instagram.com/${member.instagram.replace("@", "")}`
-        : null;
-
-    const linkedinUrl = member.linkedin
-        ? member.linkedin.startsWith("http")
-            ? member.linkedin
-            : `https://linkedin.com/in/${member.linkedin}`
-        : null;
+    const links = [
+        member.instagram && {
+            label: "Instagram",
+            url: member.instagram.startsWith("http")
+                ? member.instagram
+                : `https://instagram.com/${member.instagram.replace("@", "")}`,
+        },
+        member.linkedin && {
+            label: "LinkedIn",
+            url: member.linkedin.startsWith("http")
+                ? member.linkedin
+                : `https://linkedin.com/in/${member.linkedin}`,
+        },
+        member.email && { label: "Email", url: `mailto:${member.email}` },
+    ].filter((item): item is { label: string; url: string } => Boolean(item));
 
     return (
-        <div
-            role="dialog"
-            aria-modal="true"
+        <dialog
+            ref={dialogRef}
             aria-labelledby="modal-member-name"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
+            onKeyDown={(event) => {
+                if (event.key !== "Tab") return;
+                const targets = Array.from(
+                    event.currentTarget.querySelectorAll<HTMLElement>(
+                        'button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]',
+                    ),
+                );
+                const first = targets[0];
+                const last = targets[targets.length - 1];
+                if (event.shiftKey && document.activeElement === first) {
+                    event.preventDefault();
+                    last?.focus();
+                } else if (!event.shiftKey && document.activeElement === last) {
+                    event.preventDefault();
+                    first?.focus();
+                }
+            }}
+            onCancel={(event) => {
+                event.preventDefault();
+                onClose();
+            }}
+            onClick={(event) => {
+                if (event.target === event.currentTarget) onClose();
+            }}
+            className="border-azure/30 bg-navy-dark m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-3xl overflow-y-auto rounded-3xl border p-0 text-white shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm"
         >
-            {/* Backdrop */}
-            <div
-                className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
-                onClick={onClose}
-            />
-
-            {/* Modal Dialog Window */}
-            <div
-                className="relative z-10 flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-azure/40 bg-navy-dark shadow-2xl transition-all duration-300 animate-in zoom-in-95"
-                onClick={(e) => e.stopPropagation()}
-            >
-                {/* Modal Header Bar */}
-                <div className="relative flex items-center justify-between border-b border-white/10 bg-blue-primary/40 px-6 py-4 backdrop-blur-md sm:px-8">
-                    <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-full border border-camel-brown/40 bg-camel-brown/10 px-3 py-1 font-sans text-xs font-semibold tracking-wide text-pale-taupe uppercase">
-                            <Building2 size={13} className="text-camel-brown" />
-                            <span>{divisionName || member.divisionId || "BEM UMN Gen XVI"}</span>
-                        </span>
-                    </div>
-
+            <div>
+                <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-3">
+                    <p className="text-azure text-xs leading-relaxed">
+                        {divisionName || member.divisionId || "BEM UMN Gen XVI"}
+                    </p>
                     <button
                         type="button"
+                        autoFocus
                         onClick={onClose}
-                        className="rounded-full border border-white/20 bg-white/10 p-2 text-white/80 transition-colors hover:border-azure hover:bg-white/20 hover:text-white"
                         aria-label="Tutup jendela rincian pengurus"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/20 hover:bg-white/10"
                     >
-                        <X size={18} />
+                        <X size={20} />
                     </button>
                 </div>
-
-                {/* Modal Body: 2 Kolom (Foto di Kiri, Data List di Kanan) */}
-                <div className="overflow-y-auto p-6 sm:p-8">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-start">
-                        {/* SISI KIRI: Foto Pengurus */}
-                        <div className="flex flex-col items-center md:col-span-5">
-                            <div className="relative aspect-[3/4] w-full max-w-[240px] overflow-hidden rounded-2xl border-2 border-azure/40 bg-dark-blue shadow-xl ring-4 ring-white/5 sm:max-w-[260px]">
-                                {member.imageUrl ? (
-                                    <Image
-                                        src={member.imageUrl}
-                                        alt={`Foto profil ${member.name}`}
-                                        fill
-                                        sizes="(max-width: 768px) 240px, 280px"
-                                        className="object-cover object-center"
-                                        priority
-                                    />
-                                ) : (
-                                    <div className="flex h-full w-full items-center justify-center bg-blue-primary/30 text-azure">
-                                        <UserIcon size={64} />
-                                    </div>
-                                )}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                <div className="absolute bottom-3 inset-x-3 text-center">
-                                    <span className="rounded-full bg-dark-blue/90 px-3 py-1 font-sans text-[11px] font-semibold text-azure backdrop-blur-md border border-azure/30">
-                                        Fungsionaris Aktif
+                <div className="grid gap-6 p-5 sm:gap-8 sm:p-8 md:grid-cols-2">
+                    <div>
+                        <div className="bg-blue-primary/40 relative mx-auto aspect-[2/3] w-full max-w-[320px] overflow-hidden rounded-2xl">
+                            {photos.length ? (
+                                <Image
+                                    key={photos[selected]}
+                                    src={photos[selected]}
+                                    alt={`Potret ${member.name}, foto ${selected + 1}`}
+                                    fill
+                                    sizes="(max-width: 767px) 80vw, 320px"
+                                    className="object-contain"
+                                    priority
+                                />
+                            ) : (
+                                <div className="text-azure flex h-full flex-col items-center justify-center gap-3">
+                                    <span
+                                        aria-hidden="true"
+                                        className="font-serif text-6xl"
+                                    >
+                                        {initials}
+                                    </span>
+                                    <span className="text-xs">
+                                        Foto segera hadir
                                     </span>
                                 </div>
-                            </div>
+                            )}
                         </div>
-
-                        {/* SISI KANAN: Data List ke Bawah */}
-                        <div className="flex flex-col md:col-span-7">
-                            {/* Nama Pengurus & Jabatan */}
-                            <div>
-                                <h3
-                                    id="modal-member-name"
-                                    className="font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl"
-                                >
-                                    {member.name}
-                                </h3>
-                                <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-camel-brown/40 bg-blue-primary/60 px-3.5 py-1 font-sans text-xs font-semibold text-cream">
-                                    <Briefcase size={13} className="text-camel-brown" />
-                                    <span>{member.role}</span>
-                                </div>
+                        {photos.length > 1 && (
+                            <div
+                                className="mt-3 flex justify-center gap-2"
+                                aria-label="Pilih foto pengurus"
+                            >
+                                {photos.map((photo, index) => (
+                                    <button
+                                        key={photo}
+                                        type="button"
+                                        onClick={() => setSelected(index)}
+                                        aria-label={`Lihat foto ${index + 1} ${member.name}`}
+                                        aria-pressed={selected === index}
+                                        className={`relative h-16 w-12 overflow-hidden rounded-lg border-2 transition-colors ${selected === index ? "border-azure" : "border-transparent hover:border-white/50"}`}
+                                    >
+                                        <Image
+                                            src={photo}
+                                            alt=""
+                                            fill
+                                            sizes="48px"
+                                            className="object-cover"
+                                        />
+                                    </button>
+                                ))}
                             </div>
-
-                            {/* List Informasi Vertikal */}
-                            <div className="mt-6 flex flex-col gap-3 font-sans text-xs sm:text-sm">
-                                {/* NIM */}
-                                <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-2.5">
-                                    <span className="flex items-center gap-2 text-azure/80">
-                                        <Hash size={15} className="text-azure shrink-0" />
-                                        NIM:
-                                    </span>
-                                    <span className="font-semibold text-white">
-                                        {member.nim || "Tersedia secara internal"}
-                                    </span>
-                                </div>
-
-                                {/* Program Studi / Jurusan */}
-                                <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-2.5">
-                                    <span className="flex items-center gap-2 text-azure/80">
-                                        <GraduationCap size={15} className="text-azure shrink-0" />
-                                        Program Studi:
-                                    </span>
-                                    <span className="font-semibold text-white text-right">
-                                        {member.major || "Universitas Multimedia Nusantara"}
-                                    </span>
-                                </div>
-
-                                {/* Jabatan */}
-                                <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-4 py-2.5">
-                                    <span className="flex items-center gap-2 text-azure/80">
-                                        <Briefcase size={15} className="text-azure shrink-0" />
-                                        Jabatan:
-                                    </span>
-                                    <span className="font-semibold text-white">
-                                        {member.role}
-                                    </span>
-                                </div>
-
-                                {/* Quotes / Pesan-pesan */}
-                                <div className="mt-1 rounded-2xl border border-white/10 bg-navy-dark/90 p-4">
-                                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-pale-taupe">
-                                        <Quote size={14} className="text-camel-brown" />
-                                        <span>Quotes &amp; Pesan</span>
-                                    </div>
-                                    <p className="mt-2 font-serif text-sm italic leading-relaxed text-concrete/90 sm:text-base">
-                                        &ldquo;{member.quote || "Melayani dengan integritas, berinovasi untuk kemajuan bersama civitas akademika UMN."}&rdquo;
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* List Link Media Sosial (Vertikal ke Bawah) */}
-                            <div className="mt-6 border-t border-white/10 pt-4">
-                                <p className="font-sans text-xs font-semibold uppercase tracking-wider text-azure">
-                                    Tautan &amp; Media Sosial:
-                                </p>
-
-                                <div className="mt-3 flex flex-col gap-2.5">
-                                    {/* Link Instagram */}
-                                    {instagramUrl ? (
-                                        <a
-                                            href={instagramUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="group flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 font-sans text-xs text-white transition-all hover:border-azure/50 hover:bg-white/15 hover:text-azure"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-pink-500/20 text-pink-400 group-hover:scale-105 transition-transform">
-                                                    <Instagram size={16} />
-                                                </div>
-                                                <span className="font-medium">
-                                                    {member.instagram?.startsWith("@") ? member.instagram : `@${member.instagram || member.name.toLowerCase().replace(/\s+/g, '')}`}
-                                                </span>
-                                            </div>
-                                            <ExternalLink size={14} className="text-azure/60 group-hover:text-azure" />
-                                        </a>
-                                    ) : (
-                                        <div className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-2.5 font-sans text-xs text-concrete/50">
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-concrete/40">
-                                                    <Instagram size={16} />
-                                                </div>
-                                                <span>Instagram (Belum dicantumkan)</span>
-                                            </div>
-                                            <span className="text-[10px] text-concrete/40">Privat</span>
-                                        </div>
-                                    )}
-
-                                    {/* Link LinkedIn */}
-                                    {linkedinUrl ? (
-                                        <a
-                                            href={linkedinUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="group flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 font-sans text-xs text-white transition-all hover:border-azure/50 hover:bg-white/15 hover:text-azure"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/20 text-blue-400 group-hover:scale-105 transition-transform">
-                                                    <Linkedin size={16} />
-                                                </div>
-                                                <span className="font-medium">
-                                                    LinkedIn Profil
-                                                </span>
-                                            </div>
-                                            <ExternalLink size={14} className="text-azure/60 group-hover:text-azure" />
-                                        </a>
-                                    ) : (
-                                        <div className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.02] px-4 py-2.5 font-sans text-xs text-concrete/50">
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-white/5 text-concrete/40">
-                                                    <Linkedin size={16} />
-                                                </div>
-                                                <span>LinkedIn (Belum dicantumkan)</span>
-                                            </div>
-                                            <span className="text-[10px] text-concrete/40">Privat</span>
-                                        </div>
-                                    )}
-
-                                    {/* Link Email jika ada */}
-                                    {member.email && (
-                                        <a
-                                            href={`mailto:${member.email}`}
-                                            className="group flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 font-sans text-xs text-white transition-all hover:border-azure/50 hover:bg-white/15 hover:text-azure"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400 group-hover:scale-105 transition-transform">
-                                                    <Mail size={16} />
-                                                </div>
-                                                <span className="font-medium">{member.email}</span>
-                                            </div>
-                                            <ExternalLink size={14} className="text-azure/60 group-hover:text-azure" />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
+                        )}
                     </div>
-                </div>
-
-                {/* Modal Footer Bar */}
-                <div className="flex justify-end border-t border-white/10 bg-blue-primary/20 px-6 py-4 sm:px-8">
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="rounded-xl border border-white/20 bg-white/10 px-6 py-2.5 font-sans text-xs font-semibold text-white transition hover:bg-white/20"
-                    >
-                        Tutup
-                    </button>
+                    <div className="flex flex-col justify-center">
+                        <p className="text-azure text-[10px] font-semibold tracking-[0.18em] uppercase">
+                            Kenali pengurus
+                        </p>
+                        <h2
+                            id="modal-member-name"
+                            className="mt-3 font-serif text-3xl leading-tight sm:text-4xl"
+                        >
+                            {member.name}
+                        </h2>
+                        <p className="text-cream mt-3 text-sm leading-relaxed">
+                            {member.role}
+                        </p>
+                        <div className="text-concrete/80 mt-6 border-t border-white/10 pt-5 text-sm leading-relaxed">
+                            <p>
+                                {divisionName ||
+                                    member.divisionId ||
+                                    "Badan Eksekutif Mahasiswa"}
+                            </p>
+                            <p className="mt-1">
+                                Universitas Multimedia Nusantara
+                            </p>
+                            {member.major && (
+                                <p className="mt-3">{member.major}</p>
+                            )}
+                            {member.nim && (
+                                <p className="mt-1">NIM: {member.nim}</p>
+                            )}
+                        </div>
+                        {member.quote && (
+                            <blockquote className="border-azure/50 text-cream mt-6 border-l-2 pl-4 font-serif text-xl italic">
+                                “{member.quote}”
+                            </blockquote>
+                        )}
+                        {links.length > 0 && (
+                            <div className="mt-6 flex flex-wrap gap-2">
+                                {links.map((link) => (
+                                    <a
+                                        key={link.label}
+                                        href={link.url}
+                                        target={
+                                            link.label === "Email"
+                                                ? undefined
+                                                : "_blank"
+                                        }
+                                        rel="noopener noreferrer"
+                                        className="text-azure inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-xs hover:bg-white/10"
+                                    >
+                                        {link.label}
+                                        <ArrowUpRight size={15} />
+                                    </a>
+                                ))}
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+        </dialog>
     );
-};
+}
