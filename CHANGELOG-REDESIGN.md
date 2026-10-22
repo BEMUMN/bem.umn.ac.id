@@ -48,3 +48,9 @@ See docs/redesign/QA.md for the final responsive matrix, interaction checks, acc
 ## Asset budget note
 
 New raster derivatives are below 150 KB each. Official legacy SVGs are preserved byte-for-byte, including variants above the proposed 15 KB/file budget; preserving exact institutional artwork takes precedence over destructive optimization. Initial transfer is measured separately in final QA. Full-resolution generated masters are ignored in assets-source/, with production files and candidate previews tracked.
+
+## Final QA result
+
+Production mobile series: Performance 94/97/97; representative middle-score run 97. Accessibility, Best Practices and SEO are 100. LCP 2.529 s, CLS 0, TBT 32 ms, initial transfer 243 KiB versus 2,237 KiB baseline. All 50 responsive combinations, interactions, ten automated accessibility audits and 15 image/icon endpoints passed. Build and full lint passed without warnings.
+
+The strict LCP <2.5 s target remains open: the final series ranges from 2.519 to 2.868 s under the same simulated throttling. Host CPU benchmarks differed from baseline; all raw runs are retained. Field INP and physical Safari/Android-device validation are not available in this environment. No new dependencies, push, or deployment.

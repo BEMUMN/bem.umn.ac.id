@@ -256,8 +256,19 @@ async function main() {
         );
         await page.addStyleTag({
             content:
-                ".hero-fold, .value-entry img { visibility: hidden !important; }",
+                '.hero-fold, img[alt=""], .value-entry img { visibility: hidden !important; }',
         });
+        const undecoratedProgram = await page
+            .locator(".program-name")
+            .textContent();
+        await page
+            .getByRole("button", { name: "Item kegiatan berikutnya" })
+            .click();
+        assert.notEqual(
+            await page.locator(".program-name").textContent(),
+            undecoratedProgram,
+        );
+        assert.equal(await page.locator("h1").isVisible(), true);
         await page.evaluate(() => scrollTo(0, 0));
         await page.screenshot({
             path: path.join(

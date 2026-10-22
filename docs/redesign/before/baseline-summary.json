@@ -89,5 +89,14 @@
       "numericValue": 2290541,
       "displayValue": "Total size was 2,237 KiB"
     }
-  }
+  },
+  "environment": {
+    "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Mobile Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+    "benchmarkIndex": 2929.5,
+    "credits": {
+      "axe-core": "4.14.0"
+    }
+  },
+  "fetchTime": "2026-10-20T16:36:18.764Z"
 }
