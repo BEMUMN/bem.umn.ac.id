@@ -1,6 +1,9 @@
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 const fs = require("fs");
 const assert = require("assert/strict");
+const path = require("path");
+const output = path.resolve(process.env.QA_OUTPUT || "coverage/browser");
+fs.mkdirSync(output, { recursive: true });
 (async () => {
     const browser = await chromium.launch({
         executablePath: process.env.CHROME_PATH,
@@ -23,7 +26,7 @@ const assert = require("assert/strict");
                 "/divisi/bph",
             ]) {
                 const r = await page.goto(
-                    (process.env.QA_URL || "http://127.0.0.1:3101") + route,
+                    (process.env.QA_URL || "http://127.0.0.1:3000") + route,
                 );
                 await page.waitForTimeout(350);
                 assert.equal(r.status(), 200);
@@ -34,11 +37,11 @@ const assert = require("assert/strict");
                 results.push({ route, width, overflow });
                 if (route === "/" && [390, 1440].includes(width))
                     await page.screenshot({
-                        path: `docs/original-polish/home-${width}.png`,
+                        path: path.join(output, `home-${width}.png`),
                     });
             }
             if (width === 390) {
-                await page.goto(process.env.QA_URL || "http://127.0.0.1:3101/");
+                await page.goto(process.env.QA_URL || "http://127.0.0.1:3000/");
                 const toggle = page.getByRole("button", {
                     name: "Buka menu navigasi",
                 });
@@ -60,7 +63,7 @@ const assert = require("assert/strict");
         }
         assert.deepEqual(errors, []);
         fs.writeFileSync(
-            "docs/original-polish/browser-results.json",
+            path.join(output, "browser-results.json"),
             JSON.stringify(
                 { results, errors, menuEscapeAndFocus: "passed" },
                 null,
