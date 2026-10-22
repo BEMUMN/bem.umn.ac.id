@@ -23,7 +23,9 @@ fs.mkdirSync(output, { recursive: true });
                 "/tentang-kami",
                 "/divisi",
                 "/kegiatan",
-                "/divisi/bph",
+                ...["bph", "sukm", "sufak", "sulso", "pr", "sukma"].map(
+                    (id) => `/divisi/${id}`,
+                ),
             ]) {
                 const r = await page.goto(
                     (process.env.QA_URL || "http://127.0.0.1:3000") + route,
@@ -71,7 +73,7 @@ fs.mkdirSync(output, { recursive: true });
             ),
         );
         console.log(
-            "PASS: 25 responsive checks; menu Escape and focus; no browser errors.",
+            "PASS: 50 responsive checks; menu Escape and focus; no browser errors.",
         );
     } finally {
         await browser.close();
