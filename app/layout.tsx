@@ -1,61 +1,61 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import localFont from "next/font/local";
-import RouteEffects from "@/components/RouteEffects";
 import "./globals.css";
 
-const newsreader = localFont({
-    src: "../public/fonts/redesign/newsreader-latin.woff2",
-    variable: "--font-newsreader",
+const appleGaramond = localFont({
+    src: [
+        {
+            path: "../public/fonts/AppleGaramond.ttf",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/AppleGaramond-Italic.ttf",
+            weight: "400",
+            style: "italic",
+        },
+    ],
+    variable: "--font-garamond",
     display: "swap",
-    weight: "400",
 });
-const bricolage = localFont({
-    src: "../public/fonts/redesign/bricolage-grotesque-latin.woff2",
+
+const bricolageGrotesque = localFont({
+    src: [
+        {
+            path: "../public/fonts/Bricolage Grotesque Regular.ttf",
+            weight: "400",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/Bricolage Grotesque Medium.ttf",
+            weight: "500",
+            style: "normal",
+        },
+        {
+            path: "../public/fonts/Bricolage Grotesque Bold.ttf",
+            weight: "700",
+            style: "normal",
+        },
+    ],
     variable: "--font-bricolage",
     display: "swap",
-    weight: "400 700",
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://bem.umn.ac.id"),
     title: "BEM UMN | GEN XVI",
-    description:
-        "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
-    openGraph: {
-        title: "BEM UMN | GEN XVI",
-        description:
-            "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
-        images: [
-            {
-                url: "/images/social/home.png",
-                width: 1200,
-                height: 630,
-                alt: "BEM UMN Generasi XVI — Inclusive for Innovation",
-            },
-        ],
-        locale: "id_ID",
-        type: "website",
-    },
-    twitter: { card: "summary_large_image" },
+    description: "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
 };
-export const viewport: Viewport = { themeColor: "#eee5d9" };
+
 export default function RootLayout({
     children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <html lang="id" suppressHydrationWarning>
-            <head>
-                <script
-                    dangerouslySetInnerHTML={{
-                        __html: "try{if(navigator.connection?.saveData)document.documentElement.setAttribute('data-save-data','')}catch{}",
-                    }}
-                />
-            </head>
-            <body className={`${newsreader.variable} ${bricolage.variable}`}>
-                <a className="skip-link" href="#main-content">
-                    Langsung ke konten
-                </a>
-                <RouteEffects />
+        <html lang="id">
+            <body
+                className={`${appleGaramond.variable} ${bricolageGrotesque.variable} no-select antialiased`}
+            >
                 {children}
             </body>
         </html>

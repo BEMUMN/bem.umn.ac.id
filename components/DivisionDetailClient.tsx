@@ -18,7 +18,7 @@ export const DivisionDetailClient: React.FC<DivisionDetailClientProps> = ({
 
     return (
         <>
-            <div className="member-grid">
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {members.map((member) => (
                     <MemberCard
                         key={member.name}

@@ -4,12 +4,6 @@ import { divisionMembers, DivisionKey } from "@/constants/divisionMembers";
 import { DivisionListClient } from "@/components/DivisionListClient";
 
 export const metadata: Metadata = {
-    openGraph: {
-        title: "Divisi & Anggota | BEM UMN GEN XVI",
-        images: [
-            { url: "/images/social/divisi.png", width: 1200, height: 630 },
-        ],
-    },
     title: "Divisi & Anggota | BEM UMN GEN XVI",
     description:
         "Daftar lengkap 6 divisi dan profil anggota kepengurusan BEM UMN Generasi XVI — Inclusive for Innovation.",
