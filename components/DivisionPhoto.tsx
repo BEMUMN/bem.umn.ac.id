@@ -51,6 +51,10 @@ export function DivisionPhoto({
                     style={{
                         objectPosition:
                             focus[division.id.toUpperCase()] || "50% 55%",
+                        transform: ["SULSO", "SUKMA"].includes(division.id.toUpperCase())
+                            ? "scale(1.18)"
+                            : undefined,
+                        transformOrigin: focus[division.id.toUpperCase()] || "50% 55%",
                     }}
                 />
                 <span className="bg-navy-dark/90 group-hover/photo:bg-navy-dark absolute right-3 bottom-3 flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 text-[11px] font-medium text-white backdrop-blur-sm transition-colors">

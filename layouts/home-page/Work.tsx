@@ -58,7 +58,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                 !swiper.animating
             )
                 swiper.slideNext();
-        }, 4200);
+        }, 3450);
         return () => {
             window.clearInterval(timer);
             observer.disconnect();

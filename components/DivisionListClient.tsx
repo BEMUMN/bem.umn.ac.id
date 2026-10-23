@@ -174,11 +174,7 @@ export const DivisionListClient = ({
                                     >
                                         <Calendar size={14} />
                                         <span>{gen.fullName}</span>
-                                        {gen.isActive && (
-                                            <span className="ml-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
-                                                Aktif
-                                            </span>
-                                        )}
+
                                     </button>
                                 );
                             })}
