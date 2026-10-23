@@ -134,6 +134,16 @@ function MemberDialog({
                                 </div>
                             )}
                         </div>
+                        {photos.length > 0 && (
+                            <p
+                                className="text-azure/80 mt-3 text-center text-xs"
+                                aria-live="polite"
+                            >
+                                {photos[selected].endsWith("-studio.webp")
+                                    ? "Potret studio"
+                                    : "Foto asli"}
+                            </p>
+                        )}
                         {photos.length > 1 && (
                             <div
                                 className="mt-3 flex justify-center gap-2"
@@ -170,6 +180,14 @@ function MemberDialog({
                         >
                             {member.name}
                         </h2>
+                        {member.nickname && (
+                            <p className="text-azure mt-3 text-sm leading-relaxed">
+                                Panggil aku{" "}
+                                <span className="font-semibold text-white">
+                                    {member.nickname}
+                                </span>
+                            </p>
+                        )}
                         <p className="text-cream mt-3 text-sm leading-relaxed">
                             {member.role}
                         </p>

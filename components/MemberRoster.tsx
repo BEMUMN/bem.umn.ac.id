@@ -16,8 +16,8 @@ export function MemberRoster({
     const filtered = useMemo(() => {
         const q = query.trim().toLocaleLowerCase("id");
         return members.filter((member) =>
-            [member.name, member.role, member.major].some((value) =>
-                value?.toLocaleLowerCase("id").includes(q),
+            [member.name, member.nickname, member.role, member.major].some(
+                (value) => value?.toLocaleLowerCase("id").includes(q),
             ),
         );
     }, [members, query]);
