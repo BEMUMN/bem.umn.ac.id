@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { MemberPortrait } from "@/components/MemberPortrait";
 import { X, ArrowUpRight } from "lucide-react";
 import type { Member } from "@/constants/divisionMembers";
 
@@ -109,15 +109,16 @@ function MemberDialog({
                 </div>
                 <div className="grid gap-6 p-5 sm:gap-8 sm:p-8 md:grid-cols-2">
                     <div>
-                        <div className="bg-blue-primary/40 relative mx-auto aspect-[2/3] w-full max-w-[320px] overflow-hidden rounded-2xl">
+                        <div
+                            className={`bg-blue-primary/40 relative mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl ${photos[selected] === member.imageUrl && member.portraitCrop ? "aspect-[4/5]" : "aspect-[2/3]"}`}
+                        >
                             {photos.length ? (
-                                <Image
+                                <MemberPortrait
+                                    member={member}
                                     key={photos[selected]}
                                     src={photos[selected]}
                                     alt={`Potret ${member.name}, foto ${selected + 1}`}
-                                    fill
                                     sizes="(max-width: 767px) 80vw, 320px"
-                                    className="object-contain"
                                     priority
                                 />
                             ) : (
@@ -156,14 +157,13 @@ function MemberDialog({
                                         onClick={() => setSelected(index)}
                                         aria-label={`Lihat foto ${index + 1} ${member.name}`}
                                         aria-pressed={selected === index}
-                                        className={`relative h-16 w-12 overflow-hidden rounded-lg border-2 transition-colors ${selected === index ? "border-azure" : "border-transparent hover:border-white/50"}`}
+                                        className={`relative h-15 w-12 overflow-hidden rounded-lg border-2 transition-colors ${selected === index ? "border-azure" : "border-transparent hover:border-white/50"}`}
                                     >
-                                        <Image
+                                        <MemberPortrait
+                                            member={member}
                                             src={photo}
                                             alt=""
-                                            fill
                                             sizes="48px"
-                                            className="object-cover"
                                         />
                                     </button>
                                 ))}

@@ -116,6 +116,18 @@ fs.mkdirSync(output, { recursive: true });
                                 exact: true,
                             })
                             .click();
+                        await page.waitForFunction(() => {
+                            const photo = document.querySelector(
+                                "dialog img[data-portrait-crop]",
+                            );
+                            if (!photo) return false;
+                            const bounds =
+                                photo.parentElement.getBoundingClientRect();
+                            return (
+                                Math.abs(bounds.width / bounds.height - 0.8) <
+                                0.001
+                            );
+                        });
                         await page.screenshot({
                             path: path.join(output, `profile-${width}.png`),
                         });

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { MemberPortrait } from "@/components/MemberPortrait";
 import type { Member } from "@/constants/divisionMembers";
 import { ArrowUpRight, Mail, Instagram, Linkedin } from "lucide-react";
 
@@ -28,12 +28,11 @@ export const MemberCard = ({ member, onSelect }: MemberCardProps) => {
             >
                 <div className="bg-blue-primary/40 relative aspect-[4/5] w-full overflow-hidden">
                     {member.imageUrl ? (
-                        <Image
+                        <MemberPortrait
+                            member={member}
                             src={member.imageUrl}
                             alt={`Potret ${member.name}`}
-                            fill
                             sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1023px) 45vw, 320px"
-                            className="object-cover object-[center_35%] transition-transform duration-500 motion-safe:group-hover:scale-[1.025]"
                         />
                     ) : (
                         <div className="text-azure flex h-full flex-col items-center justify-center gap-3">

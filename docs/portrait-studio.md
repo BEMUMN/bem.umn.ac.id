@@ -14,4 +14,10 @@ Use case: identity-preserve. Asset: individual portrait for university student b
 
 Replace only the architectural background with a clean photographic studio backdrop in muted cool slate blue (#64778b), subtly lighter behind the head, soft realistic falloff toward edges. Preserve the original person, expression, skin, hair, body, pose, hands, clothing and UMN badge. Keep 2:3 framing, no graphics, objects, text, or watermarks.
 
-Total tambahan 21 aset studio: 659.834 byte (sekitar 644 KiB). Foto sumber tidak ditimpa.
+Total tambahan 21 aset studio: 660.364 byte (sekitar 645 KiB). Foto sumber tidak ditimpa.
+
+## Penyamaan framing dan latar
+
+Josephin memakai revisi `bph/josephin-narumi-setiawan-02-v2-studio.webp` agar warna latarnya mengikuti Caroline. Dibuat dengan imagegen bawaan; prompt: “Edit input 1 only. Match its background to input 2: same photographic studio blue, hue, saturation, brightness and soft gradient. Preserve the original person, face, pose, clothing, badge and 2:3 framing.”
+
+`portraitCrop` menyimpan koordinat crop per anggota pada sumber 800 × 1200. Wajah disejajarkan secara lokal dengan deteksi kotak wajah, kemudian seluruh hasil ditinjau visual agar rambut dan area badge tidak terpotong. Komponen `MemberPortrait` memakai crop CSS 4:5 yang sama pada kartu, potret utama di dialog, dan thumbnail studio. Posisi tangan tidak direkayasa; crop menyembunyikan tangan. Foto asli masih bisa dibuka utuh.
