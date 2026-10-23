@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { PageMotion } from "@/components/PageMotion";
 
 const appleGaramond = localFont({
     src: [
@@ -43,7 +44,8 @@ const bricolageGrotesque = localFont({
 
 export const metadata: Metadata = {
     title: "BEM UMN | GEN XVI",
-    description: "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
+    description:
+        "Official Website of BEM UMN GEN XVI — Inclusive for Innovation",
 };
 
 export default function RootLayout({
@@ -57,6 +59,7 @@ export default function RootLayout({
                 className={`${appleGaramond.variable} ${bricolageGrotesque.variable} antialiased`}
             >
                 {children}
+                <PageMotion />
             </body>
         </html>
     );

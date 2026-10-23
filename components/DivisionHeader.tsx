@@ -15,7 +15,10 @@ export function DivisionHeader({
 }) {
     const Heading = heading;
     return (
-        <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04]">
+        <div
+            data-motion="soft"
+            className="overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04]"
+        >
             <DivisionPhoto division={division} priority wide />
             <div className="p-6 sm:p-8 lg:p-10">
                 <div>

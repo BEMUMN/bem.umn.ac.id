@@ -18,7 +18,7 @@ const Values = ({ id, className }: ValuesProps) => {
                 <div className="scroll-reveal max-w-3xl text-center">
                     <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-3.5 py-1 font-sans text-xs font-semibold tracking-wider uppercase">
                         <Sparkles size={13} className="text-camel-brown" />
-                        <span>02 // Nilai &amp; Filosofi Visual</span>
+                        <span>02 · Nilai &amp; Filosofi Visual</span>
                     </div>
 
                     <h2 className="mt-2.5 font-serif text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">

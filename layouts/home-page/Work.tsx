@@ -152,7 +152,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                 {/* Left Text Section */}
                 <div className="scroll-reveal relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
                     <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
-                        <span>03 // Program &amp; Kegiatan</span>
+                        <span>03 · Program &amp; Kegiatan</span>
                     </div>
 
                     <h2

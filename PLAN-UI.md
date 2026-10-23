@@ -71,3 +71,5 @@ Tujuan: pengguna cepat membedakan KEGMA dan program kerja serta membuka rinciann
 Validasi: build dan lint lulus tanpa warning; 50 kombinasi halaman/viewport lulus; 22 profil dan 41 foto diperiksa pada enam divisi; alur pencarian, filter, dialog, serta keyboard diperiksa pada 320 dan 1440 px. Pengujian browser menggunakan Chrome lokal.
 
 Penyempurnaan foto divisi: enam kartu ditampilkan dalam dua kolom pada tablet/desktop, dengan foto sebagai bidang utama di atas teks. Crop 4:3 pada kartu dan 16:9 pada header desktop mengurangi ruang kosong; semua wajah diperiksa secara visual. Foto utuh dapat dibuka melalui dialog dan tautan ukuran asli. Build/lint serta pemeriksaan enam foto pada lima lebar layar lulus.
+
+Penyempurnaan scroll: navbar mengikuti arah scroll; filter kegiatan tidak lagi sticky. Empat motif dekoratif tetap muncul pada hero desktop, keluar sekali setelah scroll awal, lalu tidak muncul kembali pada section lain atau saat kembali ke atas. Animasi konten ringan diterapkan pada beranda, profil, divisi, dan kegiatan dengan dukungan reduced-motion; dialog mendapat transisi singkat. Pemisah `//` pada label tampilan diganti menjadi titik tengah.

@@ -1,16 +1,11 @@
 "use client";
 
 import { navLinks } from "@/constants";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Menu, X } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -45,6 +40,14 @@ const Navbar = () => {
         const handleScroll = () => {
             const currentScrollY = Math.max(0, window.scrollY);
 
+            if (
+                headerRef.current?.contains(document.activeElement) &&
+                document.activeElement?.matches(":focus-visible")
+            ) {
+                setVisible(true);
+                lastScrollY.current = currentScrollY;
+                return;
+            }
             // Selalu tampilkan jika berada di dekat puncak halaman
             if (currentScrollY <= 60) {
                 setVisible(true);
@@ -71,33 +74,13 @@ const Navbar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    useGSAP(() => {
-        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-            return;
-        const navTween = gsap.timeline({
-            scrollTrigger: {
-                trigger: "main",
-                start: "top top",
-                end: "+=150",
-                scrub: true,
-            },
-        });
-
-        navTween.to("#navbar-capsule", {
-            scale: 0.96,
-            backgroundColor: "rgba(15, 30, 63, 0.85)",
-            boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.5)",
-            duration: 0.5,
-            ease: "power2.out",
-        });
-    });
-
     // Pertahankan header tetap tampak jika menu mobile sedang dibuka
     const isVisible = visible || mobileMenuOpen;
 
     return (
         <header
             ref={headerRef}
+            data-nav-visible={isVisible}
             onFocusCapture={() => setVisible(true)}
             className={`fixed top-0 left-0 z-50 w-full px-4 pt-4 transition-transform duration-300 ease-in-out motion-reduce:transition-none md:px-8 md:pt-6 ${
                 isVisible

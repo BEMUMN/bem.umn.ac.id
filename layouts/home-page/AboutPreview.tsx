@@ -94,7 +94,7 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                         </div>
 
                         <span className="border-camel-brown/40 bg-camel-brown/15 text-cream rounded-full border px-3 py-1 font-sans text-[10px] font-bold tracking-wider uppercase">
-                            01 // Profil
+                            01 · Profil
                         </span>
                     </div>
 
@@ -140,7 +140,7 @@ const AboutPreview = ({ id, className }: AboutPreviewProps) => {
                     <div>
                         <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                             <Building2 size={14} className="text-camel-brown" />
-                            <span>01 // Sekilas Lembaga</span>
+                            <span>01 · Sekilas Lembaga</span>
                         </div>
 
                         <h2 className="mt-4 font-serif text-3xl leading-tight font-bold text-white sm:text-4xl md:text-5xl">

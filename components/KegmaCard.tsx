@@ -15,6 +15,7 @@ export default function KegmaCard({
 }: KegmaCardProps) {
     return (
         <button
+            data-motion="rise"
             type="button"
             onClick={onClick}
             aria-haspopup="dialog"

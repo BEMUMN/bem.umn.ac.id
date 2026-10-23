@@ -15,7 +15,10 @@ export const MemberCard = ({ member, onSelect }: MemberCardProps) => {
         .join("");
     const hasContact = member.instagram || member.linkedin || member.email;
     return (
-        <article className="group hover:border-azure/50 flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-colors duration-300">
+        <article
+            data-motion="rise"
+            className="group hover:border-azure/50 flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/5 transition-colors duration-300"
+        >
             <button
                 type="button"
                 disabled={!onSelect}

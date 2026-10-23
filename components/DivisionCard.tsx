@@ -30,6 +30,7 @@ export const DivisionCard = ({
     className = "",
 }: DivisionCardProps) => (
     <article
+        data-motion="rise"
         className={`flex h-full flex-col overflow-hidden rounded-3xl border bg-white/[0.04] ${variant === "featured" ? "border-camel-brown/50" : "border-white/15"} ${className}`}
     >
         <DivisionPhoto division={division} priority={variant === "featured"} />

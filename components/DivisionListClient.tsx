@@ -113,7 +113,10 @@ export const DivisionListClient = ({
                 {/* ========================================================
                     HEADER EDITORIAL & STATUS KEPENGURUSAN
                    ======================================================== */}
-                <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <section
+                    data-motion="rise"
+                    className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+                >
                     {/* Swiss Design Micro-Stamp Line */}
                     <div className="text-azure flex flex-wrap items-center justify-between gap-3 border-b border-white/15 pb-4 font-sans text-[11px] font-semibold tracking-[0.2em] uppercase">
                         <div className="flex items-center gap-2">

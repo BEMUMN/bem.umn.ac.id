@@ -73,7 +73,10 @@ export default function KegiatanClient({
             {/* ========================================================
                 INTERACTIVE FILTER & SEARCH BAR
                ======================================================== */}
-            <section className="bg-navy-dark/85 relative z-30 border-y border-white/10 py-4 backdrop-blur-xl transition-all md:sticky md:top-28">
+            <section
+                data-agenda-filter
+                className="bg-navy-dark/85 relative z-30 border-y border-white/10 py-4 backdrop-blur-xl transition-all"
+            >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         {/* Segmented Filter Buttons */}
@@ -289,6 +292,7 @@ export default function KegiatanClient({
                             {filteredProker.map((proker, index) => {
                                 return (
                                     <div
+                                        data-motion="rise"
                                         key={proker.id}
                                         className="flex flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-6 sm:p-8"
                                     >

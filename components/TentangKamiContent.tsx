@@ -1,12 +1,6 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Lenis from "lenis";
 
 import Navbar from "@/layouts/Navbar";
 import Footer from "@/layouts/Footer";
@@ -28,8 +22,6 @@ import {
     Palette,
     ScrollText,
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const missionList = [
     {
@@ -147,117 +139,8 @@ const colorPalette = [
 ];
 
 export default function TentangKamiContent() {
-    const mainRef = useRef<HTMLDivElement>(null);
-
-    // Lenis Smooth Scroll Setup
-    useEffect(() => {
-        if (
-            typeof window !== "undefined" &&
-            window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ) {
-            return;
-        }
-
-        const lenis = new Lenis({
-            duration: 0.8,
-            smoothWheel: true,
-            syncTouch: false,
-            gestureOrientation: "vertical",
-            lerp: 0.1,
-            wheelMultiplier: 0.6,
-        });
-
-        function update(time: number) {
-            lenis.raf(time * 1000);
-        }
-
-        gsap.ticker.add(update);
-        gsap.ticker.lagSmoothing(0);
-
-        return () => {
-            gsap.ticker.remove(update);
-            lenis.destroy();
-        };
-    }, []);
-
-    // GSAP ScrollTrigger Motion Orchestration
-    useGSAP(
-        () => {
-            const prefersReducedMotion =
-                typeof window !== "undefined" &&
-                window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-            if (prefersReducedMotion) {
-                gsap.set(".tt-reveal", { opacity: 1, y: 0 });
-                return;
-            }
-
-            const revealElements =
-                gsap.utils.toArray<HTMLElement>(".tt-reveal");
-
-            revealElements.forEach((el) => {
-                const rect = el.getBoundingClientRect();
-                const inInitialView =
-                    rect.top < window.innerHeight && rect.bottom > 0;
-
-                // Elemen yang sudah berada di viewport pertama langsung tampil tanpa jeda/flash
-                if (!inInitialView) {
-                    gsap.set(el, { opacity: 0, y: 30 });
-                } else {
-                    gsap.set(el, { opacity: 1, y: 0 });
-                }
-
-                ScrollTrigger.create({
-                    trigger: el,
-                    start: "top 88%",
-                    end: "bottom 12%",
-                    onEnter: () => {
-                        gsap.to(el, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.7,
-                            ease: "power2.out",
-                            overwrite: "auto",
-                        });
-                    },
-                    onLeave: () => {
-                        gsap.to(el, {
-                            opacity: 0,
-                            y: -20,
-                            duration: 0.5,
-                            ease: "power2.in",
-                            overwrite: "auto",
-                        });
-                    },
-                    onEnterBack: () => {
-                        gsap.to(el, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.7,
-                            ease: "power2.out",
-                            overwrite: "auto",
-                        });
-                    },
-                    onLeaveBack: () => {
-                        gsap.to(el, {
-                            opacity: 0,
-                            y: 30,
-                            duration: 0.5,
-                            ease: "power2.in",
-                            overwrite: "auto",
-                        });
-                    },
-                });
-            });
-        },
-        { scope: mainRef },
-    );
-
     return (
-        <div
-            ref={mainRef}
-            className="bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen text-white"
-        >
+        <div className="bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen text-white">
             {/* Latar Belakang Tekstur Kanvas Halus GSM */}
             <div
                 className="pointer-events-none fixed inset-0 -z-30 opacity-25"

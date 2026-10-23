@@ -56,3 +56,5 @@ Untuk memeriksa pemetaan dan interaksi foto, jalankan `scripts/qa/member-photos.
 Pemeriksaan UI: `scripts/qa/original-polish.cjs` mencakup 10 halaman pada lima lebar layar. `scripts/qa/ui-polish.cjs` memeriksa pencarian pengurus, pemulihan fokus, filter kegiatan, dialog, dan kategori beranda. Keduanya memakai variabel lingkungan alat yang sama seperti contoh di atas.
 
 Foto grup divisi memakai crop tampilan yang diatur per divisi di `components/DivisionPhoto.tsx`. File asli tidak diubah; pengguna dapat membuka foto utuh atau ukuran aslinya. Pemeriksaan komponen ini tersedia melalui `scripts/qa/division-photos.cjs`, dengan hasil di `coverage/division-photos/`.
+
+Gerak halaman: navbar bersembunyi saat scroll turun dan muncul saat scroll naik. Filter kegiatan mengikuti alur halaman. Dekorasi hero desktop tampil di awal, keluar setelah scroll melewati 80 px, dan tetap tersembunyi sampai beranda dimuat ulang/dikunjungi kembali. Konten memakai reveal sekali saat masuk layar; dialog memakai transisi singkat. Preferensi reduced-motion dihormati. Pemeriksaan khusus tersedia di `scripts/qa/scroll-motion.cjs`.
