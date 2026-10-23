@@ -4,10 +4,15 @@ import { ArrowUpRight, Mail, Instagram, Linkedin } from "lucide-react";
 
 type MemberCardProps = {
     member: Member;
+    showGesture?: boolean;
     onSelect?: (member: Member) => void;
 };
 
-export const MemberCard = ({ member, onSelect }: MemberCardProps) => {
+export const MemberCard = ({
+    member,
+    onSelect,
+    showGesture = false,
+}: MemberCardProps) => {
     const initials = member.name
         .split(" ")
         .slice(0, 2)
@@ -28,12 +33,28 @@ export const MemberCard = ({ member, onSelect }: MemberCardProps) => {
             >
                 <div className="bg-blue-primary/40 relative aspect-[4/5] w-full overflow-hidden">
                     {member.imageUrl ? (
-                        <MemberPortrait
-                            member={member}
-                            src={member.imageUrl}
-                            alt={`Potret ${member.name}`}
-                            sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1023px) 45vw, 320px"
-                        />
+                        <>
+                            <MemberPortrait
+                                member={member}
+                                src={member.imageUrl}
+                                alt={`Potret ${member.name}`}
+                                sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1023px) 45vw, 320px"
+                            />
+                            {member.gestureImageUrl && (
+                                <div
+                                    aria-hidden="true"
+                                    data-gesture-visible={showGesture}
+                                    className={`absolute inset-0 transition-opacity duration-700 ease-in-out motion-reduce:transition-none ${showGesture ? "opacity-100" : "opacity-0"}`}
+                                >
+                                    <MemberPortrait
+                                        member={member}
+                                        src={member.gestureImageUrl}
+                                        alt=""
+                                        sizes="(max-width: 639px) calc(100vw - 48px), (max-width: 1023px) 45vw, 320px"
+                                    />
+                                </div>
+                            )}
+                        </>
                     ) : (
                         <div className="text-azure flex h-full flex-col items-center justify-center gap-3">
                             <span

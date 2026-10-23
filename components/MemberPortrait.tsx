@@ -10,7 +10,12 @@ type Props = {
 };
 
 export function MemberPortrait({ member, src, alt, sizes, priority }: Props) {
-    const crop = src === member.imageUrl ? member.portraitCrop : undefined;
+    const crop =
+        src === member.imageUrl
+            ? member.portraitCrop
+            : src === member.gestureImageUrl
+              ? member.gestureCrop
+              : undefined;
     if (!crop) {
         return (
             <Image

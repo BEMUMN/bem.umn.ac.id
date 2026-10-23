@@ -2,7 +2,7 @@
 
 Dibuat melalui tool imagegen bawaan untuk mengganti latar foto utama 21 anggota. Foto sumber dan pose alternatif tetap tersedia; foto Josyca belum tersedia dan tidak dibuat secara fiktif.
 
-Aset produksi: `public/pngs/members/anggota/<divisi>/*-studio.webp` (800 × 1200, WebP kualitas 85). Pemetaannya ada di `constants/divisionMembers.ts`; hasil studio menjadi foto utama, diikuti foto asli dan pose alternatif. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diedit lewat field `nickname`.
+Aset produksi: `public/pngs/members/anggota/<divisi>/*-studio.webp` (800 × 1200, WebP kualitas 85). Pemetaannya ada di `constants/divisionMembers.ts`; hasil studio menjadi foto utama, diikuti pose khas divisi versi studio. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diedit lewat field `nickname`.
 
 Referensi gaya untuk seluruh potret adalah hasil studio Josephin. Edit AI diperiksa secara visual, tetapi tidak menjamin piksel wajah, kain, atau detail bordir identik dengan foto sumber. Foto asli disimpan untuk pembanding.
 
@@ -20,4 +20,4 @@ Total tambahan 21 aset studio: 660.364 byte (sekitar 645 KiB). Foto sumber tidak
 
 Josephin memakai revisi `bph/josephin-narumi-setiawan-02-v2-studio.webp` agar warna latarnya mengikuti Caroline. Dibuat dengan imagegen bawaan; prompt: “Edit input 1 only. Match its background to input 2: same photographic studio blue, hue, saturation, brightness and soft gradient. Preserve the original person, face, pose, clothing, badge and 2:3 framing.”
 
-`portraitCrop` menyimpan koordinat crop per anggota pada sumber 800 × 1200. Wajah disejajarkan secara lokal dengan deteksi kotak wajah, kemudian seluruh hasil ditinjau visual agar rambut dan area badge tidak terpotong. Komponen `MemberPortrait` memakai crop CSS 4:5 yang sama pada kartu, potret utama di dialog, dan thumbnail studio. Posisi tangan tidak direkayasa; crop menyembunyikan tangan. Foto asli masih bisa dibuka utuh.
+`portraitCrop` menyimpan koordinat crop per anggota pada sumber 800 × 1200. Wajah disejajarkan secara lokal dengan deteksi kotak wajah, kemudian seluruh hasil ditinjau visual agar rambut dan area badge tidak terpotong. Komponen `MemberPortrait` memakai crop CSS 4:5 yang sama pada kartu, potret utama di dialog, dan thumbnail studio. Posisi tangan tidak direkayasa; crop menyembunyikan tangan. Foto asli tidak lagi ditampilkan di dialog profil. Lihat [portrait-gestures.md](portrait-gestures.md) untuk pembaruan pose tangan.

@@ -22,7 +22,7 @@ fs.mkdirSync(output, { recursive: true });
         ["Josyca Nauli P."],
     );
     const images = all.flatMap((m) => m.photos || []);
-    assert.equal(new Set(images).size, 62);
+    assert.equal(new Set(images).size, 41);
     for (const [division, members] of Object.entries(divisionMembers)) {
         for (const m of members) {
             if (!m.imageUrl) continue;
@@ -62,7 +62,7 @@ fs.mkdirSync(output, { recursive: true });
                     });
                     await card.scrollIntoViewIfNeeded();
                     if (m.imageUrl) {
-                        const img = card.locator("img");
+                        const img = card.locator("img").first();
                         await img.evaluate((el) => el.decode());
                         assert(await img.evaluate((el) => el.naturalWidth > 0));
                     }
@@ -86,8 +86,22 @@ fs.mkdirSync(output, { recursive: true });
                     );
                     assert(m.nickname);
                     await dialog
-                        .getByText(`Panggil aku ${m.nickname}`, { exact: true })
+                        .getByText(`Nama panggilan: ${m.nickname}`, {
+                            exact: true,
+                        })
                         .waitFor();
+                    assert.equal(
+                        await dialog
+                            .getByText("Belum ada", { exact: true })
+                            .count(),
+                        2,
+                    );
+                    assert.equal(
+                        await dialog
+                            .getByText("Foto asli", { exact: true })
+                            .count(),
+                        0,
+                    );
                     if (m.imageUrl)
                         await dialog
                             .getByText("Potret studio", { exact: true })
@@ -166,7 +180,7 @@ fs.mkdirSync(output, { recursive: true });
             ),
         );
         console.log(
-            "PASS: 22 members, 62 photos, 6 divisions × 2 widths; image loading, alternate photos, Escape/focus, no overflow or browser errors.",
+            "PASS: 22 members, 41 photos, 6 divisions × 2 widths; image loading, alternate photos, Escape/focus, no overflow or browser errors.",
         );
     } finally {
         await browser.close();

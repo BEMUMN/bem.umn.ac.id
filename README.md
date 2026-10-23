@@ -59,6 +59,8 @@ Foto grup divisi memakai crop tampilan yang diatur per divisi di `components/Div
 
 Gerak halaman: navbar bersembunyi saat scroll turun dan muncul saat scroll naik. Filter kegiatan mengikuti alur halaman. Logo dekoratif beranda memakai kembali ukuran, posisi, animasi masuk, dan animasi scroll versi semula. Dekorasi disembunyikan mulai bagian Nilai & Identitas Kabinet masuk layar, termasuk Program & Kegiatan hingga footer, dan tampil kembali saat kembali ke bagian sebelumnya. Konten memakai reveal sekali saat masuk layar; dialog memakai transisi singkat. Preferensi reduced-motion dihormati. Pemeriksaan khusus tersedia di `scripts/qa/scroll-motion.cjs`.
 
-Potret individu kini memiliki versi studio dengan latar biru keabu-abuan (`*-studio.webp`) sebagai foto utama; 41 foto asli tetap dapat dipilih di profil. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diganti lewat `nickname` di `constants/divisionMembers.ts`. Rincian aset dan prompt imagegen ada di [docs/portrait-studio.md](docs/portrait-studio.md).
+Potret individu kini memiliki versi studio dengan latar biru keabu-abuan (`*-studio.webp`) sebagai foto utama; 20 pose tangan studio ditambahkan sebagai foto kedua; foto asli tidak lagi ditampilkan di profil. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diganti lewat `nickname` di `constants/divisionMembers.ts`. Rincian aset dan prompt imagegen ada di [docs/portrait-studio.md](docs/portrait-studio.md).
 
 Framing potret studio memakai crop 4:5 per orang (`portraitCrop`) agar ukuran dan posisi wajah konsisten pada kartu dan profil. Crop hanya mengatur tampilan; foto asli tetap utuh.
+
+Kartu berganti serempak dari potret biasa ke pose tangan khas divisi setiap lima detik. Detail aset, prompt, perilaku jeda, dan pengecualian tersedia di [docs/portrait-gestures.md](docs/portrait-gestures.md). Pengujian animasi: `scripts/qa/member-animation.cjs`.

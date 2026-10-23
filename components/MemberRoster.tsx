@@ -1,5 +1,5 @@
 "use client";
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { Search, X } from "lucide-react";
 import { MemberCard } from "@/components/MemberCard";
 import type { Member } from "@/constants/divisionMembers";
@@ -13,6 +13,40 @@ export function MemberRoster({
 }) {
     const [query, setQuery] = useState("");
     const id = useId();
+    const rosterRef = useRef<HTMLDivElement>(null);
+    const [paused, setPaused] = useState(false);
+    const [showGesture, setShowGesture] = useState(false);
+    const hasGestures = members.some((member) => member.gestureImageUrl);
+    useEffect(() => {
+        const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let visible = false;
+        const observer = new IntersectionObserver(([entry]) => {
+            visible = entry.isIntersecting;
+        });
+        if (rosterRef.current) observer.observe(rosterRef.current);
+        const reset = () => {
+            if (media.matches) setShowGesture(false);
+        };
+        media.addEventListener("change", reset);
+        reset();
+        const timer = window.setInterval(() => {
+            if (
+                !paused &&
+                hasGestures &&
+                visible &&
+                !document.hidden &&
+                !media.matches &&
+                !document.querySelector("dialog[open]")
+            ) {
+                setShowGesture((current) => !current);
+            }
+        }, 5000);
+        return () => {
+            window.clearInterval(timer);
+            observer.disconnect();
+            media.removeEventListener("change", reset);
+        };
+    }, [paused, hasGestures, members]);
     const filtered = useMemo(() => {
         const q = query.trim().toLocaleLowerCase("id");
         return members.filter((member) =>
@@ -22,7 +56,7 @@ export function MemberRoster({
         );
     }, [members, query]);
     return (
-        <div className="mt-6">
+        <div ref={rosterRef} className="mt-6">
             <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div className="w-full sm:max-w-md">
                     <label
@@ -60,12 +94,28 @@ export function MemberRoster({
                     {filtered.length} dari {members.length} pengurus
                 </p>
             </div>
+            {hasGestures && (
+                <div className="text-azure mb-5 flex items-center justify-between gap-3 text-xs">
+                    <span>Potret & pose khas divisi</span>
+                    <button
+                        type="button"
+                        onClick={() => setPaused((current) => !current)}
+                        aria-pressed={paused}
+                        className="min-h-11 rounded-full border border-white/20 px-4 hover:bg-white/10 motion-reduce:hidden"
+                    >
+                        {paused
+                            ? "Putar pergantian foto"
+                            : "Jeda pergantian foto"}
+                    </button>
+                </div>
+            )}
             {filtered.length ? (
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {filtered.map((member) => (
                         <MemberCard
                             key={member.name}
                             member={member}
+                            showGesture={showGesture}
                             onSelect={onSelect}
                         />
                     ))}

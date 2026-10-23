@@ -23,11 +23,9 @@ function MemberDialog({
 }: Omit<Props, "member"> & { member: Member }) {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [selected, setSelected] = useState(0);
-    const photos = member.photos?.length
-        ? member.photos
-        : member.imageUrl
-          ? [member.imageUrl]
-          : [];
+    const photos = [member.imageUrl, member.gestureImageUrl].filter(
+        (photo): photo is string => Boolean(photo),
+    );
     const initials = member.name
         .split(" ")
         .slice(0, 2)
@@ -110,7 +108,7 @@ function MemberDialog({
                 <div className="grid gap-6 p-5 sm:gap-8 sm:p-8 md:grid-cols-2">
                     <div>
                         <div
-                            className={`bg-blue-primary/40 relative mx-auto w-full max-w-[320px] overflow-hidden rounded-2xl ${photos[selected] === member.imageUrl && member.portraitCrop ? "aspect-[4/5]" : "aspect-[2/3]"}`}
+                            className={`bg-blue-primary/40 relative mx-auto aspect-[4/5] w-full max-w-[320px] overflow-hidden rounded-2xl`}
                         >
                             {photos.length ? (
                                 <MemberPortrait
@@ -140,9 +138,9 @@ function MemberDialog({
                                 className="text-azure/80 mt-3 text-center text-xs"
                                 aria-live="polite"
                             >
-                                {photos[selected].endsWith("-studio.webp")
+                                {selected === 0
                                     ? "Potret studio"
-                                    : "Foto asli"}
+                                    : "Pose khas divisi"}
                             </p>
                         )}
                         {photos.length > 1 && (
@@ -182,7 +180,7 @@ function MemberDialog({
                         </h2>
                         {member.nickname && (
                             <p className="text-azure mt-3 text-sm leading-relaxed">
-                                Panggil aku{" "}
+                                Nama panggilan:{" "}
                                 <span className="font-semibold text-white">
                                     {member.nickname}
                                 </span>
@@ -212,26 +210,49 @@ function MemberDialog({
                                 “{member.quote}”
                             </blockquote>
                         )}
-                        {links.length > 0 && (
-                            <div className="mt-6 flex flex-wrap gap-2">
-                                {links.map((link) => (
-                                    <a
-                                        key={link.label}
-                                        href={link.url}
-                                        target={
-                                            link.label === "Email"
-                                                ? undefined
-                                                : "_blank"
-                                        }
-                                        rel="noopener noreferrer"
-                                        className="text-azure inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-xs hover:bg-white/10"
+                        <section className="mt-6" aria-label="Media sosial">
+                            <h3 className="text-azure text-xs font-semibold">
+                                Media sosial
+                            </h3>
+                            {["Instagram", "LinkedIn"]
+                                .filter(
+                                    (label) =>
+                                        !links.some(
+                                            (link) => link.label === label,
+                                        ),
+                                )
+                                .map((label) => (
+                                    <div
+                                        key={label}
+                                        className="mt-3 flex items-center justify-between gap-4 text-sm"
                                     >
-                                        {link.label}
-                                        <ArrowUpRight size={15} />
-                                    </a>
+                                        <span>{label}</span>
+                                        <span className="text-azure/70">
+                                            Belum ada
+                                        </span>
+                                    </div>
                                 ))}
-                            </div>
-                        )}
+                            {links.length > 0 && (
+                                <div className="mt-6 flex flex-wrap gap-2">
+                                    {links.map((link) => (
+                                        <a
+                                            key={link.label}
+                                            href={link.url}
+                                            target={
+                                                link.label === "Email"
+                                                    ? undefined
+                                                    : "_blank"
+                                            }
+                                            rel="noopener noreferrer"
+                                            className="text-azure inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-xs hover:bg-white/10"
+                                        >
+                                            {link.label}
+                                            <ArrowUpRight size={15} />
+                                        </a>
+                                    ))}
+                                </div>
+                            )}
+                        </section>
                     </div>
                 </div>
             </div>
