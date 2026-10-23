@@ -11,14 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function HeroDecorations() {
     const superRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [pastActivities, setPastActivities] = useState(false);
+    const [pastValues, setPastValues] = useState(false);
 
     useEffect(() => {
-        const activities = document.getElementById("kegiatan");
-        if (!activities) return;
+        const values = document.getElementById("nilai");
+        if (!values) return;
         const updateVisibility = () => {
-            setPastActivities(
-                activities.getBoundingClientRect().top < window.innerHeight,
+            setPastValues(
+                values.getBoundingClientRect().top < window.innerHeight,
             );
         };
         updateVisibility();
@@ -161,7 +161,7 @@ export function HeroDecorations() {
         <div
             data-hero-decorations
             className="contents"
-            style={{ visibility: pastActivities ? "hidden" : "visible" }}
+            style={{ visibility: pastValues ? "hidden" : "visible" }}
         >
             {supergraphics.map((g, i) => (
                 <div

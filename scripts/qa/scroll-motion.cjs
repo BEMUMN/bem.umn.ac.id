@@ -99,6 +99,22 @@ const base = process.env.QA_URL || "http://localhost:3000";
                     );
                 }
                 if (route === "/" && width === 1440) {
+                    await page.locator("#nilai").scrollIntoViewIfNeeded();
+                    await page.waitForTimeout(400);
+                    assert(
+                        await page
+                            .locator("[data-hero-decorations] > div")
+                            .evaluateAll((elements) =>
+                                elements.every(
+                                    (el) =>
+                                        getComputedStyle(el).visibility ===
+                                        "hidden",
+                                ),
+                            ),
+                    );
+                    await page.screenshot({
+                        path: "coverage/scroll-motion/values-no-decorations.png",
+                    });
                     await page.locator("#kegiatan").scrollIntoViewIfNeeded();
                     await page.waitForTimeout(400);
                     assert(
