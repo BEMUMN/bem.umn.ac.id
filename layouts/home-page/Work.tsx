@@ -31,8 +31,6 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
     const [currentIndex, setCurrentIndex] = useState(1);
     const [swiper, setSwiper] = useState<SwiperInstance | null>(null);
     const [paused, setPaused] = useState(false);
-    const [hovered, setHovered] = useState(false);
-    const [focused, setFocused] = useState(false);
     const [reducedMotion, setReducedMotion] = useState(true);
     const items = sectionData[activeSection];
     useEffect(() => {
@@ -43,7 +41,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
         return () => media.removeEventListener("change", update);
     }, []);
     useEffect(() => {
-        if (!swiper || reducedMotion || paused || hovered || focused) return;
+        if (!swiper || reducedMotion || paused) return;
         let visible = false;
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -65,7 +63,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
             window.clearInterval(timer);
             observer.disconnect();
         };
-    }, [swiper, reducedMotion, paused, hovered, focused]);
+    }, [swiper, reducedMotion, paused]);
     const changeSection = (section: SectionId) => {
         setActiveSection(section);
         setCurrentIndex(1);
@@ -141,13 +139,6 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     aria-roledescription="carousel"
                     aria-label="Sorotan program dan kegiatan"
                     className="relative min-w-0 shrink-0 basis-2/3 self-center"
-                    onMouseEnter={() => setHovered(true)}
-                    onMouseLeave={() => setHovered(false)}
-                    onFocusCapture={() => setFocused(true)}
-                    onBlurCapture={(event) => {
-                        if (!event.currentTarget.contains(event.relatedTarget))
-                            setFocused(false);
-                    }}
                 >
                     <Swiper
                         key={activeSection}
