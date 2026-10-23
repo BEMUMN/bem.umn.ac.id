@@ -1,19 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import Link from "next/link";
-import {
-    ChevronDown,
-    ChevronLeft,
-    ChevronRight,
-    ChevronUp,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { subSections, prokers, kegma, lainnya } from "@/constants/workIndex";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
+import { A11y, Keyboard } from "swiper/modules";
+import type { Swiper as SwiperInstance } from "swiper";
 
 type SectionId = "proker" | "kegma" | "organisasi" | "lainnya";
 
@@ -31,116 +25,50 @@ const sectionData: Record<SectionId, WorkItem[]> = {
     lainnya: lainnya,
 };
 
-const cardWidth = 428 + 40;
-const motionDuration = (seconds: number) =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : seconds;
-
 const Work = ({ id, className }: { id: string; className?: string }) => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const carouselRef = useRef<HTMLDivElement | null>(null);
-    const titleRef = useRef<HTMLDivElement | null>(null);
-    const descRef = useRef<HTMLDivElement | null>(null);
-    const displayRef = useRef<number>(0);
-
+    const containerRef = useRef<HTMLDivElement>(null);
     const [activeSection, setActiveSection] = useState<SectionId>("proker");
     const [currentIndex, setCurrentIndex] = useState(1);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-
-    const items = sectionData[activeSection] || [];
-    const originalItems = items.length;
-    const totalItems = originalItems * 3;
-
-    // Setup carousel setiap kali section berubah (desktop)
+    const [swiper, setSwiper] = useState<SwiperInstance | null>(null);
+    const [paused, setPaused] = useState(false);
+    const [hovered, setHovered] = useState(false);
+    const [focused, setFocused] = useState(false);
+    const [reducedMotion, setReducedMotion] = useState(true);
+    const items = sectionData[activeSection];
     useEffect(() => {
-        if (!carouselRef.current) return;
-        const startDisplay = originalItems;
-        gsap.set(carouselRef.current, { x: -cardWidth * startDisplay });
-        displayRef.current = startDisplay;
-        setCurrentIndex(1);
-    }, [activeSection, originalItems]);
-
-    // Animasi teks saat section berubah
+        const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const update = () => setReducedMotion(media.matches);
+        update();
+        media.addEventListener("change", update);
+        return () => media.removeEventListener("change", update);
+    }, []);
     useEffect(() => {
-        if (!titleRef.current || !descRef.current) return;
-
-        const tl = gsap.timeline();
-        tl.fromTo(
-            titleRef.current,
-            { y: 20, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: motionDuration(0.6),
-                ease: "power3.out",
+        if (!swiper || reducedMotion || paused || hovered || focused) return;
+        let visible = false;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                visible = entry.isIntersecting;
             },
-        ).fromTo(
-            descRef.current,
-            { y: 20, opacity: 0 },
-            {
-                y: 0,
-                opacity: 1,
-                duration: motionDuration(0.6),
-                ease: "power3.out",
-            },
-            "<",
+            { threshold: 0.25 },
         );
-    }, [activeSection]);
-
-    // Fungsi geser desktop
-    const slideTo = (targetDisplay: number) => {
-        if (!carouselRef.current || isTransitioning || originalItems === 0)
-            return;
-        setIsTransitioning(true);
-
-        gsap.to(carouselRef.current, {
-            x: -cardWidth * targetDisplay,
-            duration: motionDuration(0.6),
-            ease: "power3.inOut",
-            onComplete: () => {
-                if (originalItems === 0) {
-                    setIsTransitioning(false);
-                    return;
-                }
-                const modulo = targetDisplay % originalItems;
-                const logical = modulo + 1;
-                setCurrentIndex(logical);
-
-                if (
-                    targetDisplay >= originalItems * 2 ||
-                    targetDisplay < originalItems
-                ) {
-                    const resetDisplay = originalItems + (logical - 1);
-                    gsap.set(carouselRef.current, {
-                        x: -cardWidth * resetDisplay,
-                    });
-                    displayRef.current = resetDisplay;
-                } else {
-                    displayRef.current = targetDisplay;
-                }
-
-                setIsTransitioning(false);
-            },
-        });
-    };
-
-    const handleNext = () => slideTo(displayRef.current + 1);
-    const handlePrev = () => slideTo(displayRef.current - 1);
-
-    const changeSection = (id: SectionId) => {
-        if (!containerRef.current || id === activeSection) return;
-
-        gsap.to(containerRef.current, {
-            opacity: 0,
-            duration: motionDuration(0.4),
-            onComplete: () => {
-                setActiveSection(id);
-                gsap.fromTo(
-                    containerRef.current,
-                    { opacity: 0 },
-                    { opacity: 1, duration: motionDuration(0.4) },
-                );
-            },
-        });
+        if (containerRef.current) observer.observe(containerRef.current);
+        const timer = window.setInterval(() => {
+            if (
+                visible &&
+                !document.hidden &&
+                !swiper.destroyed &&
+                !swiper.animating
+            )
+                swiper.slideNext();
+        }, 4200);
+        return () => {
+            window.clearInterval(timer);
+            observer.disconnect();
+        };
+    }, [swiper, reducedMotion, paused, hovered, focused]);
+    const changeSection = (section: SectionId) => {
+        setActiveSection(section);
+        setCurrentIndex(1);
     };
 
     return (
@@ -148,17 +76,14 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
             id={id}
             className={`relative flex w-full items-center justify-start font-sans md:px-12 ${className}`}
         >
-            <div className="w-full justify-around md:flex md:min-h-[42rem]">
+            <div className="w-full justify-around md:flex md:min-h-[42rem] md:gap-5">
                 {/* Left Text Section */}
-                <div className="scroll-reveal relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:h-80 md:px-0">
+                <div className="scroll-reveal relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:min-w-0 md:px-0">
                     <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                         <span>03 · Program &amp; Kegiatan</span>
                     </div>
 
-                    <h2
-                        ref={titleRef}
-                        className="mt-3 text-start font-serif text-3xl font-bold text-white drop-shadow sm:text-4xl md:text-5xl"
-                    >
+                    <h2 className="mt-3 text-start font-serif text-3xl font-bold text-white drop-shadow sm:text-4xl md:text-5xl">
                         {(() => {
                             const activeSectionObj = subSections.find(
                                 (s) => s.id === activeSection,
@@ -168,10 +93,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             );
                         })()}
                     </h2>
-                    <p
-                        ref={descRef}
-                        className="text-concrete/90 mt-4 font-sans text-sm leading-relaxed md:text-base"
-                    >
+                    <p className="text-concrete/90 mt-4 font-sans text-sm leading-relaxed md:text-base">
                         {subSections.find((s) => s.id === activeSection)?.desc}
                     </p>
 
@@ -213,134 +135,107 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     </div>
                 </div>
 
-                {/* Carousel Section */}
                 <div
                     ref={containerRef}
-                    className="scroll-reveal relative shrink-0 basis-2/3 self-center"
+                    role="region"
+                    aria-roledescription="carousel"
+                    aria-label="Sorotan program dan kegiatan"
+                    className="relative min-w-0 shrink-0 basis-2/3 self-center"
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    onFocusCapture={() => setFocused(true)}
+                    onBlurCapture={(event) => {
+                        if (!event.currentTarget.contains(event.relatedTarget))
+                            setFocused(false);
+                    }}
                 >
-                    {/* Mobile pakai Swiper */}
-                    <div className="block md:hidden">
-                        <Swiper
-                            modules={[Navigation]}
-                            spaceBetween={14}
-                            slidesPerView={1.2}
-                            centeredSlides
-                            navigation={{
-                                prevEl: ".custom-prev",
-                                nextEl: ".custom-next",
-                            }}
-                        >
-                            {items.map((item, i) => (
-                                <SwiperSlide key={i}>
+                    <Swiper
+                        key={activeSection}
+                        className="work-carousel"
+                        modules={[A11y, Keyboard]}
+                        slidesPerView="auto"
+                        spaceBetween={12}
+                        centeredSlides
+                        loop={items.length > 2}
+                        speed={reducedMotion ? 0 : 850}
+                        keyboard={{ enabled: true, onlyInViewport: true }}
+                        a11y={{
+                            prevSlideMessage: "Kegiatan sebelumnya",
+                            nextSlideMessage: "Kegiatan berikutnya",
+                            slideLabelMessage:
+                                "{{index}} dari {{slidesLength}}",
+                        }}
+                        breakpoints={{
+                            768: { spaceBetween: 20, centeredSlides: false },
+                        }}
+                        onSwiper={(instance) => {
+                            setSwiper(instance);
+                            setCurrentIndex(1);
+                        }}
+                        onSlideChange={(instance) =>
+                            setCurrentIndex(instance.realIndex + 1)
+                        }
+                    >
+                        {items.map((item) => (
+                            <SwiperSlide key={item.title}>
+                                <article className="work-carousel-card bg-navy-dark relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/15 shadow-xl">
                                     <div
-                                        className="relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl border border-white/10 shadow-lg"
+                                        className="work-carousel-image absolute inset-0 bg-cover bg-center"
                                         style={{
                                             backgroundImage: `url(${item.image})`,
-                                            backgroundSize: "cover",
-                                            backgroundPosition: "center",
                                         }}
-                                    >
-                                        <div
-                                            className={`absolute inset-0 ${item.gradient} opacity-70`}
-                                        ></div>
-                                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                                        <div className="absolute bottom-0 z-10 w-full p-5 text-center text-white">
-                                            <h3 className="font-serif text-2xl font-bold text-white drop-shadow-md">
-                                                {item.title}
-                                            </h3>
-                                            <p className="text-concrete/90 mt-1 font-sans text-xs leading-relaxed drop-shadow">
-                                                {item.description}
-                                            </p>
-                                        </div>
+                                    />
+                                    <div
+                                        className={`absolute inset-0 ${item.gradient} opacity-70`}
+                                    />
+                                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                                    <div className="absolute inset-x-0 bottom-0 p-5 text-center text-white md:p-6">
+                                        <h3 className="font-serif text-2xl font-bold tracking-wide lg:text-3xl">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-concrete/90 mt-2 text-xs leading-relaxed sm:text-sm">
+                                            {item.description}
+                                        </p>
                                     </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
-
-                        {/* Mobile navigation */}
-                        <div className="ml-5 flex justify-center gap-8 pt-8">
-                            <button
-                                type="button"
-                                aria-label="Item kegiatan sebelumnya"
-                                className="custom-prev border-azure/30 focus-visible:ring-azure cursor-pointer rounded-full border bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/20 focus-visible:ring-2 focus-visible:outline-none active:scale-90"
-                            >
-                                <ChevronLeft size={22} />
-                            </button>
-                            <button
-                                type="button"
-                                aria-label="Item kegiatan berikutnya"
-                                className="custom-next border-azure/30 focus-visible:ring-azure cursor-pointer rounded-full border bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/20 focus-visible:ring-2 focus-visible:outline-none active:scale-90"
-                            >
-                                <ChevronRight size={22} />
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Desktop pakai GSAP carousel */}
-                    <div className="hidden md:block">
-                        <div className="overflow-hidden p-5">
-                            <div
-                                ref={carouselRef}
-                                className="carousel-wrapper flex flex-nowrap gap-10"
-                            >
-                                {Array.from({ length: totalItems }).map(
-                                    (_, i) => {
-                                        const item = items[i % originalItems];
-                                        return (
-                                            <div
-                                                className="carousel-item"
-                                                key={i}
-                                            >
-                                                <div
-                                                    className="card hover:border-azure/40 relative flex aspect-[3/4] min-w-[200px] overflow-hidden rounded-2xl border border-white/10 shadow-xl transition-all duration-500 hover:-translate-y-1.5 md:w-[428px]"
-                                                    style={{
-                                                        backgroundImage: `url(${item.image})`,
-                                                        backgroundSize: "cover",
-                                                        backgroundPosition:
-                                                            "center",
-                                                    }}
-                                                >
-                                                    <div
-                                                        className={`absolute inset-0 ${item.gradient} opacity-70`}
-                                                    ></div>
-                                                    <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
-                                                    <div className="absolute bottom-0 z-10 w-full p-6 text-center text-white">
-                                                        <h3 className="font-serif text-2xl font-bold tracking-wide text-white drop-shadow-md lg:text-3xl">
-                                                            {item.title}
-                                                        </h3>
-                                                        <p className="text-concrete/90 mt-2 font-sans text-xs leading-relaxed drop-shadow sm:text-sm">
-                                                            {item.description}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    },
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Desktop Navigator Buttons */}
-                        <div className="ml-5 flex gap-6 pt-5">
-                            <button
-                                type="button"
-                                onClick={handlePrev}
-                                disabled={isTransitioning}
-                                aria-label="Item kegiatan sebelumnya"
-                                className="border-azure/30 focus-visible:ring-azure cursor-pointer rounded-full border bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/20 focus-visible:ring-2 focus-visible:outline-none active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
-                            >
-                                <ChevronLeft size={22} />
-                            </button>
-                            <button
-                                type="button"
-                                onClick={handleNext}
-                                disabled={isTransitioning}
-                                aria-label="Item kegiatan berikutnya"
-                                className="border-azure/30 focus-visible:ring-azure cursor-pointer rounded-full border bg-white/10 p-4 text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:border-white hover:bg-white/20 focus-visible:ring-2 focus-visible:outline-none active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
-                            >
-                                <ChevronRight size={22} />
-                            </button>
-                        </div>
+                                </article>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    <div className="flex items-center gap-3 px-6 pt-2 md:px-5">
+                        <button
+                            type="button"
+                            onClick={() => swiper?.slidePrev()}
+                            aria-label="Item kegiatan sebelumnya"
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => swiper?.slideNext()}
+                            aria-label="Item kegiatan berikutnya"
+                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                        <span className="text-azure ml-2 text-xs tabular-nums">
+                            {String(currentIndex).padStart(2, "0")}{" "}
+                            <span className="mx-1 opacity-50">·</span>{" "}
+                            {String(items.length).padStart(2, "0")}
+                        </span>
+                        <button
+                            type="button"
+                            onClick={() => setPaused((value) => !value)}
+                            aria-label={
+                                paused
+                                    ? "Putar carousel kegiatan"
+                                    : "Jeda carousel kegiatan"
+                            }
+                            aria-pressed={paused}
+                            className="text-azure ml-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 hover:bg-white/10 motion-reduce:hidden"
+                        >
+                            {paused ? <Play size={17} /> : <Pause size={17} />}
+                        </button>
                     </div>
                 </div>
             </div>

@@ -178,3 +178,38 @@ p {
         animation: dialog-enter 180ms ease-out;
     }
 }
+
+.work-carousel.swiper {
+    padding: 22px 20px;
+}
+.work-carousel .swiper-slide {
+    width: min(82vw, 428px);
+}
+.work-carousel-card {
+    transform: scale(0.9);
+    opacity: 0.65;
+    transform-origin: center;
+    transition:
+        transform 850ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 850ms ease,
+        border-color 850ms ease;
+}
+.work-carousel .swiper-slide-active .work-carousel-card {
+    transform: scale(1);
+    opacity: 1;
+    border-color: rgb(180 202 218 / 0.55);
+}
+.work-carousel-image {
+    transform: scale(1);
+    transition: transform 4200ms ease-out;
+}
+.work-carousel .swiper-slide-active .work-carousel-image {
+    transform: scale(1.045);
+}
+@media (prefers-reduced-motion: reduce) {
+    .work-carousel-card,
+    .work-carousel-image {
+        transition: none;
+        transform: none !important;
+    }
+}
