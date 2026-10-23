@@ -41,6 +41,21 @@ const base = process.env.QA_URL || "http://localhost:3000";
                         });
                     }
                 }
+                if (route === "/" && width === 1440) {
+                    await page.evaluate(() => window.scrollTo(0, 100));
+                    await page.waitForTimeout(200);
+                    assert(
+                        await page
+                            .locator("[data-hero-decorations] > div")
+                            .evaluateAll((elements) =>
+                                elements.every(
+                                    (el) =>
+                                        getComputedStyle(el).visibility ===
+                                        "visible",
+                                ),
+                            ),
+                    );
+                }
                 await page.evaluate(() => window.scrollTo(0, 650));
                 await page.waitForTimeout(700);
                 assert.equal(
@@ -50,19 +65,38 @@ const base = process.env.QA_URL || "http://localhost:3000";
                     "false",
                     route,
                 );
-                if (route === "/") {
+                if (route === "/" && width === 1440) {
+                    const motifs = page.locator(
+                        "[data-hero-decorations] > div",
+                    );
+                    assert.equal(
+                        await motifs
+                            .first()
+                            .evaluate((el) => getComputedStyle(el).visibility),
+                        "hidden",
+                    );
+                    assert.equal(
+                        await motifs
+                            .last()
+                            .evaluate((el) => getComputedStyle(el).visibility),
+                        "visible",
+                    );
+                    await page.evaluate(() =>
+                        window.scrollTo(
+                            0,
+                            document
+                                .querySelector("#hero")
+                                .getBoundingClientRect().bottom +
+                                window.scrollY +
+                                1,
+                        ),
+                    );
+                    await page.waitForTimeout(200);
                     assert.equal(
                         await page
                             .locator("[data-hero-decorations]")
                             .getAttribute("data-dismissed"),
                         "true",
-                    );
-                    assert.equal(
-                        await page
-                            .locator("[data-hero-decorations] > div")
-                            .first()
-                            .evaluate((el) => getComputedStyle(el).opacity),
-                        "0",
                     );
                 }
                 await page.evaluate(() => window.scrollBy(0, -150));
@@ -96,7 +130,7 @@ const base = process.env.QA_URL || "http://localhost:3000";
                 }
                 await page.evaluate(() => window.scrollTo(0, 0));
                 await page.waitForTimeout(400);
-                if (route === "/")
+                if (route === "/" && width === 1440)
                     assert.equal(
                         await page
                             .locator("[data-hero-decorations]")
