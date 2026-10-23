@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { MemberCard } from "@/components/MemberCard";
+import { MemberRoster } from "@/components/MemberRoster";
 import { MemberDetailModal } from "@/components/MemberDetailModal";
 import type { Member } from "@/constants/divisionMembers";
 
@@ -18,15 +18,7 @@ export const DivisionDetailClient: React.FC<DivisionDetailClientProps> = ({
 
     return (
         <>
-            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                {members.map((member) => (
-                    <MemberCard
-                        key={member.name}
-                        member={member}
-                        onSelect={(m) => setSelectedMember(m)}
-                    />
-                ))}
-            </div>
+            <MemberRoster members={members} onSelect={setSelectedMember} />
 
             <MemberDetailModal
                 member={selectedMember}

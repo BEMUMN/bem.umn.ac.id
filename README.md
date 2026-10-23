@@ -1,143 +1,66 @@
-# Repository of **BEM UMN GEN XV** Website
+# BEM UMN GEN XVI
 
-This is an official repository of **BEM UMN GEN XV** Website. This repository should be private.
+Website BEM Universitas Multimedia Nusantara, dibangun dengan Next.js, React, TypeScript, dan Tailwind CSS.
 
-## Content of the Website
+## Menjalankan lokal
 
--   Introduction of **BEM UMN GEN XV**
--   The work programs of **BEM UMN GEN XV**
--   Documentations of **BEM UMN GEN XV**'s activites
--   Members of **BEM UMN GEN XV**
--   Important documents for the organization
-
-## Links
-
--   Website URL :
--
--
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-# Naming Convention Guide
+Buka http://localhost:3000. Hentikan server dengan Ctrl+C.
 
-## 1. Folder Structure
+## Pemeriksaan
 
-Keep a clean and organized structure:
-
-```
-/src
-  /components      # Reusable UI components
-  /hooks           # Custom React hooks
-  /layouts         # Layout components (e.g., Navbar, Footer)
-  /app            # Next.js App Router structure
-  /public          # Static assets (images, icons, etc.)
-  /utils           # Utility/helper functions
-  /services        # API functions & external services
-  /store           # State management (Zustand, Redux, etc.)
+```sh
+npm run lint
+npm run build
 ```
 
-## 2. Naming Conventions
+Pemeriksaan browser opsional memakai Playwright yang sudah terpasang di lingkungan alat:
 
-### Files & Directories
+```sh
+PLAYWRIGHT_MODULE=/absolute/path/to/playwright \
+CHROME_PATH=/absolute/path/to/chrome \
+QA_URL=http://localhost:3000 \
+node scripts/qa/original-polish.cjs
+```
 
--   **Folders**: `kebab-case`
+Hasil tes dan screenshot ditulis ke `coverage/browser/` (diabaikan Git). Gunakan `QA_OUTPUT` untuk mengganti lokasi hasil.
 
-    -   ✅ `/src/utils`
-    -   ✅ `/src/hooks`
-    -   ✅ `/src/user-profile`
+## Struktur
 
--   **Components & Layouts**: `PascalCase`
+- `app/`: halaman dan layout Next.js.
+- `layouts/`: navbar, footer, dan section beranda.
+- `components/`: komponen profil, direktori, dan kegiatan.
+- `constants/`: data anggota, divisi, kegiatan, dan kontak.
+- `public/`: aset yang dipakai serta referensi informasi dan identitas resmi.
 
-    -   ✅ `Button.js`
-    -   ✅ `Navbar.js`
-    -   ✅ `UserProfileCard.js`
+## Build produksi standalone
 
--   **Pages & App Router (`/app` directory)**: `kebab-case` for folders, `page.js` for entry files
+```sh
+npm run build
+mkdir -p .next/standalone/public .next/standalone/.next/static
+cp -R public/. .next/standalone/public/
+cp -R .next/static/. .next/standalone/.next/static/
+PORT=3000 HOSTNAME=127.0.0.1 node .next/standalone/server.js
+```
 
-    -   ✅ `/app/(auth)/login/page.js`
-    -   ✅ `/app/dashboard/page.js`
-    -   ✅ `/app/user-profile/page.js`
+## Foto pengurus
 
--   **API Routes (`/app/api`)**: `route.js`
+Potret disimpan di `public/pngs/members/anggota/<divisi>/` dan dipetakan melalui `constants/divisionMembers.ts`. `imageUrl` menjadi foto utama; `photos` berisi pilihan foto pada detail profil. Nama file mempertahankan nama anggota dan nomor pose dari ZIP sumber. Sebanyak 21 anggota memiliki foto; foto Josyca Nauli P. belum tersedia dan ditampilkan sebagai inisial. Pilihan foto sumber mencakup 41 foto WebP, lebar maksimal 800 px; arsip asli tetap berada di luar repo.
 
-    -   ✅ `/app/api/get-user/route.js`
-    -   ✅ `/app/api/update-profile/route.js`
+Untuk memeriksa pemetaan dan interaksi foto, jalankan `scripts/qa/member-photos.cjs` dengan variabel lingkungan Playwright/Chrome seperti contoh di atas. Hasilnya disimpan di `coverage/member-photos/`.
 
--   **Hooks**: `useCamelCase.js`
+Pemeriksaan UI: `scripts/qa/original-polish.cjs` mencakup 10 halaman pada lima lebar layar. `scripts/qa/ui-polish.cjs` memeriksa pencarian pengurus, pemulihan fokus, filter kegiatan, dialog, dan kategori beranda. Keduanya memakai variabel lingkungan alat yang sama seperti contoh di atas.
 
-    -   ✅ `useAuth.js`
-    -   ✅ `useFetchData.js`
+Foto grup divisi memakai crop tampilan yang diatur per divisi di `components/DivisionPhoto.tsx`. File asli tidak diubah; pengguna dapat membuka foto utuh atau ukuran aslinya. Pemeriksaan komponen ini tersedia melalui `scripts/qa/division-photos.cjs`, dengan hasil di `coverage/division-photos/`.
 
--   **Utilities**: `camelCase.js`
+Gerak halaman: navbar bersembunyi saat scroll turun dan muncul saat scroll naik. Filter kegiatan mengikuti alur halaman. Logo dekoratif beranda memakai kembali ukuran, posisi, animasi masuk, dan animasi scroll versi semula. Dekorasi disembunyikan mulai bagian Nilai & Identitas Kabinet masuk layar, termasuk Program & Kegiatan hingga footer, dan tampil kembali saat kembali ke bagian sebelumnya. Konten memakai reveal sekali saat masuk layar; dialog memakai transisi singkat. Preferensi reduced-motion dihormati. Pemeriksaan khusus tersedia di `scripts/qa/scroll-motion.cjs`.
 
-    -   ✅ `formatDate.js`
-    -   ✅ `fetchWithAuth.js`
+Potret individu kini memiliki versi studio dengan latar biru keabu-abuan (`*-studio.webp`) sebagai foto utama; 20 pose tangan studio ditambahkan sebagai foto kedua; foto asli tidak lagi ditampilkan di profil. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diganti lewat `nickname` di `constants/divisionMembers.ts`.
 
--   **State Management (Zustand, Redux, Context API)**: `camelCase.js`
-    -   ✅ `authStore.js`
-    -   ✅ `themeContext.js`
+Framing potret studio memakai crop 4:5 per orang (`portraitCrop`) agar ukuran dan posisi wajah konsisten pada kartu dan profil. Crop hanya mengatur tampilan; foto asli tetap utuh.
 
-## 3. Variables & Functions
-
--   **Constants**: `SCREAMING_SNAKE_CASE`
-
-    -   ✅ `const API_BASE_URL = "https://api.example.com";`
-    -   ✅ `const MAX_UPLOAD_SIZE = 5 * 1024 * 1024;`
-
--   **Functions**: `camelCase`
-
-    -   ✅ `getUserData()`
-    -   ✅ `handleFormSubmit()`
-
--   **React Props & State**: `camelCase`
-    -   ✅ `const [isLoggedIn, setIsLoggedIn] = useState(false);`
-    -   ✅ `const userName = "John Doe";`
-
-## 4. Styling
-
--   **CSS/SCSS Module Files**: `PascalCase.module.css`
-
-    -   ✅ `Button.module.css`
-    -   ✅ `Navbar.module.scss`
-
--   **Tailwind Classes**: Follow Tailwind's default class naming convention
-    -   ✅ `<div className="flex items-center justify-center p-4">`
-
-## 5. API & Backend Integration
-
--   **Endpoints**: `kebab-case`
-
-    -   ✅ `/api/users/get-profile`
-    -   ✅ `/api/orders/create`
-
--   **Fetch Calls**: `camelCase`
-    -   ✅ `fetchUserData()`
-    -   ✅ `updateUserProfile()`
-
-## 6. Miscellaneous
-
--   **Git Branches**: `feature/branch-name`, `bugfix/branch-name`
-
-    -   ✅ `feature/add-user-auth`
-    -   ✅ `bugfix/fix-navbar-bug`
-
--   **Commits**: Follow a conventional commit style
-    ```
-    feat: add authentication system
-    fix: resolve navbar alignment issue
-    refactor: optimize API calls
-    ```
+Kartu berganti serempak dari potret biasa ke pose tangan khas divisi setiap lima detik. Pengujian animasi: `scripts/qa/member-animation.cjs`.
