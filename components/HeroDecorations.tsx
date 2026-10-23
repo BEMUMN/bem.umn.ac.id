@@ -1,72 +1,160 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { supergraphics } from "@/constants/supergraphicIndex";
 
-const motifs = [
-    {
-        src: "/svgs/COLLABORATIVE_supergrafik_1.svg",
-        position: "top-[16%] -left-8",
-    },
-    {
-        src: "/svgs/INCLUSIVE_supergrafik_2.svg",
-        position: "top-[16%] -right-8",
-    },
-    {
-        src: "/svgs/INNOVATIVE_supergrafik_3.svg",
-        position: "bottom-[12%] -left-8",
-    },
-    {
-        src: "/svgs/SOLID_supergrafik_4.svg",
-        position: "bottom-[12%] -right-8",
-    },
-];
+gsap.registerPlugin(ScrollTrigger);
 
 export function HeroDecorations() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [dismissed, setDismissed] = useState<number[]>([]);
-    useEffect(() => {
-        const exited = new Set<number>();
-        const checkVisibility = () => {
-            const elements = containerRef.current?.children;
-            if (!elements) return;
-            let changed = false;
-            Array.from(elements).forEach((element, index) => {
-                const rect = element.getBoundingClientRect();
-                if (!exited.has(index) && rect.width > 0 && rect.bottom <= 0) {
-                    exited.add(index);
-                    changed = true;
-                }
+    const superRefs = useRef<(HTMLDivElement | null)[]>([]);
+    // GSAP Animations (Orkestrasi 4 Supergrafik Resmi GEN XVI)
+    useGSAP(() => {
+        const prefersReducedMotion =
+            typeof window !== "undefined" &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (prefersReducedMotion) {
+            // Tampilan statis tenang tanpa animasi gerak berlebih
+            gsap.set(superRefs.current[0], { x: 300, y: 50, opacity: 0.2 });
+            gsap.set(superRefs.current[1], {
+                x: -300,
+                y: 80,
+                opacity: 0.2,
             });
-            if (changed) setDismissed([...exited]);
-        };
-        checkVisibility();
-        window.addEventListener("scroll", checkVisibility, { passive: true });
-        window.addEventListener("resize", checkVisibility);
-        return () => {
-            window.removeEventListener("scroll", checkVisibility);
-            window.removeEventListener("resize", checkVisibility);
-        };
-    }, []);
+            gsap.set(superRefs.current[2], { x: -350, opacity: 0.2 });
+            gsap.set(superRefs.current[3], {
+                x: 250,
+                y: -60,
+                opacity: 0.2,
+            });
+            return;
+        }
+
+        // Intro animation untuk 4 motif supergrafik
+        const intro = gsap.timeline({
+            defaults: { ease: "sine.inOut" },
+            onComplete: () => {
+                initScrollTriggers();
+            },
+        });
+
+        intro
+            .to(superRefs.current[0], {
+                x: 350,
+                y: 60,
+                rotation: 15,
+                duration: 1.2,
+            })
+            .to(
+                superRefs.current[1],
+                { x: -380, y: 120, rotation: -20, duration: 1.2 },
+                "<",
+            )
+            .to(
+                superRefs.current[2],
+                { x: -400, rotation: 15, duration: 1.2 },
+                "<",
+            )
+            .to(
+                superRefs.current[3],
+                { x: 300, y: -80, rotation: -15, duration: 1.2 },
+                "<",
+            );
+
+        function initScrollTriggers() {
+            // Hero → Tentang Kami
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "+=100 top",
+                    endTrigger: "#tentang",
+                    end: "bottom bottom",
+                    scrub: true,
+                },
+                defaults: { ease: "sine.inOut" },
+            })
+                .to(
+                    superRefs.current[0],
+                    { x: -320, y: -80, rotation: -40 },
+                    ">",
+                )
+                .to(superRefs.current[1], { x: 380, y: -80, rotation: 40 }, "<")
+                .to(
+                    superRefs.current[2],
+                    { x: 280, y: 160, rotation: -40 },
+                    "<",
+                )
+                .to(
+                    superRefs.current[3],
+                    { x: -320, y: 80, rotation: 40 },
+                    "<",
+                );
+
+            // Tentang Kami → Nilai Kabinet
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#tentang",
+                    start: "top top",
+                    endTrigger: "#nilai",
+                    end: "bottom bottom",
+                    scrub: true,
+                },
+                defaults: { ease: "sine.inOut" },
+            })
+                .to(superRefs.current[3], { x: 400, y: 50, scale: 1.2 }, ">")
+                .to(
+                    superRefs.current[2],
+                    { x: -420, y: -60, scale: 1.4, rotate: 20 },
+                    "<",
+                );
+
+            // Nilai Kabinet → Kegiatan Mahasiswa (KEGMA)
+            gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#nilai",
+                    start: "top top",
+                    endTrigger: "#kegiatan",
+                    end: "bottom bottom",
+                    scrub: true,
+                },
+                defaults: { ease: "sine.inOut" },
+            })
+                .to(superRefs.current[1], { x: -350, y: 40, scale: 1 }, ">")
+                .to(
+                    superRefs.current[0],
+                    { x: 350, y: -120, scale: 1.3, rotate: 15 },
+                    "<",
+                )
+                .to(superRefs.current[2], { x: -480, y: 60, scale: 1 }, ">")
+                .to(
+                    superRefs.current[3],
+                    { x: 380, y: -140, scale: 1.2, rotate: -25 },
+                    "<",
+                );
+        }
+    });
+
     return (
-        <div
-            ref={containerRef}
-            aria-hidden="true"
-            data-hero-decorations
-            data-dismissed={dismissed.length === motifs.length}
-            className="pointer-events-none absolute inset-0 z-0 hidden overflow-hidden md:block"
-        >
-            {motifs.map((motif, index) => (
+        <div data-hero-decorations className="contents">
+            {supergraphics.map((g, i) => (
                 <div
-                    key={motif.src}
-                    className={`absolute h-36 w-36 lg:h-44 lg:w-44 ${motif.position} ${dismissed.includes(index) ? "invisible" : "opacity-[0.12]"}`}
+                    key={g.name}
+                    ref={(el) => {
+                        superRefs.current[i] = el;
+                    }}
+                    className={`pointer-events-none fixed z-10 scale-50 opacity-20 sm:scale-75 md:scale-90 lg:opacity-30 ${g.className} hidden md:block`}
+                    aria-hidden="true"
                 >
                     <Image
-                        src={motif.src}
-                        alt=""
-                        fill
-                        sizes="176px"
-                        className="object-contain"
+                        src={g.src}
+                        alt={`Supergrafik ${g.name}`}
+                        width={g.w}
+                        height={g.h}
+                        className="drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
                     />
                 </div>
             ))}

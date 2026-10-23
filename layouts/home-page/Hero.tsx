@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { HeroDecorations } from "@/components/HeroDecorations";
 import Link from "next/link";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 
@@ -38,8 +37,6 @@ const Hero = ({ id, className }: HeroProps) => {
 
             {/* Gradient Overlays */}
             <div className="from-navy-dark/85 via-navy-dark/65 to-navy-dark/95 absolute inset-0 -z-10 bg-gradient-to-b" />
-
-            <HeroDecorations />
 
             {/* CENTER CONTENT */}
             <div className="hero-content scroll-reveal relative z-10 my-auto flex w-full max-w-5xl flex-col items-center text-center">

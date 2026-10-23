@@ -1,3 +1,4 @@
+import { HeroDecorations } from "@/components/HeroDecorations";
 import Navbar from "@/layouts/Navbar";
 import Hero from "@/layouts/home-page/Hero";
 import AboutPreview from "@/layouts/home-page/AboutPreview";
@@ -37,6 +38,7 @@ export default function Home() {
 
             {/* 5. FOOTER INSTITUSIONAL */}
             <Footer />
+            <HeroDecorations />
         </main>
     );
 }
