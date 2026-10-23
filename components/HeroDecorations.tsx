@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -11,6 +11,25 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function HeroDecorations() {
     const superRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [pastActivities, setPastActivities] = useState(false);
+
+    useEffect(() => {
+        const activities = document.getElementById("kegiatan");
+        if (!activities) return;
+        const updateVisibility = () => {
+            setPastActivities(
+                activities.getBoundingClientRect().top < window.innerHeight,
+            );
+        };
+        updateVisibility();
+        window.addEventListener("scroll", updateVisibility, { passive: true });
+        window.addEventListener("resize", updateVisibility);
+        return () => {
+            window.removeEventListener("scroll", updateVisibility);
+            window.removeEventListener("resize", updateVisibility);
+        };
+    }, []);
+
     // GSAP Animations (Orkestrasi 4 Supergrafik Resmi GEN XVI)
     useGSAP(() => {
         const prefersReducedMotion =
@@ -139,7 +158,11 @@ export function HeroDecorations() {
     });
 
     return (
-        <div data-hero-decorations className="contents">
+        <div
+            data-hero-decorations
+            className="contents"
+            style={{ visibility: pastActivities ? "hidden" : "visible" }}
+        >
             {supergraphics.map((g, i) => (
                 <div
                     key={g.name}

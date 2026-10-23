@@ -98,6 +98,32 @@ const base = process.env.QA_URL || "http://localhost:3000";
                             ),
                     );
                 }
+                if (route === "/" && width === 1440) {
+                    await page.locator("#kegiatan").scrollIntoViewIfNeeded();
+                    await page.waitForTimeout(400);
+                    assert(
+                        await page
+                            .locator("[data-hero-decorations] > div")
+                            .evaluateAll((elements) =>
+                                elements.every(
+                                    (el) =>
+                                        getComputedStyle(el).visibility ===
+                                        "hidden",
+                                ),
+                            ),
+                    );
+                    await page.screenshot({
+                        path: "coverage/scroll-motion/activities-no-decorations.png",
+                    });
+                    await page.evaluate(() => window.scrollTo(0, 0));
+                    await page.waitForTimeout(400);
+                    assert.equal(
+                        await page
+                            .locator("[data-hero-decorations]")
+                            .evaluate((el) => getComputedStyle(el).visibility),
+                        "visible",
+                    );
+                }
                 console.log(`PASS ${width} ${route}: navbar, content, scroll`);
             }
             await page.close();
