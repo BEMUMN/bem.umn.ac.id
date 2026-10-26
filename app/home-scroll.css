@@ -1047,26 +1047,7 @@
 .turn-tall {
     display: none;
 }
-/* the footer is taller than short laptop screens, so shrink it to fit the sheet */
-.turnback__sheet > footer {
-    margin-top: 0;
-}
-@media (min-width: 1024px) and (max-height: 819px) {
-    .turnback__sheet > footer {
-        zoom: 0.85;
-    }
-}
-@media (min-width: 1024px) and (max-height: 739px) {
-    .turnback__sheet > footer {
-        zoom: 0.72;
-    }
-}
-@media (min-width: 1024px) and (max-height: 639px) {
-    .turnback__sheet > footer {
-        zoom: 0.6;
-    }
-}
-@media (min-width: 1024px) and (min-height: 520px) {
+@media (min-width: 1024px) and (min-height: 760px) {
     .turn-tall {
         display: block;
     }
