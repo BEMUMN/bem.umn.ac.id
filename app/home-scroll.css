@@ -1023,3 +1023,40 @@
     background: var(--bem-camel-500);
     z-index: 70;
 }
+
+/* ---- end of a division page: the sheet that turns back to the home page ---- */
+.turnback__sheet {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: calc(var(--bem-chrome-h) + 24px) var(--sc-gutter) 120px;
+    text-align: center;
+}
+.turnback__title {
+    font-size: var(--sc-t-2xl);
+    line-height: 1.05;
+    max-width: 16ch;
+    color: var(--sc-ink);
+}
+.turnback__cue {
+    margin: 0;
+    font-size: var(--sc-t-sm);
+    letter-spacing: var(--sc-track-wide);
+    text-transform: uppercase;
+    color: var(--sc-ink-soft);
+}
+.turnback__link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    color: var(--bem-azure-300);
+}
+.turnback__link:hover {
+    color: #fff;
+}
+.sc-home :is(.turnback__sheet) {
+    font-family: var(--sc-font-text);
+}

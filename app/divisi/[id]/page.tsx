@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { DivisionHeader } from "@/components/DivisionHeader";
 import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
+import "../../home-scroll.css";
 import { ChapterTabs } from "@/components/ChapterTabs";
+import { PageTurnHome } from "@/components/PageTurnHome";
 import Footer from "@/layouts/Footer";
 import { DivisionDetailClient } from "@/components/DivisionDetailClient";
 import { divisions } from "@/constants/divisionIndex";
@@ -68,7 +70,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                         </Link>
                         <ChevronRight size={12} />
                         <Link
-                            href="/divisi"
+                            href="/#divisi"
                             className="inline-flex min-h-11 items-center transition hover:text-white"
                         >
                             Divisi
@@ -81,7 +83,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
 
                     <div className="mt-4">
                         <Link
-                            href="/divisi"
+                            href="/#divisi"
                             className="text-azure inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-sans text-xs font-semibold transition hover:bg-white/20 hover:text-white"
                         >
                             <ArrowLeft size={14} />
@@ -144,6 +146,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
             </main>
 
             <Footer />
+            <PageTurnHome name={division.name} />
         </div>
     );
 }

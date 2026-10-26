@@ -32,6 +32,17 @@ export function ScrollCraftMount() {
                 ).ScrollCraft;
                 const api = sc.mount(document);
                 const stopPeels = initPeels();
+                // The engine sets act heights above the target after the router
+                // already scrolled to the hash, so land on it again.
+                if (location.hash.length > 1) {
+                    const land = () =>
+                        document
+                            .getElementById(location.hash.slice(1))
+                            ?.scrollIntoView({ behavior: "instant" });
+                    land();
+                    // Images and fonts settle after mount and move the target.
+                    window.setTimeout(land, 400);
+                }
                 stop = () => {
                     api.destroy();
                     stopPeels();
