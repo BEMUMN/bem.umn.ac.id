@@ -8,6 +8,7 @@ import {
     Mail,
     MapPin,
     ArrowUpRight,
+    ArrowRight,
 } from "lucide-react";
 import { navLinks } from "@/constants";
 import { contactConfig } from "@/constants/contactIndex";
@@ -64,6 +65,8 @@ const channelIcon = (id: string) => {
 
 const heading =
     "text-pale-taupe font-sans text-[11px] font-semibold tracking-[0.22em] uppercase";
+// One row height for every list, so the columns read across as a ruled sheet.
+const row = "flex min-h-14 items-center gap-3 border-b border-white/10";
 
 const Footer = () => {
     return (
@@ -80,33 +83,33 @@ const Footer = () => {
             <div className="via-azure/60 absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
 
             <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {/* Ajakan utama */}
-                <div className="grid gap-12 border-b border-white/10 py-16 lg:grid-cols-12 lg:items-end lg:py-24">
-                    <div className="lg:col-span-8">
+                {/* Pernyataan */}
+                <div className="flex flex-col gap-10 py-16 sm:py-20 lg:flex-row lg:items-end lg:justify-between lg:py-24">
+                    <div className="max-w-3xl">
                         <p className={heading}>{contactConfig.tagline}</p>
-                        <h2 className="mt-5 font-serif text-4xl leading-[1.05] sm:text-5xl lg:text-7xl">
+                        <h2 className="mt-5 font-serif text-5xl leading-[1.02] sm:text-6xl lg:text-7xl">
                             Inclusive for{" "}
                             <em className="text-pale-taupe">Innovation</em>.
                         </h2>
-                        <p className="text-concrete/80 mt-6 max-w-xl font-sans text-sm leading-7 sm:text-base">
+                        <p className="text-concrete/75 mt-6 max-w-xl font-sans text-sm leading-7 sm:text-base">
                             {contactConfig.description}
                         </p>
                     </div>
-                    <div className="lg:col-span-4 lg:flex lg:justify-end">
-                        <Image
-                            src="/pngs/gen-xvi-light.webp"
-                            alt=""
-                            width={700}
-                            height={248}
-                            className="h-auto w-56 sm:w-64 lg:w-72"
-                        />
-                    </div>
+                    <Image
+                        src="/pngs/gen-xvi-light.webp"
+                        alt="Gen XVI"
+                        width={700}
+                        height={248}
+                        className="h-auto w-48 shrink-0 sm:w-60 lg:w-72"
+                    />
                 </div>
 
-                {/* Tautan */}
-                <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-                    <div className="lg:col-span-4">
-                        <div className="flex items-center gap-4">
+                {/* Kolom */}
+                <div className="grid gap-x-12 gap-y-14 border-t border-white/15 pt-12 pb-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_0.9fr_1.15fr_1.15fr]">
+                    {/* Lembaga */}
+                    <div>
+                        <p className={heading}>Lembaga</p>
+                        <div className="mt-6 flex items-center gap-4">
                             <Link
                                 href="/"
                                 aria-label="Kembali ke Beranda BEM UMN"
@@ -115,81 +118,100 @@ const Footer = () => {
                                 <Image
                                     src="/svgs/LOGO_BEM.svg"
                                     alt="Logo BEM UMN"
-                                    width={44}
-                                    height={44}
-                                    className="h-11 w-auto object-contain"
+                                    width={48}
+                                    height={48}
+                                    className="h-12 w-auto object-contain"
                                 />
                                 <span className="flex flex-col">
-                                    <span className="font-serif text-base tracking-wider">
+                                    <span className="font-serif text-lg leading-tight tracking-wide">
                                         BEM UMN
                                     </span>
-                                    <span className="text-azure font-sans text-[10px] font-bold tracking-widest uppercase">
+                                    <span className="text-azure font-sans text-[10px] font-bold tracking-[0.22em] uppercase">
                                         Gen XVI
                                     </span>
                                 </span>
                             </Link>
-                            <span className="h-8 w-px bg-white/20" />
+                            <span className="h-9 w-px bg-white/20" />
                             <Image
                                 src="/svgs/LOGO_UMN_WHITE.svg"
                                 alt="Universitas Multimedia Nusantara"
                                 width={90}
                                 height={32}
-                                className="h-8 w-auto object-contain opacity-90"
+                                className="h-9 w-auto object-contain opacity-90"
                             />
+                        </div>
+                        <div className="text-concrete/80 mt-7 flex items-start gap-3 font-sans text-sm leading-6">
+                            <MapPin
+                                size={18}
+                                className="text-azure mt-1 shrink-0"
+                            />
+                            <p>
+                                <strong className="block font-medium text-white">
+                                    {contactConfig.address.campus}
+                                </strong>
+                                {contactConfig.address.street}
+                                <br />
+                                {contactConfig.address.area}
+                                <br />
+                                {contactConfig.address.city}
+                            </p>
                         </div>
                         <a
                             href={contactConfig.address.mapUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-concrete/80 hover:text-azure mt-6 flex items-start gap-3 font-sans text-xs leading-relaxed transition-colors"
+                            className="group focus-visible:ring-azure mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/25 px-5 font-sans text-xs font-semibold transition hover:bg-white/10 focus:outline-none focus-visible:ring-2"
                         >
-                            <MapPin
-                                size={16}
-                                className="text-azure mt-0.5 shrink-0"
+                            Buka di peta
+                            <ArrowUpRight
+                                size={14}
+                                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                             />
-                            <span>
-                                <strong className="block font-medium text-white">
-                                    {contactConfig.address.campus}
-                                </strong>
-                                {contactConfig.address.street},{" "}
-                                {contactConfig.address.area},{" "}
-                                {contactConfig.address.city}
-                            </span>
                         </a>
                     </div>
 
-                    <nav aria-label="Navigasi footer" className="lg:col-span-2">
+                    {/* Navigasi */}
+                    <nav aria-label="Navigasi footer">
                         <p className={heading}>Navigasi</p>
-                        <ul className="mt-4 space-y-1">
-                            {navLinks.map((link) => (
+                        <ul className="mt-6 border-t border-white/10">
+                            {navLinks.map((link, i) => (
                                 <li key={link.id}>
                                     <Link
                                         href={link.href}
-                                        className="hover:text-azure focus-visible:text-azure inline-flex min-h-11 items-center font-serif text-lg transition-colors focus:outline-none focus-visible:underline"
+                                        className={`${row} group hover:text-azure focus-visible:text-azure transition-colors focus:outline-none focus-visible:underline`}
                                     >
-                                        {link.label.charAt(0) +
-                                            link.label.slice(1).toLowerCase()}
+                                        <span className="text-pale-taupe/60 font-sans text-[11px] tabular-nums">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <span className="font-serif text-xl">
+                                            {link.label.charAt(0) +
+                                                link.label
+                                                    .slice(1)
+                                                    .toLowerCase()}
+                                        </span>
+                                        <ArrowRight
+                                            size={15}
+                                            className="ml-auto -translate-x-1 opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100"
+                                        />
                                     </Link>
                                 </li>
                             ))}
                         </ul>
                     </nav>
 
-                    <div className="lg:col-span-3">
+                    {/* Kontak */}
+                    <div>
                         <p className={heading}>Kontak</p>
-                        <ul className="mt-4 space-y-3 font-sans text-xs">
+                        <ul className="mt-6 border-t border-white/10 font-sans text-sm">
                             {contactConfig.channels.map((ch) => (
-                                <li
-                                    key={ch.id}
-                                    className="flex items-center justify-between gap-3 border-b border-white/10 pb-3"
-                                >
-                                    <span className="text-concrete/80 flex items-center gap-2.5">
-                                        <span className="text-azure">
-                                            {channelIcon(ch.id)}
-                                        </span>
+                                <li key={ch.id} className={row}>
+                                    <span className="text-azure">
+                                        {channelIcon(ch.id)}
+                                    </span>
+                                    <span className="text-concrete/90">
                                         {ch.name}
                                     </span>
-                                    <span className="text-pale-taupe/90 text-[11px]">
+                                    <span className="text-pale-taupe/80 ml-auto rounded-full border border-white/15 px-2.5 py-0.5 text-[10px] font-medium">
                                         {ch.value}
                                     </span>
                                 </li>
@@ -197,12 +219,14 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    <div className="lg:col-span-3">
+                    {/* Media sosial */}
+                    <div>
                         <p className={heading}>Media sosial</p>
-                        <ul className="mt-4 space-y-3 font-sans text-xs">
+                        <ul className="mt-6 border-t border-white/10 font-sans text-sm">
                             {contactConfig.socials.map((sc) => {
-                                const live = !sc.isPlaceholder && sc.href !== "#";
-                                const row = (
+                                const live =
+                                    !sc.isPlaceholder && sc.href !== "#";
+                                const inner = (
                                     <>
                                         <span className="text-azure">
                                             {socialIcon(sc.id)}
@@ -212,37 +236,34 @@ const Footer = () => {
                                         </span>
                                         {live ? (
                                             <ArrowUpRight
-                                                size={14}
+                                                size={15}
                                                 className="text-azure/80 ml-auto transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                             />
                                         ) : (
-                                            <span className="text-pale-taupe/70 ml-auto text-[10px]">
+                                            <span className="text-pale-taupe/70 ml-auto rounded-full border border-white/10 px-2.5 py-0.5 text-[10px]">
                                                 Segera hadir
                                             </span>
                                         )}
                                     </>
                                 );
                                 return (
-                                    <li
-                                        key={sc.id}
-                                        className="border-b border-white/10 pb-3"
-                                    >
+                                    <li key={sc.id}>
                                         {live ? (
                                             <a
                                                 href={sc.href}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 aria-label={sc.ariaLabel}
-                                                className="group hover:text-azure focus-visible:ring-azure flex items-center gap-2.5 rounded focus:outline-none focus-visible:ring-2"
+                                                className={`${row} group hover:text-azure focus-visible:ring-azure focus:outline-none focus-visible:ring-2`}
                                             >
-                                                {row}
+                                                {inner}
                                             </a>
                                         ) : (
                                             <div
                                                 aria-label={sc.ariaLabel}
-                                                className="flex items-center gap-2.5 opacity-70"
+                                                className={`${row} opacity-70`}
                                             >
-                                                {row}
+                                                {inner}
                                             </div>
                                         )}
                                     </li>
@@ -252,7 +273,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="text-concrete/70 flex flex-col items-center justify-between gap-3 border-t border-white/10 py-6 font-sans text-xs sm:flex-row">
+                <div className="text-concrete/70 flex flex-col items-center justify-between gap-2 border-t border-white/10 py-6 font-sans text-xs sm:flex-row">
                     <p>Copyright &copy; 2026 BEM Gen XVI</p>
                     <p className="text-pale-taupe font-medium">
                         Design &amp; Develop by BEM Gen XVI
