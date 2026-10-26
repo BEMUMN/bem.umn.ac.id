@@ -8,9 +8,7 @@ import {
     Mail,
     MapPin,
     ArrowUpRight,
-    Building2,
-    Compass,
-    Sparkles,
+    ArrowRight,
 } from "lucide-react";
 import { navLinks } from "@/constants";
 import { contactConfig } from "@/constants/contactIndex";
@@ -51,12 +49,43 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
     </svg>
 );
 
+const icon = (id: string) => {
+    if (id === "instagram") return <Instagram size={16} />;
+    if (id === "linkedin") return <Linkedin size={16} />;
+    if (id === "facebook") return <Facebook size={16} />;
+    if (id === "tiktok") return <TikTokIcon className="h-4 w-4" />;
+    if (id === "line") return <LineIcon className="h-4 w-4" />;
+    if (id === "whatsapp") return <WhatsAppIcon className="h-4 w-4" />;
+    return <Mail size={16} />;
+};
+
+// Socials and direct channels read as one list: what is live is a link, what
+// is not yet is named once in a quiet line instead of a row of disabled pills.
+const contacts = [
+    ...contactConfig.socials.map((s) => ({ ...s, detail: s.handle })),
+    ...contactConfig.channels.map((c) => ({
+        ...c,
+        href: c.href ?? "#",
+        detail: c.value,
+    })),
+];
+const live = contacts.filter((c) => !c.isPlaceholder && c.href !== "#");
+const soon = contacts.filter((c) => !live.includes(c));
+const invite = live.find((c) => c.id === "instagram") ?? live[0];
+
+const heading =
+    "text-pale-taupe font-sans text-[11px] font-semibold tracking-[0.22em] uppercase";
+// One row height for every list, so the columns read across as a ruled sheet.
+const row =
+    "group flex min-h-14 items-center gap-3 border-b border-white/10 transition-colors duration-200 focus:outline-none";
+const ring =
+    "focus-visible:ring-azure focus-visible:ring-offset-navy-dark focus-visible:ring-2 focus-visible:ring-offset-2";
+
 const Footer = () => {
     return (
-        <footer className="relative mt-24 w-full border-t border-white/15 bg-gradient-to-b from-navy-dark via-dark-blue to-[#081226] text-white overflow-hidden">
-            {/* Latar Belakang Tekstur GSM Halus */}
+        <footer className="theme-ink relative mt-24 w-full overflow-hidden bg-[#0a1530] text-white">
             <div
-                className="absolute inset-0 opacity-10 pointer-events-none"
+                className="pointer-events-none absolute inset-0 opacity-10"
                 style={{
                     backgroundImage: `url('/pngs/texture/ASSET.webp')`,
                     backgroundRepeat: "repeat",
@@ -64,195 +93,193 @@ const Footer = () => {
                 }}
                 aria-hidden="true"
             />
+            <div className="via-azure/50 absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
 
-            {/* Subtle Gradient Glow Bar di Bagian Atas */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-azure/60 to-transparent" />
-
-            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-                {/* GRID UTAMA 4 KOLOM */}
-                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-                    {/* KOLOM 1: IDENTITAS LEMBAGA & CO-BRANDING (Span 4) */}
-                    <div className="lg:col-span-4 flex flex-col justify-between">
-                        <div>
-                            {/* Logo Co-branding BEM UMN & Universitas Multimedia Nusantara */}
-                            <div className="flex items-center gap-4">
-                                <Link
-                                    href="/"
-                                    className="group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-azure rounded-xl p-1"
-                                    aria-label="Kembali ke Beranda BEM UMN"
+            <div className="relative z-10 mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                {/* Pernyataan + ajakan */}
+                <div className="grid gap-10 py-14 sm:py-16 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-16 lg:py-20">
+                    <div className="max-w-3xl">
+                        <p className={heading}>{contactConfig.tagline}</p>
+                        <h2 className="mt-5 font-serif text-[2.75rem] leading-[1.02] sm:text-6xl lg:text-7xl">
+                            Inclusive for{" "}
+                            <em className="text-pale-taupe">Innovation</em>.
+                        </h2>
+                        <p className="text-concrete/75 mt-5 max-w-xl font-sans text-sm leading-7 sm:text-base">
+                            {contactConfig.description}
+                        </p>
+                    </div>
+                    <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between lg:flex-col lg:items-end">
+                        <Image
+                            src="/pngs/gen-xvi-light.webp"
+                            alt="Gen XVI"
+                            width={700}
+                            height={248}
+                            className="h-auto w-44 sm:w-56 lg:w-64"
+                        />
+                        {invite && (
+                            <div className="lg:text-right">
+                                <p className="text-concrete/70 font-sans text-sm">
+                                    Punya ide atau aspirasi?
+                                </p>
+                                <a
+                                    href={invite.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={invite.ariaLabel}
+                                    className={`group bg-pale-taupe text-navy-dark mt-3 inline-flex min-h-12 items-center gap-2 rounded-full px-5 font-sans text-[13px] font-semibold whitespace-nowrap transition-colors duration-200 hover:bg-white focus:outline-none sm:gap-2.5 sm:px-6 sm:text-sm ${ring}`}
                                 >
-                                    <Image
-                                        src="/svgs/LOGO_BEM.svg"
-                                        alt="Logo BEM UMN"
-                                        width={44}
-                                        height={44}
-                                        className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    {icon(invite.id)}
+                                    Sampaikan lewat {invite.name}
+                                    <ArrowUpRight
+                                        size={16}
+                                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                     />
-                                    <div className="flex flex-col">
-                                        <span className="font-serif text-sm font-bold tracking-wider text-white">
-                                            BEM UMN
-                                        </span>
-                                        <span className="font-sans text-[10px] font-bold text-azure tracking-widest uppercase">
-                                            GEN XVI
-                                        </span>
-                                    </div>
-                                </Link>
-
-                                <div className="h-8 w-px bg-white/20" />
-
-                                <div className="flex items-center">
-                                    <Image
-                                        src="/svgs/LOGO_UMN_WHITE.svg"
-                                        alt="Universitas Multimedia Nusantara"
-                                        width={90}
-                                        height={32}
-                                        className="h-8 w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
-                                    />
-                                </div>
+                                </a>
                             </div>
+                        )}
+                    </div>
+                </div>
 
-                            <p className="mt-4 font-sans text-xs leading-relaxed text-concrete/80 max-w-sm">
-                                {contactConfig.description}
-                            </p>
-
-                            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-3 py-1 font-sans text-[11px] font-semibold text-pale-taupe">
-                                <Sparkles size={12} className="text-camel-brown" />
-                                <span>{contactConfig.tagline}</span>
-                            </div>
+                {/* Kolom */}
+                <div className="grid gap-x-12 gap-y-12 border-t border-white/15 pt-12 pb-14 md:grid-cols-2 lg:grid-cols-[1.2fr_0.9fr_1fr]">
+                    {/* Sekretariat */}
+                    <div className="md:row-span-2 lg:row-span-1">
+                        <p className={heading}>Sekretariat</p>
+                        <div className="mt-6 flex items-start gap-3 font-sans text-sm leading-6">
+                            <MapPin
+                                size={18}
+                                className="text-azure mt-1 shrink-0"
+                                aria-hidden="true"
+                            />
+                            <address className="text-concrete/80 not-italic">
+                                <strong className="block font-medium text-white">
+                                    {contactConfig.address.campus}
+                                </strong>
+                                {contactConfig.address.street}
+                                <br />
+                                {contactConfig.address.area}
+                                <br />
+                                {contactConfig.address.city}
+                            </address>
                         </div>
+                        <a
+                            href={contactConfig.address.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`group text-azure mt-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 font-sans text-xs font-semibold transition-colors duration-200 hover:border-white/40 hover:bg-white/10 hover:text-white focus:outline-none ${ring}`}
+                        >
+                            Buka di peta
+                            <ArrowUpRight
+                                size={14}
+                                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            />
+                        </a>
                     </div>
 
-                    {/* KOLOM 2: NAVIGASI CEPAT (Span 2) */}
-                    <div className="lg:col-span-2">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
-                            Navigasi
-                        </span>
-                        <ul className="mt-4 space-y-2.5 font-sans text-xs text-concrete/85">
-                            {navLinks.map((link) => (
+                    {/* Jelajahi */}
+                    <nav aria-label="Navigasi footer">
+                        <p className={heading}>Jelajahi</p>
+                        <ul className="mt-6 border-t border-white/10">
+                            {navLinks.map((link, i) => (
                                 <li key={link.id}>
                                     <Link
                                         href={link.href}
-                                        className="inline-flex items-center gap-1.5 transition-colors hover:text-azure focus:outline-none focus-visible:text-azure focus-visible:underline"
+                                        className={`${row} hover:text-azure focus-visible:text-azure focus-visible:underline`}
                                     >
-                                        <span className="text-white/40">›</span>
-                                        <span>{link.label}</span>
+                                        <span className="text-pale-taupe/60 group-hover:text-pale-taupe font-sans text-[11px] tabular-nums transition-colors">
+                                            {String(i + 1).padStart(2, "0")}
+                                        </span>
+                                        <span className="font-serif text-xl">
+                                            {link.label.charAt(0) +
+                                                link.label
+                                                    .slice(1)
+                                                    .toLowerCase()}
+                                        </span>
+                                        <ArrowRight
+                                            size={15}
+                                            aria-hidden="true"
+                                            className="ml-auto -translate-x-1 opacity-0 transition duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100"
+                                        />
                                     </Link>
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </nav>
 
-                    {/* KOLOM 3: SEKRETARIAT & KANAL KONTAK (Span 3) */}
-                    <div className="lg:col-span-3">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
-                            Sekretariat &amp; Kontak
-                        </span>
-
-                        {/* Alamat Resmi Kampus */}
-                        <div className="mt-4 flex items-start gap-2.5 text-xs text-concrete/85">
-                            <MapPin size={16} className="shrink-0 text-azure mt-0.5" />
-                            <div className="font-sans leading-relaxed">
-                                <strong className="text-white block font-medium">
-                                    {contactConfig.address.campus}
-                                </strong>
-                                <span className="text-[11px] text-concrete/75 block mt-0.5">
-                                    {contactConfig.address.full}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Kanal Kontak Langsung */}
-                        <div className="mt-5 space-y-2 border-t border-white/10 pt-4">
-                            {contactConfig.channels.map((ch) => (
-                                <div
-                                    key={ch.id}
-                                    className="flex items-center justify-between gap-2 font-sans text-xs"
-                                >
-                                    <div className="flex items-center gap-2 text-concrete/80">
-                                        {ch.id === "line" && <LineIcon className="w-3.5 h-3.5 text-azure" />}
-                                        {ch.id === "email" && <Mail size={14} className="text-azure" />}
-                                        {ch.id === "whatsapp" && <WhatsAppIcon className="w-3.5 h-3.5 text-azure" />}
-                                        <span>{ch.name}:</span>
-                                    </div>
-                                    <span className="rounded-md bg-white/5 border border-white/10 px-2 py-0.5 text-[10px] font-medium text-pale-taupe/90">
-                                        {ch.value}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* KOLOM 4: MEDIA SOSIAL RESMI (Span 3) */}
-                    <div className="lg:col-span-3">
-                        <span className="font-serif text-xs font-bold tracking-widest text-pale-taupe uppercase">
-                            Media Sosial Resmi
-                        </span>
-                        <p className="mt-2 font-sans text-[11px] text-concrete/70">
-                            Ikuti publikasi dan agenda resmi BEM UMN Gen XVI melalui kanal berikut:
-                        </p>
-
-                        <div className="mt-4 grid grid-cols-2 gap-2.5">
-                            {contactConfig.socials.map((s) => {
-                                const isExternal = !s.isPlaceholder && s.href !== "#";
-
-                                const content = (
-                                    <>
-                                        <div className="flex items-center gap-2">
-                                            {s.id === "instagram" && <Instagram size={15} className="text-azure" />}
-                                            {s.id === "linkedin" && <Linkedin size={15} className="text-azure" />}
-                                            {s.id === "tiktok" && <TikTokIcon className="w-3.5 h-3.5 text-azure" />}
-                                            {s.id === "facebook" && <Facebook size={15} className="text-azure" />}
-                                            <span className="font-sans text-xs font-semibold text-white">
-                                                {s.name}
-                                            </span>
-                                        </div>
-                                        {isExternal ? (
-                                            <ArrowUpRight size={13} className="text-azure/80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                                        ) : (
-                                            <span className="text-[9px] font-sans font-medium text-pale-taupe/70 bg-white/5 px-1.5 py-0.5 rounded">
-                                                Segera
-                                            </span>
-                                        )}
-                                    </>
-                                );
-
-                                if (isExternal) {
-                                    return (
-                                        <a
-                                            key={s.id}
-                                            href={s.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={s.ariaLabel}
-                                            className="group flex items-center justify-between rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 transition-all duration-300 hover:border-azure/60 hover:bg-white/10 hover:shadow-lg hover:shadow-azure/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-95"
-                                        >
-                                            {content}
-                                        </a>
-                                    );
-                                }
-
-                                return (
-                                    <div
-                                        key={s.id}
-                                        aria-label={s.ariaLabel}
-                                        className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 opacity-75 cursor-default"
+                    {/* Terhubung */}
+                    <div>
+                        <p className={heading}>Terhubung</p>
+                        <ul className="mt-6 border-t border-white/10 font-sans text-sm">
+                            {live.map((c) => (
+                                <li key={c.id}>
+                                    <a
+                                        href={c.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={c.ariaLabel}
+                                        className={`${row} hover:text-azure focus-visible:text-azure focus-visible:underline`}
                                     >
-                                        {content}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                        <span className="text-azure">
+                                            {icon(c.id)}
+                                        </span>
+                                        <span className="font-semibold">
+                                            {c.name}
+                                        </span>
+                                        <span className="text-concrete/60 ml-auto text-xs">
+                                            {c.detail}
+                                        </span>
+                                        <ArrowUpRight
+                                            size={15}
+                                            aria-hidden="true"
+                                            className="text-azure/80 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                        />
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                        {soon.length > 0 && (
+                            <p className="text-concrete/60 mt-5 font-sans text-xs leading-6">
+                                <span className="text-pale-taupe font-semibold">
+                                    Segera hadir:
+                                </span>{" "}
+                                {soon.map((c) => c.name).join(" · ")}
+                            </p>
+                        )}
                     </div>
                 </div>
 
-                {/* BOTTOM BAR: COPYRIGHT & KREDIT RESMI */}
-                <div className="mt-14 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-concrete/70">
-                    <p className="order-1 text-center sm:text-left">
-                        Copyright &copy; 2026 BEM Gen XVI
-                    </p>
-                    <p className="order-2 text-center sm:text-right font-medium text-pale-taupe">
-                        Design &amp; Develop by BEM Gen XVI
-                    </p>
+                {/* Kolofon */}
+                <div className="flex flex-col gap-5 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
+                    <Link
+                        href="/"
+                        aria-label="Kembali ke Beranda BEM UMN"
+                        className={`flex w-fit items-center gap-3 rounded-xl focus:outline-none ${ring}`}
+                    >
+                        <Image
+                            src="/svgs/LOGO_BEM.svg"
+                            alt=""
+                            width={40}
+                            height={40}
+                            className="h-10 w-auto object-contain"
+                        />
+                        <span className="h-7 w-px bg-white/20" />
+                        <Image
+                            src="/svgs/LOGO_UMN_WHITE.svg"
+                            alt=""
+                            width={90}
+                            height={32}
+                            className="h-9 w-auto object-contain opacity-90"
+                        />
+                    </Link>
+                    <div className="text-concrete/60 flex flex-col gap-1 font-sans text-xs sm:items-end">
+                        <p>&copy; 2026 BEM UMN Gen XVI</p>
+                        <p>
+                            Dirancang &amp; dikembangkan oleh{" "}
+                            <span className="text-pale-taupe">
+                                BEM UMN Gen XVI
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </footer>

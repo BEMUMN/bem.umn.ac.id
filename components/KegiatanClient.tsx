@@ -1,20 +1,18 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import {
     ExternalLink,
     X,
     Sparkles,
-    Calendar,
-    UserCheck,
     CheckCircle2,
-    ShieldCheck,
     Briefcase,
     Search,
     Layers,
     RotateCcw,
 } from "lucide-react";
+import { ContentDialog } from "@/components/ContentDialog";
 import KegmaCard from "@/components/KegmaCard";
 import type { KegmaDetail, ProkerDetail } from "@/constants/workIndex";
 
@@ -31,7 +29,9 @@ export default function KegiatanClient({
 }: KegiatanClientProps) {
     const [activeTab, setActiveTab] = useState<TabType>("all");
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedKegma, setSelectedKegma] = useState<KegmaDetail | null>(null);
+    const [selectedKegma, setSelectedKegma] = useState<KegmaDetail | null>(
+        null,
+    );
 
     // Filter KEGMA by query
     const filteredKegma = useMemo(() => {
@@ -44,7 +44,7 @@ export default function KegiatanClient({
                 k.tagline.toLowerCase().includes(q) ||
                 k.description.toLowerCase().includes(q) ||
                 k.supervisor.toLowerCase().includes(q) ||
-                k.category.toLowerCase().includes(q)
+                k.category.toLowerCase().includes(q),
         );
     }, [kegmaList, searchQuery]);
 
@@ -58,30 +58,9 @@ export default function KegiatanClient({
                 p.subtitle.toLowerCase().includes(q) ||
                 p.division.toLowerCase().includes(q) ||
                 p.description.toLowerCase().includes(q) ||
-                p.fullDescription.toLowerCase().includes(q)
+                p.fullDescription.toLowerCase().includes(q),
         );
     }, [prokerList, searchQuery]);
-
-    // Close modal on ESC key
-    const handleKeyDown = useCallback((e: KeyboardEvent) => {
-        if (e.key === "Escape") {
-            setSelectedKegma(null);
-        }
-    }, []);
-
-    useEffect(() => {
-        if (selectedKegma) {
-            document.body.style.overflow = "hidden";
-            window.addEventListener("keydown", handleKeyDown);
-        } else {
-            document.body.style.overflow = "unset";
-        }
-
-        return () => {
-            document.body.style.overflow = "unset";
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [selectedKegma, handleKeyDown]);
 
     const showKegma = activeTab === "all" || activeTab === "kegma";
     const showProker = activeTab === "all" || activeTab === "proker";
@@ -91,21 +70,23 @@ export default function KegiatanClient({
             {/* ========================================================
                 INTERACTIVE FILTER & SEARCH BAR
                ======================================================== */}
-            <section className="sticky top-16 z-30 border-y border-white/10 bg-navy-dark/85 backdrop-blur-xl py-4 transition-all">
+            <section
+                data-agenda-filter
+                className="bg-navy-dark/85 relative z-30 border-y border-white/10 py-4 transition-all"
+            >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                         {/* Segmented Filter Buttons */}
                         <div
-                            role="tablist"
+                            role="group"
                             aria-label="Kategori Kegiatan & Program Kerja"
-                            className="inline-flex rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-md"
+                            className="inline-flex flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/5 p-1"
                         >
                             <button
                                 type="button"
-                                role="tab"
-                                aria-selected={activeTab === "all"}
+                                aria-pressed={activeTab === "all"}
                                 onClick={() => setActiveTab("all")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all ${
                                     activeTab === "all"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"
@@ -113,35 +94,33 @@ export default function KegiatanClient({
                             >
                                 <Layers size={14} />
                                 <span>Semua Agenda</span>
-                                <span className="rounded-full bg-navy-dark/20 px-1.5 py-0.2 font-mono text-[10px]">
+                                <span className="bg-navy-dark/20 py-0.2 rounded-full px-1.5 font-mono text-[10px]">
                                     {kegmaList.length + prokerList.length}
                                 </span>
                             </button>
 
                             <button
                                 type="button"
-                                role="tab"
-                                aria-selected={activeTab === "kegma"}
+                                aria-pressed={activeTab === "kegma"}
                                 onClick={() => setActiveTab("kegma")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all ${
                                     activeTab === "kegma"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"
                                 }`}
                             >
                                 <Sparkles size={14} />
-                                <span>6 KEGMA</span>
-                                <span className="rounded-full bg-navy-dark/20 px-1.5 py-0.2 font-mono text-[10px]">
+                                <span>KEGMA</span>
+                                <span className="bg-navy-dark/20 py-0.2 rounded-full px-1.5 font-mono text-[10px]">
                                     {kegmaList.length}
                                 </span>
                             </button>
 
                             <button
                                 type="button"
-                                role="tab"
-                                aria-selected={activeTab === "proker"}
+                                aria-pressed={activeTab === "proker"}
                                 onClick={() => setActiveTab("proker")}
-                                className={`flex items-center gap-2 rounded-xl px-4 py-2 font-sans text-xs font-semibold transition-all cursor-pointer ${
+                                className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-xl px-3 py-2 font-sans text-xs font-semibold transition-all ${
                                     activeTab === "proker"
                                         ? "bg-azure text-navy-dark shadow-md"
                                         : "text-concrete/80 hover:text-white"
@@ -149,7 +128,7 @@ export default function KegiatanClient({
                             >
                                 <Briefcase size={14} />
                                 <span>PROKER Divisi</span>
-                                <span className="rounded-full bg-navy-dark/20 px-1.5 py-0.2 font-mono text-[10px]">
+                                <span className="bg-navy-dark/20 py-0.2 rounded-full px-1.5 font-mono text-[10px]">
                                     {prokerList.length}
                                 </span>
                             </button>
@@ -157,10 +136,13 @@ export default function KegiatanClient({
 
                         {/* Search Input Bar */}
                         <div className="relative w-full md:w-72 lg:w-80">
-                            <label htmlFor="search-kegiatan" className="sr-only">
+                            <label
+                                htmlFor="search-kegiatan"
+                                className="sr-only"
+                            >
                                 Cari kegiatan atau program kerja
                             </label>
-                            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-concrete/50">
+                            <div className="text-concrete/50 pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5">
                                 <Search size={15} />
                             </div>
                             <input
@@ -169,13 +151,13 @@ export default function KegiatanClient({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Cari agenda, divisi, atau kata kunci..."
-                                className="w-full rounded-2xl border border-white/10 bg-white/5 py-2 pl-9 pr-8 font-sans text-xs text-white placeholder-concrete/50 backdrop-blur-md transition-colors focus:border-azure focus:bg-white/10 focus:outline-none"
+                                className="placeholder-concrete/50 focus:border-azure min-h-11 w-full rounded-xl border border-white/10 bg-white/5 py-2 pr-8 pl-9 font-sans text-xs text-white transition-colors focus:bg-white/10 focus:outline-none"
                             />
                             {searchQuery && (
                                 <button
                                     type="button"
                                     onClick={() => setSearchQuery("")}
-                                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-concrete/50 hover:text-white"
+                                    className="text-concrete/50 absolute inset-y-0 right-0 flex items-center pr-3 hover:text-white"
                                     aria-label="Bersihkan pencarian"
                                 >
                                     <X size={14} />
@@ -186,35 +168,47 @@ export default function KegiatanClient({
                 </div>
             </section>
 
+            <p
+                role="status"
+                className="text-azure mx-auto mt-4 max-w-7xl px-4 text-xs sm:px-6 lg:px-8"
+            >
+                Menampilkan{" "}
+                {(showKegma ? filteredKegma.length : 0) +
+                    (showProker ? filteredProker.length : 0)}{" "}
+                agenda
+            </p>
             {/* Empty Search Result State */}
-            {showKegma &&
-                showProker &&
-                filteredKegma.length === 0 &&
-                filteredProker.length === 0 && (
-                    <div className="mx-auto max-w-xl px-4 py-24 text-center">
-                        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-azure">
-                            <Search size={24} />
-                        </div>
-                        <h3 className="mt-4 font-serif text-2xl font-bold text-white">
-                            Agenda Tidak Ditemukan
-                        </h3>
-                        <p className="mt-2 font-sans text-sm text-concrete/80">
-                            Tidak ada kegiatan atau program kerja yang cocok dengan kata kunci{" "}
-                            <span className="font-semibold text-azure">&ldquo;{searchQuery}&rdquo;</span>.
-                        </p>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                setSearchQuery("");
-                                setActiveTab("all");
-                            }}
-                            className="mt-6 inline-flex items-center gap-2 rounded-full border border-azure/40 bg-azure/10 px-5 py-2 font-sans text-xs font-semibold text-azure transition hover:bg-azure hover:text-navy-dark cursor-pointer"
-                        >
-                            <RotateCcw size={14} />
-                            <span>Reset Pencarian &amp; Filter</span>
-                        </button>
+            {(showKegma ? filteredKegma.length : 0) +
+                (showProker ? filteredProker.length : 0) ===
+                0 && (
+                <div className="mx-auto max-w-xl px-4 py-24 text-center">
+                    <div className="text-azure mx-auto flex h-14 w-14 items-center justify-center rounded-2xl border border-white/15 bg-white/5">
+                        <Search size={24} />
                     </div>
-                )}
+                    <h3 className="mt-4 font-serif text-2xl font-bold text-white">
+                        Agenda Tidak Ditemukan
+                    </h3>
+                    <p className="text-concrete/80 mt-2 font-sans text-sm">
+                        Tidak ada kegiatan atau program kerja yang cocok dengan
+                        kata kunci{" "}
+                        <span className="text-azure font-semibold">
+                            &ldquo;{searchQuery}&rdquo;
+                        </span>
+                        .
+                    </p>
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSearchQuery("");
+                            setActiveTab("all");
+                        }}
+                        className="border-azure/40 bg-azure/10 text-azure hover:bg-azure hover:text-navy-dark mt-6 inline-flex cursor-pointer items-center gap-2 rounded-full border px-5 py-2 font-sans text-xs font-semibold transition"
+                    >
+                        <RotateCcw size={14} />
+                        <span>Reset Pencarian &amp; Filter</span>
+                    </button>
+                </div>
+            )}
 
             {/* ========================================================
                 SECTION 1: 6 KEGIATAN MAHASISWA (KEGMA)
@@ -225,19 +219,21 @@ export default function KegiatanClient({
                     className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
                 >
                     {/* Section Header */}
-                    <div className="mb-12 text-center md:mb-16">
-                        <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase backdrop-blur-sm">
+                    <div className="mb-8 text-center md:mb-10">
+                        <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                             <Sparkles size={14} className="text-camel-brown" />
                             <span>Naungan BEM UMN • SUKMA</span>
                         </div>
 
-                        <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white drop-shadow sm:text-4xl md:text-5xl">
+                        <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                             6 Kegiatan Mahasiswa (KEGMA)
                         </h2>
-                        <p className="mx-auto mt-4 max-w-2xl font-sans text-sm sm:text-base leading-relaxed text-concrete/85">
-                            BEM UMN Generasi XVI membina, mengoordinasikan, dan mengawasi
-                            enam kegiatan mahasiswa tahunan Universitas Multimedia Nusantara.
-                            Pilih kartu kegiatan untuk melihat filosofi, sorotan nilai, dan mengakses portal website resminya.
+                        <p className="text-concrete/85 mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed sm:text-base">
+                            BEM UMN Generasi XVI membina, mengoordinasikan, dan
+                            mengawasi enam kegiatan mahasiswa tahunan
+                            Universitas Multimedia Nusantara. Pilih kartu
+                            kegiatan untuk melihat filosofi, sorotan nilai, dan
+                            mengakses portal website resminya.
                         </p>
                     </div>
 
@@ -261,82 +257,91 @@ export default function KegiatanClient({
             {showProker && filteredProker.length > 0 && (
                 <section
                     id="proker-section"
-                    className="relative border-t border-white/10 bg-gradient-to-b from-navy-dark/60 via-navy-dark/95 to-navy-dark/60 py-20 backdrop-blur-md"
+                    className="relative border-t border-white/10 py-20"
                 >
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         {/* Section Header */}
-                        <div className="mb-12 text-center md:mb-16">
-                            <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase">
-                                <Briefcase size={14} className="text-camel-brown" />
-                                <span>Inisiatif Fungsional Lembaga • 6 Divisi BEM</span>
+                        <div className="mb-8 text-center md:mb-10">
+                            <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
+                                <Briefcase
+                                    size={14}
+                                    className="text-camel-brown"
+                                />
+                                <span>
+                                    Inisiatif Fungsional Lembaga • 6 Divisi BEM
+                                </span>
                             </div>
 
-                            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white drop-shadow sm:text-4xl md:text-5xl">
+                            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                                 Program Kerja (PROKER) BEM UMN Gen XVI
                             </h2>
-                            <p className="mx-auto mt-4 max-w-2xl font-sans text-sm sm:text-base leading-relaxed text-concrete/85">
-                                Rangkaian program kerja yang dirancang dan dieksekusi
-                                oleh divisi-divisi BEM UMN untuk melayani mahasiswa, memperkuat
-                                tata kelola organisasi, dan mempererat hubungan internal maupun eksternal.
+                            <p className="text-concrete/85 mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed sm:text-base">
+                                Rangkaian program kerja yang dirancang dan
+                                dieksekusi oleh divisi-divisi BEM UMN untuk
+                                melayani mahasiswa, memperkuat tata kelola
+                                organisasi, dan mempererat hubungan internal
+                                maupun eksternal.
                             </p>
                         </div>
 
                         {/* Bento Grid Asimetris (6-6, 7-5, 5-7 Kolom) */}
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                             {filteredProker.map((proker, index) => {
-                                const colSpanClass =
-                                    index === 0 || index === 1
-                                        ? "lg:col-span-6"
-                                        : index === 2 || index === 5
-                                          ? "lg:col-span-7"
-                                          : "lg:col-span-5";
-
                                 return (
                                     <div
+                                        data-motion="rise"
                                         key={proker.id}
-                                        className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-blue-primary/30 to-navy-dark/90 p-6 sm:p-8 shadow-xl backdrop-blur-xl transition-all duration-300 hover:border-azure/50 hover:shadow-2xl hover:-translate-y-1 ${colSpanClass}`}
+                                        className="flex flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/[0.04] p-6 sm:p-8"
                                     >
                                         {/* Top Metadata */}
                                         <div>
                                             <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-4">
-                                                <span className="rounded-full border border-camel-brown/40 bg-camel-brown/15 px-3 py-1 font-sans text-[11px] font-semibold text-pale-taupe">
+                                                <span className="border-camel-brown/40 bg-camel-brown/15 text-pale-taupe rounded-full border px-3 py-1 font-sans text-[11px] font-semibold">
                                                     {proker.division}
                                                 </span>
-                                                <span className="font-sans text-[11px] font-semibold tracking-wider text-azure uppercase">
+                                                <span className="text-azure font-sans text-[11px] font-semibold tracking-wider uppercase">
                                                     PRK-0{index + 1}
                                                 </span>
                                             </div>
 
                                             {/* Titles */}
-                                            <h3 className="mt-5 font-serif text-2xl sm:text-3xl font-bold tracking-wide text-white group-hover:text-azure transition-colors">
+                                            <h3 className="group-hover:text-azure mt-5 font-serif text-2xl font-bold tracking-wide text-white transition-colors sm:text-3xl">
                                                 {proker.title}
                                             </h3>
-                                            <p className="mt-1 font-sans text-xs font-semibold uppercase tracking-wider text-azure/80">
+                                            <p className="text-azure/80 mt-1 font-sans text-xs font-semibold tracking-wider uppercase">
                                                 {proker.subtitle}
                                             </p>
 
                                             {/* Description */}
-                                            <p className="mt-4 font-sans text-sm leading-relaxed text-concrete/85">
+                                            <p className="text-concrete/85 mt-4 font-sans text-sm leading-relaxed">
                                                 {proker.fullDescription}
                                             </p>
                                         </div>
 
                                         {/* Objectives Checklist */}
                                         <div className="mt-8 border-t border-white/10 pt-5">
-                                            <p className="font-sans text-xs font-bold uppercase tracking-wider text-azure flex items-center gap-1.5">
-                                                <CheckCircle2 size={13} className="text-azure" />
-                                                <span>Tujuan &amp; Fokus Pelaksanaan:</span>
+                                            <p className="text-azure flex items-center gap-1.5 font-sans text-xs font-bold tracking-wider uppercase">
+                                                <CheckCircle2
+                                                    size={13}
+                                                    className="text-azure"
+                                                />
+                                                <span>
+                                                    Tujuan &amp; Fokus
+                                                    Pelaksanaan:
+                                                </span>
                                             </p>
                                             <ul className="mt-3 space-y-2">
-                                                {proker.objectives.map((obj, i) => (
-                                                    <li
-                                                        key={i}
-                                                        className="flex items-start gap-2.5 text-xs text-concrete/80"
-                                                    >
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-azure mt-1.5 shrink-0" />
-                                                        <span>{obj}</span>
-                                                    </li>
-                                                ))}
+                                                {proker.objectives.map(
+                                                    (obj, i) => (
+                                                        <li
+                                                            key={i}
+                                                            className="text-concrete/80 flex items-start gap-2.5 text-xs"
+                                                        >
+                                                            <span className="bg-azure mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" />
+                                                            <span>{obj}</span>
+                                                        </li>
+                                                    ),
+                                                )}
                                             </ul>
                                         </div>
                                     </div>
@@ -351,151 +356,138 @@ export default function KegiatanClient({
                 MODAL DIALOG DETAIL KEGMA
                ======================================================== */}
             {selectedKegma && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8 animate-in fade-in duration-200"
-                    role="dialog"
-                    aria-modal="true"
-                    aria-labelledby="modal-kegma-title"
+                <ContentDialog
+                    wide
+                    labelledBy="modal-kegma-title"
+                    onClose={() => setSelectedKegma(null)}
                 >
-                    {/* Backdrop */}
-                    <div
-                        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity duration-300"
-                        onClick={() => setSelectedKegma(null)}
-                    />
+                    <div className="relative flex max-h-[90dvh] flex-col md:flex-row">
+                        <button
+                            type="button"
+                            onClick={() => setSelectedKegma(null)}
+                            className="hover:border-azure absolute top-4 right-4 z-20 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-[#0a1530]/80 text-white/90 transition-colors hover:bg-white/20 hover:text-white"
+                            aria-label="Tutup jendela rincian kegiatan"
+                        >
+                            <X size={20} />
+                        </button>
 
-                    {/* Modal Window Container */}
-                    <div className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl border border-azure/40 bg-navy-dark shadow-2xl transition-all duration-300 animate-in zoom-in-95">
-                        {/* Modal Header */}
-                        <div className="relative flex items-center justify-between border-b border-white/10 bg-blue-primary/40 px-6 py-5 backdrop-blur-md sm:px-8">
-                            <div className="flex items-center gap-4">
-                                <div className="relative h-12 w-12 shrink-0 rounded-xl border border-white/20 bg-navy-dark/80 p-1.5 shadow-md">
+                        {/* Panel identitas */}
+                        <div className="relative flex shrink-0 flex-col justify-end overflow-hidden bg-[#0a1530] p-6 pt-20 sm:p-8 sm:pt-24 md:w-[22rem] md:pt-8">
+                            <Image
+                                src={selectedKegma.image}
+                                alt=""
+                                fill
+                                sizes="360px"
+                                className="object-cover opacity-30"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a1530] via-[#0a1530]/80 to-[#0a1530]/40" />
+                            <div className="relative z-10 flex flex-row items-center gap-5 md:flex-col md:items-start md:gap-0">
+                                <div className="relative h-24 w-24 shrink-0 md:h-40 md:w-40">
                                     <Image
                                         src={selectedKegma.logo}
                                         alt={`Logo ${selectedKegma.title}`}
                                         fill
-                                        className="object-contain p-1"
+                                        sizes="160px"
+                                        className="object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]"
                                     />
                                 </div>
-                                <div>
-                                    <span className="inline-block rounded-full border border-camel-brown/40 bg-camel-brown/15 px-2.5 py-0.5 font-sans text-[10px] font-semibold tracking-wider text-pale-taupe uppercase">
+                                <div className="md:mt-8">
+                                    <span className="border-camel-brown/50 text-pale-taupe inline-block rounded-full border px-3 py-1 font-sans text-[10px] font-semibold tracking-wider uppercase">
                                         {selectedKegma.category}
                                     </span>
                                     <h3
                                         id="modal-kegma-title"
-                                        className="mt-0.5 font-serif text-xl font-bold tracking-wide text-white sm:text-2xl"
+                                        className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl"
                                     >
                                         {selectedKegma.title}
                                     </h3>
+                                    <p className="text-pale-taupe mt-2 font-serif text-sm italic md:text-base">
+                                        &ldquo;{selectedKegma.tagline}&rdquo;
+                                    </p>
                                 </div>
                             </div>
-
-                            <button
-                                type="button"
-                                onClick={() => setSelectedKegma(null)}
-                                className="rounded-full border border-white/20 bg-white/10 p-2 text-white/80 transition-colors hover:border-azure hover:bg-white/20 hover:text-white cursor-pointer"
-                                aria-label="Tutup jendela rincian kegiatan"
-                            >
-                                <X size={20} />
-                            </button>
                         </div>
 
-                        {/* Modal Scrollable Body */}
-                        <div className="overflow-y-auto px-6 py-6 sm:px-8 space-y-6">
-                            {/* Full Name & Tagline */}
-                            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                                <p className="font-sans text-xs uppercase tracking-wider text-azure font-semibold">
-                                    Nama Resmi Kegiatan Mahasiswa
-                                </p>
-                                <h4 className="mt-1 font-serif text-lg font-semibold text-white">
-                                    {selectedKegma.fullName}
-                                </h4>
-                                <p className="mt-1 font-sans text-xs italic text-pale-taupe">
-                                    &ldquo;{selectedKegma.tagline}&rdquo;
-                                </p>
-                            </div>
+                        {/* Panel isi */}
+                        <div className="flex min-h-0 flex-1 flex-col">
+                            <div className="flex-1 space-y-8 overflow-y-auto p-6 sm:p-8">
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Nama resmi
+                                    </p>
+                                    <h4 className="mt-2 font-serif text-xl text-white sm:text-2xl">
+                                        {selectedKegma.fullName}
+                                    </h4>
+                                </div>
 
-                            {/* Penjelasan Lengkap */}
-                            <div>
-                                <h5 className="flex items-center gap-2 font-serif text-base font-semibold text-white">
-                                    <ShieldCheck size={18} className="text-azure" />
-                                    Tentang Kegiatan
-                                </h5>
-                                <p className="mt-2 text-justify font-sans text-sm leading-relaxed text-concrete/90">
-                                    {selectedKegma.fullDescription}
-                                </p>
-                            </div>
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Tentang kegiatan
+                                    </p>
+                                    <p className="text-concrete/90 mt-3 font-sans text-sm leading-7 sm:text-[15px]">
+                                        {selectedKegma.fullDescription}
+                                    </p>
+                                </div>
 
-                            {/* Poin-poin Utama */}
-                            <div>
-                                <h5 className="flex items-center gap-2 font-serif text-base font-semibold text-white">
-                                    <Sparkles size={18} className="text-camel-brown" />
-                                    Sorotan &amp; Nilai Utama
-                                </h5>
-                                <ul className="mt-3 space-y-2">
-                                    {selectedKegma.highlights.map((point, index) => (
-                                        <li
-                                            key={index}
-                                            className="flex items-start gap-2.5 text-xs sm:text-sm text-concrete/85"
-                                        >
-                                            <CheckCircle2
-                                                size={16}
-                                                className="mt-0.5 shrink-0 text-azure"
-                                            />
-                                            <span>{point}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Sorotan &amp; nilai utama
+                                    </p>
+                                    <ol className="mt-3 divide-y divide-white/10 border-y border-white/10">
+                                        {selectedKegma.highlights.map(
+                                            (point, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="flex items-start gap-4 py-3.5"
+                                                >
+                                                    <span className="text-camel-brown font-serif text-lg leading-6">
+                                                        {String(
+                                                            index + 1,
+                                                        ).padStart(2, "0")}
+                                                    </span>
+                                                    <span className="text-concrete/90 font-sans text-sm leading-6">
+                                                        {point}
+                                                    </span>
+                                                </li>
+                                            ),
+                                        )}
+                                    </ol>
+                                </div>
 
-                            {/* Informasi Kepengurusan & Naungan */}
-                            <div className="grid grid-cols-1 gap-3 rounded-2xl border border-white/10 bg-navy-dark/60 p-4 sm:grid-cols-2">
-                                <div className="flex items-center gap-3">
-                                    <UserCheck size={20} className="text-azure" />
+                                <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                     <div>
-                                        <p className="font-sans text-[10px] uppercase tracking-wider text-concrete/60">
+                                        <dt className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
                                             Supervisor BEM
-                                        </p>
-                                        <p className="font-sans text-xs font-semibold text-white">
+                                        </dt>
+                                        <dd className="mt-1 font-sans text-sm font-semibold text-white">
                                             {selectedKegma.supervisor}
-                                        </p>
+                                        </dd>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Calendar size={20} className="text-camel-brown" />
                                     <div>
-                                        <p className="font-sans text-[10px] uppercase tracking-wider text-concrete/60">
-                                            Divisi Pengawas
-                                        </p>
-                                        <p className="font-sans text-xs font-semibold text-pale-taupe">
+                                        <dt className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
+                                            Divisi pengawas
+                                        </dt>
+                                        <dd className="text-pale-taupe mt-1 font-sans text-sm font-semibold">
                                             SUKMA BEM UMN Gen XVI
-                                        </p>
+                                        </dd>
                                     </div>
-                                </div>
+                                </dl>
                             </div>
-                        </div>
 
-                        {/* Modal Action Footer */}
-                        <div className="flex flex-col-reverse gap-3 border-t border-white/10 bg-blue-primary/20 px-6 py-4 sm:flex-row sm:items-center sm:justify-end sm:px-8">
-                            <button
-                                type="button"
-                                onClick={() => setSelectedKegma(null)}
-                                className="w-full rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 font-sans text-xs font-medium text-white transition hover:bg-white/15 sm:w-auto cursor-pointer"
-                            >
-                                Tutup
-                            </button>
-
-                            <a
-                                href={selectedKegma.websiteUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-azure/40 bg-azure px-6 py-2.5 font-sans text-xs font-bold text-navy-dark shadow-lg shadow-azure/20 transition-all hover:scale-105 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-azure sm:w-auto"
-                            >
-                                <span>Kunjungi Website Resmi</span>
-                                <ExternalLink size={15} />
-                            </a>
+                            <div className="border-t border-white/10 bg-[#0a1530] p-4 sm:px-8">
+                                <a
+                                    href={selectedKegma.websiteUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-pale-taupe text-navy-dark focus-visible:ring-azure inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 font-sans text-sm font-bold transition hover:bg-white focus:outline-none focus-visible:ring-2 active:scale-95 sm:w-auto"
+                                >
+                                    <span>Kunjungi website resmi</span>
+                                    <ExternalLink size={16} />
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </ContentDialog>
             )}
         </div>
     );

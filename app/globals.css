@@ -31,6 +31,7 @@ body {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-dark-blue: var(--navy-dark);
+    --color-navy-dark: var(--navy-dark);
     --color-blue-primary: var(--navy-blue);
     --color-steel-blue: var(--steel-blue);
     --color-azure: var(--azure);
@@ -50,35 +51,10 @@ body {
     --color-accent: var(--accent);
 }
 
-
 @layer base {
     body {
         @apply m-0 p-0;
     }
-}
-
-@utility responsive-padding-x-sm {
-    @apply px-2 md:px-4 lg:px-8 xl:px-12;
-}
-
-@utility responsive-padding-x-md {
-    @apply px-4 md:px-8 lg:px-12 xl:px-16;
-}
-
-@utility responsive-padding-x-lg {
-    @apply px-6 md:px-10 lg:px-14 xl:px-20;
-}
-
-html.lenis {
-    height: auto;
-}
-
-.lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-    overflow: hidden;
 }
 
 .super-bg {
@@ -88,71 +64,6 @@ html.lenis {
     background-position: center;
     background-size: 320px auto;
     background-repeat: repeat;
-    will-change: transform;
-}
-
-
-.gallery-column-fade {
-    position: relative;
-}
-
-.gallery-column-fade::before {
-    content: "";
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(
-        to bottom,
-        rgba(242, 242, 242, 1),
-        rgba(242, 242, 242, 1),
-        rgba(242, 242, 242, 0.7),
-        rgba(242, 242, 242, 0.4),
-        rgba(242, 242, 242, 0.2),
-        rgba(242, 242, 242, 0)
-    );
-    z-index: 1;
-    position: absolute;
-    top: -30px;
-    left: 0;
-    filter: blur(10px);
-}
-
-.gallery-column-fade::after {
-    content: "";
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(
-        to top,
-        rgba(242, 242, 242, 1),
-        rgba(242, 242, 242, 1),
-        rgba(242, 242, 242, 0.7),
-        rgba(242, 242, 242, 0.4),
-        rgba(242, 242, 242, 0.2),
-        rgba(242, 242, 242, 0)
-    );
-    z-index: 1;
-    position: absolute;
-    bottom: -30px;
-    left: 0;
-    filter: blur(10px);
-}
-
-@media (max-width: 768px) {
-    .gallery-column-fade::before,
-    .gallery-column-fade::after {
-        content: none !important;
-    }
-}
-
-.no-select {
-    user-select: none; /* Standard */
-    -webkit-user-select: none; /* Safari/Chrome */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE/Edge */
-}
-
-/* Optional: prevent context menu on right-click */
-.no-select {
-    -webkit-touch-callout: none; /* iOS Safari */
 }
 
 /* Fallback & Reduced Motion untuk Reveal Content Tentang Kami */
@@ -166,4 +77,275 @@ html.lenis {
         transform: none !important;
         transition: none !important;
     }
+}
+
+/* Small refinements to the original dark identity. */
+html {
+    scroll-padding-top: 7rem;
+}
+:focus-visible {
+    outline: 2px solid var(--azure);
+    outline-offset: 4px;
+}
+nav a[aria-current="page"] {
+    border-color: var(--azure);
+    background-color: var(--navy-dark);
+}
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+p {
+    text-wrap: pretty;
+}
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Preserve the navy identity while keeping compact screens comfortable. */
+#kegiatan {
+    padding-block: clamp(4rem, 7vw, 6rem);
+}
+@media (prefers-reduced-motion: reduce) {
+    button:hover,
+    a:hover {
+        transform: none;
+    }
+}
+
+@keyframes dialog-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@media (prefers-reduced-motion: no-preference) {
+    dialog[open] {
+        animation: dialog-enter 180ms ease-out;
+    }
+}
+
+.work-carousel.swiper {
+    padding: 22px 20px;
+}
+.work-carousel .swiper-slide {
+    width: min(82vw, 428px);
+}
+.work-carousel-card {
+    transform: scale(0.9);
+    opacity: 0.65;
+    transform-origin: center;
+    transition:
+        transform 850ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 850ms ease,
+        border-color 850ms ease;
+}
+.work-carousel .swiper-slide-active .work-carousel-card {
+    transform: scale(1);
+    opacity: 1;
+    border-color: rgb(180 202 218 / 0.55);
+}
+.work-carousel-image {
+    transform: scale(1);
+    transition: transform 4200ms ease-out;
+}
+.work-carousel .swiper-slide-active .work-carousel-image {
+    transform: scale(1.045);
+}
+@media (prefers-reduced-motion: reduce) {
+    .work-carousel-card,
+    .work-carousel-image {
+        transition: none;
+        transform: none !important;
+    }
+}
+
+/* Colour rhythm: flat, hard-edged full-bleed bands behind a section, straight
+   from the GSM palette (no gradients or glows). Inner pages use these. */
+body {
+    overflow-x: clip;
+}
+.band-blue,
+.band-warm {
+    position: relative;
+}
+.band-blue::before,
+.band-warm::before {
+    content: "";
+    position: absolute;
+    inset-block: -2.5rem;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+}
+.band-blue::before {
+    background: #b3c3d1;
+}
+.band-warm::before {
+    background: #d2c7b8;
+}
+
+/* Apple Garamond ships regular + italic only; font-bold would fake a bold. */
+.font-serif {
+    font-synthesis-weight: none;
+}
+
+/* Themes. The site palette is the side-tab palette: concrete, linen, azure and
+   taupe grounds, navy ink, camel accent. .theme-paper flips the dark tokens
+   (navy surface, white text) to paper + ink; .theme-ink restores the originals
+   for the navbar, footer and any dark chapter nested inside a paper page. */
+.theme-paper {
+    --navy-dark: #eee5d9;
+    --navy-blue: #d2c7b8;
+    --steel-blue: #4b6482;
+    --azure: #2f486d;
+    --pale-taupe: #2f486d;
+    --concrete: #0f1e3f;
+    --cream-linen: #0f1e3f;
+    --color-white: #0f1e3f;
+    background-color: #f2f2f2;
+    background-image: url("/textures/paper-light.jpg");
+    background-size: 900px auto;
+    color: #0f1e3f;
+}
+.theme-ink {
+    --navy-dark: #0f1e3f;
+    --navy-blue: #2f486d;
+    --steel-blue: #6d86a0;
+    --azure: #b3c3d1;
+    --pale-taupe: #d2c7b8;
+    --concrete: #f2f2f2;
+    --cream-linen: #eee5d9;
+    --color-white: #ffffff;
+}
+
+/* ---- binder index tabs (desktop) ---- */
+.chapter-tabs {
+    display: none;
+}
+@media (min-width: 1024px) {
+    .chapter-tabs {
+        display: block;
+        position: fixed;
+        right: 0;
+        top: 50%;
+        z-index: 60;
+        transform: translateY(-50%);
+    }
+    .chapter-tabs ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 4px;
+    }
+    .chapter-tab {
+        --tab-bg: #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 92px;
+        padding-left: 6px;
+        border-radius: 12px 0 0 12px;
+        background: var(--tab-bg);
+        color: #0f1e3f;
+        box-shadow:
+            -2px 2px 6px rgb(15 30 63 / 0.3),
+            inset 1px 1px 0 rgb(255 255 255 / 0.7);
+        text-decoration: none;
+        transform: translateX(10px);
+        transition:
+            transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+            background-color 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .chapter-tab span {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-family: var(--font-garamond), serif;
+        font-size: 1.02rem;
+        letter-spacing: 0.01em;
+    }
+    .chapter-tab--linen {
+        --tab-bg: #eee5d9;
+    }
+    .chapter-tab--azure {
+        --tab-bg: #b3c3d1;
+    }
+    .chapter-tab--taupe {
+        --tab-bg: #d2c7b8;
+    }
+    .chapter-tab[aria-current="location"] {
+        transform: translateX(0);
+        --tab-bg: #0f1e3f;
+        color: #eee5d9;
+    }
+    .chapter-tab[aria-current="location"] span {
+        font-style: italic;
+    }
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    .chapter-tab:hover {
+        transform: translateX(3px);
+    }
+    .chapter-tab[aria-current="location"]:hover {
+        transform: translateX(0);
+    }
+}
+
+/* Flat chapter grounds for the flow sections (GSM palette). */
+.sc-home .gnd-blue {
+    background-color: #2f486d;
+}
+.sc-home .gnd-linen {
+    background-color: #eee5d9;
+    background-image:
+        linear-gradient(rgb(238 229 217 / 0.82), rgb(238 229 217 / 0.82)),
+        url("/textures/paper-light.jpg");
+    background-size:
+        auto,
+        900px auto;
+    color: #0f1e3f;
+}
+
+/* Paper pages: cards are solid linen, not see-through over the paper texture. */
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-navy-dark/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-blue-primary/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-white/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-navy-dark/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-blue-primary/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-white/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ) {
+    background-color: #eee5d9;
 }
