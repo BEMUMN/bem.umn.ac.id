@@ -152,7 +152,6 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                 </section>
             </main>
 
-            <Footer />
             <PageTurn
                 href={`/divisi/${next.id.toLowerCase()}`}
                 label={`Lanjut ke divisi ${next.name}`}
@@ -176,6 +175,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                     </div>
                 }
             />
+            <Footer />
         </div>
     );
 }
