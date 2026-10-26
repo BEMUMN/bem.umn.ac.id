@@ -1060,3 +1060,13 @@
 .sc-home :is(.turnback__sheet) {
     font-family: var(--sc-font-text);
 }
+
+/* Phones: the lead keeps a readable column instead of 36vw (~140px). */
+@media (max-width: 860px) {
+    .item--lead {
+        width: min(78vw, 22rem);
+    }
+    .divisi__title {
+        font-size: clamp(2.6rem, 11vw, 3.4rem);
+    }
+}

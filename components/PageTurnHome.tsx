@@ -30,7 +30,10 @@ export function PageTurnHome({ name }: { name: string }) {
         };
         check();
         const observer = new MutationObserver(check);
-        observer.observe(peel, { attributes: true, attributeFilter: ["class"] });
+        observer.observe(peel, {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
         return () => {
             observer.disconnect();
             window.clearTimeout(timer);

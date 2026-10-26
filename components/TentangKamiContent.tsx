@@ -498,7 +498,7 @@ export default function TentangKamiContent() {
                 <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8">
                     <div className="border-azure/30 bg-navy-dark grid grid-cols-1 gap-8 rounded-3xl border p-6 shadow-lg sm:p-10 lg:grid-cols-12 lg:gap-12">
                         {/* Frame Logo dengan Ambient Glow */}
-                        <div className="tt-reveal relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-8 lg:col-span-5">
+                        <div className="tt-reveal relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-[#0f1e3f] p-8 lg:col-span-5">
                             <Image
                                 src="/svgs/BEM_GEN_16_LOGO_LIGHT.svg"
                                 alt="Logo BEM UMN Gen XVI — Inclusive for Innovation"
@@ -508,7 +508,7 @@ export default function TentangKamiContent() {
                                 className="h-auto w-full max-w-[280px] object-contain drop-shadow-[0_10px_20px_rgba(15,30,63,0.25)] sm:max-w-[320px]"
                             />
                             <div className="mt-6 text-center">
-                                <span className="border-camel-brown/40 bg-camel-brown/10 text-pale-taupe inline-block rounded-full border px-3 py-1 font-sans text-[11px] font-semibold">
+                                <span className="border-camel-brown/40 bg-camel-brown/10 text-[#d2c7b8] inline-block rounded-full border px-3 py-1 font-sans text-[11px] font-semibold">
                                     Folded Paper XVI Identity
                                 </span>
                             </div>
