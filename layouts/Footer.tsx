@@ -8,7 +8,6 @@ import {
     Mail,
     MapPin,
     ArrowUpRight,
-    ArrowRight,
 } from "lucide-react";
 import { navLinks } from "@/constants";
 import { contactConfig } from "@/constants/contactIndex";
@@ -86,31 +85,12 @@ const Footer = () => {
                     <div className="lg:col-span-8">
                         <p className={heading}>{contactConfig.tagline}</p>
                         <h2 className="mt-5 font-serif text-4xl leading-[1.05] sm:text-5xl lg:text-7xl">
-                            Jelajahi seluruh{" "}
-                            <em className="text-pale-taupe">kegiatan</em> BEM
-                            UMN.
+                            Inclusive for{" "}
+                            <em className="text-pale-taupe">Innovation</em>.
                         </h2>
                         <p className="text-concrete/80 mt-6 max-w-xl font-sans text-sm leading-7 sm:text-base">
                             {contactConfig.description}
                         </p>
-                        <div className="mt-9 flex flex-wrap gap-3">
-                            <Link
-                                href="/kegiatan"
-                                className="group bg-pale-taupe text-navy-dark focus-visible:ring-azure inline-flex min-h-12 items-center gap-2 rounded-full px-7 font-sans text-sm font-bold transition hover:bg-white focus:outline-none focus-visible:ring-2 active:scale-95"
-                            >
-                                Jelajahi seluruh kegiatan
-                                <ArrowRight
-                                    size={16}
-                                    className="transition-transform group-hover:translate-x-1"
-                                />
-                            </Link>
-                            <Link
-                                href="/divisi"
-                                className="focus-visible:ring-azure inline-flex min-h-12 items-center rounded-full border border-white/25 px-7 font-sans text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 active:scale-95"
-                            >
-                                Kenali divisi
-                            </Link>
-                        </div>
                     </div>
                     <div className="lg:col-span-4 lg:flex lg:justify-end">
                         <Image
