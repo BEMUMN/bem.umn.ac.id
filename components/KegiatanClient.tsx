@@ -75,7 +75,7 @@ export default function KegiatanClient({
                ======================================================== */}
             <section
                 data-agenda-filter
-                className="bg-navy-dark/85 relative z-30 border-y border-white/10 py-4 backdrop-blur-xl transition-all"
+                className="bg-navy-dark/85 relative z-30 border-y border-white/10 py-4 transition-all"
             >
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -83,7 +83,7 @@ export default function KegiatanClient({
                         <div
                             role="group"
                             aria-label="Kategori Kegiatan & Program Kerja"
-                            className="inline-flex flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-md"
+                            className="inline-flex flex-wrap gap-1 rounded-2xl border border-white/10 bg-white/5 p-1"
                         >
                             <button
                                 type="button"
@@ -154,7 +154,7 @@ export default function KegiatanClient({
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Cari agenda, divisi, atau kata kunci..."
-                                className="placeholder-concrete/50 focus:border-azure min-h-11 w-full rounded-xl border border-white/10 bg-white/5 py-2 pr-8 pl-9 font-sans text-xs text-white backdrop-blur-md transition-colors focus:bg-white/10 focus:outline-none"
+                                className="placeholder-concrete/50 focus:border-azure min-h-11 w-full rounded-xl border border-white/10 bg-white/5 py-2 pr-8 pl-9 font-sans text-xs text-white transition-colors focus:bg-white/10 focus:outline-none"
                             />
                             {searchQuery && (
                                 <button
@@ -223,12 +223,12 @@ export default function KegiatanClient({
                 >
                     {/* Section Header */}
                     <div className="mb-8 text-center md:mb-10">
-                        <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase backdrop-blur-sm">
+                        <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                             <Sparkles size={14} className="text-camel-brown" />
                             <span>Naungan BEM UMN • SUKMA</span>
                         </div>
 
-                        <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white drop-shadow sm:text-4xl md:text-5xl">
+                        <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                             6 Kegiatan Mahasiswa (KEGMA)
                         </h2>
                         <p className="text-concrete/85 mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed sm:text-base">
@@ -260,7 +260,7 @@ export default function KegiatanClient({
             {showProker && filteredProker.length > 0 && (
                 <section
                     id="proker-section"
-                    className="from-navy-dark/60 via-navy-dark/95 to-navy-dark/60 relative border-t border-white/10 bg-gradient-to-b py-20 backdrop-blur-md"
+                    className="relative border-t border-white/10 py-20"
                 >
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         {/* Section Header */}
@@ -275,7 +275,7 @@ export default function KegiatanClient({
                                 </span>
                             </div>
 
-                            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white drop-shadow sm:text-4xl md:text-5xl">
+                            <h2 className="mt-4 font-serif text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                                 Program Kerja (PROKER) BEM UMN Gen XVI
                             </h2>
                             <p className="text-concrete/85 mx-auto mt-4 max-w-2xl font-sans text-sm leading-relaxed sm:text-base">
@@ -366,7 +366,7 @@ export default function KegiatanClient({
                     {/* Modal Window Container */}
                     <div className="flex max-h-[90dvh] flex-col">
                         {/* Modal Header */}
-                        <div className="bg-blue-primary/40 relative flex items-center justify-between border-b border-white/10 px-6 py-5 backdrop-blur-md sm:px-8">
+                        <div className="bg-blue-primary/40 relative flex items-center justify-between border-b border-white/10 px-6 py-5 sm:px-8">
                             <div className="flex items-center gap-4">
                                 <div className="bg-navy-dark/80 relative h-12 w-12 shrink-0 rounded-xl border border-white/20 p-1.5 shadow-md">
                                     <Image

@@ -53,7 +53,7 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
 
 const Footer = () => {
     return (
-        <footer className="from-navy-dark via-dark-blue relative mt-24 w-full overflow-hidden border-t border-white/15 bg-gradient-to-b to-[#081226] text-white">
+        <footer className="theme-ink bg-navy-dark relative mt-24 w-full overflow-hidden border-t border-white/15 text-white">
             {/* Latar Belakang Tekstur GSM Halus */}
             <div
                 className="pointer-events-none absolute inset-0 opacity-10"

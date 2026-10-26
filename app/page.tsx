@@ -1,44 +1,58 @@
-import { HeroDecorations } from "@/components/HeroDecorations";
+import "./home-scroll.css";
 import Navbar from "@/layouts/Navbar";
-import Hero from "@/layouts/home-page/Hero";
-import AboutPreview from "@/layouts/home-page/AboutPreview";
-import Values from "@/layouts/home-page/Values";
+import Cover from "@/layouts/home-page/Cover";
+import HalamanBaru from "@/layouts/home-page/HalamanBaru";
+import Spread from "@/layouts/home-page/Spread";
+import Nilai from "@/layouts/home-page/Nilai";
+import Kabinet from "@/layouts/home-page/Kabinet";
+import Divisi from "@/layouts/home-page/Divisi";
 import Work from "@/layouts/home-page/Work";
 import Footer from "@/layouts/Footer";
+import Peel from "@/components/Peel";
+import { ChapterTabs } from "@/components/ChapterTabs";
+import { ScrollCraftMount } from "@/components/ScrollCraftMount";
 
+// Chapters follow bem-umn-gen-xvi-main: Sampul (cover peel + Halaman Baru) >
+// Nilai > Kabinet (peel, the peak) > Divisi (rail) > Kegiatan > back cover.
+// overflow-x-clip, not hidden: hidden would break the sticky pinned stages.
 export default function Home() {
     return (
-        <main className="bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen w-full overflow-x-hidden text-white">
-            {/* Texture Background Layer */}
+        <main className="sc-home bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen w-full overflow-x-clip text-white">
             <div className="super-bg absolute inset-0 -z-30 bg-cover bg-center opacity-30" />
 
-            {/* Navbar Floating Pill */}
-            <Navbar />
+            <div data-sc-progress aria-hidden="true" />
+            <Navbar compact />
+            <ChapterTabs />
 
-            {/* 1. HERO SECTION (Centerpiece Identity) */}
-            <Hero id="hero" />
+            <div id="sampul">
+                <section
+                    data-sc-act="pin"
+                    data-sc-span="2"
+                    data-span-mobile="2.2"
+                    aria-label="Sampul"
+                >
+                    <div data-sc-stage>
+                        <Peel
+                            name="sampul"
+                            from={0.05}
+                            to={0.6}
+                            rest={120}
+                            hover
+                            sheet={<Cover />}
+                            under={<HalamanBaru />}
+                        />
+                    </div>
+                </section>
+                <Spread />
+            </div>
 
-            {/* Subtle Divider 1 */}
-            <div className="relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-            {/* 2. SEKILAS TENTANG KAMI & VISI MISI (Editorial Magazine) */}
-            <AboutPreview id="tentang" />
-
-            {/* Subtle Divider 2 */}
-            <div className="via-azure/20 relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent to-transparent" />
-
-            {/* 3. NILAI ATAU IDENTITAS KABINET (Bento Grid 4 Supergrafik) */}
-            <Values id="nilai" />
-
-            {/* Subtle Divider 3 */}
-            <div className="via-camel-brown/30 relative mx-auto h-px max-w-6xl bg-gradient-to-r from-transparent to-transparent" />
-
-            {/* 4. HIGHLIGHT KEGIATAN MAHASISWA & PROKER */}
-            <Work id="kegiatan" />
-
-            {/* 5. FOOTER INSTITUSIONAL */}
+            <Nilai id="nilai" />
+            <Kabinet id="kabinet" />
+            <Divisi id="divisi" />
+            <Work id="kegiatan" className="gnd-linen" />
             <Footer />
-            <HeroDecorations />
+
+            <ScrollCraftMount />
         </main>
     );
 }

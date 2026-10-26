@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import Navbar from "@/layouts/Navbar";
+import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
 import { divisions } from "@/constants/divisionIndex";
 import {
@@ -140,22 +141,12 @@ const colorPalette = [
 
 export default function TentangKamiContent() {
     return (
-        <div className="bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen text-white">
-            {/* Latar Belakang Tekstur Kanvas Halus GSM */}
-            <div
-                className="pointer-events-none fixed inset-0 -z-30 opacity-25"
-                style={{
-                    backgroundImage: `url('/pngs/texture/ASSET.webp')`,
-                    backgroundRepeat: "repeat",
-                    backgroundSize: "220px",
-                }}
-            />
-
+        <div className="theme-paper bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen text-white">
             {/* Gradient Radial Ambient */}
-            <div className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(circle_at_top_right,rgba(47,72,109,0.35)_0%,rgba(15,30,63,0.98)_75%)]" />
 
             {/* Navigasi Utama */}
-            <Navbar />
+            <Navbar compact />
+            <ChapterTabs sub />
 
             <main className="relative z-10 pt-28 pb-20 md:pt-36">
                 {/* ========================================================
@@ -231,7 +222,7 @@ export default function TentangKamiContent() {
                         </div>
 
                         {/* Abstract Box dengan Stempel Pendirian */}
-                        <div className="tt-reveal border-camel-brown/30 from-blue-primary/40 via-navy-dark/95 to-navy-dark flex flex-col justify-between rounded-3xl border bg-gradient-to-br p-6 shadow-lg backdrop-blur-xl sm:p-8 lg:col-span-4">
+                        <div className="tt-reveal border-camel-brown/30 bg-navy-dark flex flex-col justify-between rounded-3xl border p-6 shadow-lg sm:p-8 lg:col-span-4">
                             <div>
                                 <div className="flex items-center justify-between">
                                     <span className="text-azure font-sans text-[10px] font-bold tracking-widest uppercase">
@@ -280,9 +271,9 @@ export default function TentangKamiContent() {
                    ======================================================== */}
                 <section
                     id="sejarah-section"
-                    className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8"
+                    className="band-blue mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8"
                 >
-                    <div className="bg-navy-dark/85 grid grid-cols-1 gap-8 rounded-3xl border border-white/15 p-6 shadow-lg backdrop-blur-xl sm:p-10 lg:grid-cols-12 lg:gap-12">
+                    <div className="bg-navy-dark/85 grid grid-cols-1 gap-8 rounded-3xl border border-white/15 p-6 shadow-lg sm:p-10 lg:grid-cols-12 lg:gap-12">
                         {/* Kolom Kiri: Piagam Legalitas 17 November 2008 */}
                         <div className="tt-reveal relative flex flex-col justify-between overflow-hidden border-b border-white/10 pb-8 lg:col-span-5 lg:border-r lg:border-b-0 lg:pr-10 lg:pb-0">
                             {/* Giant Watermark Numeral */}
@@ -400,9 +391,9 @@ export default function TentangKamiContent() {
                    ======================================================== */}
                 <section
                     id="visi-misi-section"
-                    className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8"
+                    className="band-warm mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8"
                 >
-                    <div className="border-azure/30 from-blue-primary/40 via-navy-dark to-navy-dark rounded-3xl border bg-gradient-to-b p-6 shadow-lg backdrop-blur-xl sm:p-12 lg:p-14">
+                    <div className="border-azure/30 bg-navy-dark rounded-3xl border p-6 shadow-lg sm:p-12 lg:p-14">
                         {/* Section Tag */}
                         <div className="tt-reveal flex items-center justify-between border-b border-white/10 pb-6">
                             <div className="flex items-center gap-2">
@@ -463,7 +454,7 @@ export default function TentangKamiContent() {
                                 {missionList.map((m) => (
                                     <div
                                         key={m.no}
-                                        className="tt-reveal group hover:border-azure/50 relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-white/10"
+                                        className="tt-reveal group hover:border-azure/50 relative flex flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white/10"
                                     >
                                         <div>
                                             <div className="flex items-center justify-between">
@@ -505,17 +496,16 @@ export default function TentangKamiContent() {
                     SECTION 4: ANATOMI LOGO & SIMBOLISME FOLDED PAPER XVI
                    ======================================================== */}
                 <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8">
-                    <div className="border-azure/30 from-blue-primary/30 via-navy-dark to-dark-blue grid grid-cols-1 gap-8 rounded-3xl border bg-gradient-to-br p-6 shadow-lg backdrop-blur-xl sm:p-10 lg:grid-cols-12 lg:gap-12">
+                    <div className="border-azure/30 bg-navy-dark grid grid-cols-1 gap-8 rounded-3xl border p-6 shadow-lg sm:p-10 lg:grid-cols-12 lg:gap-12">
                         {/* Frame Logo dengan Ambient Glow */}
                         <div className="tt-reveal relative flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-8 lg:col-span-5">
-                            <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(179,195,209,0.25)_0%,transparent_70%)]" />
                             <Image
                                 src="/svgs/BEM_GEN_16_LOGO_LIGHT.svg"
                                 alt="Logo BEM UMN Gen XVI — Inclusive for Innovation"
                                 width={360}
                                 height={150}
                                 priority
-                                className="h-auto w-full max-w-[280px] object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.8)] sm:max-w-[320px]"
+                                className="h-auto w-full max-w-[280px] object-contain drop-shadow-[0_10px_20px_rgba(15,30,63,0.25)] sm:max-w-[320px]"
                             />
                             <div className="mt-6 text-center">
                                 <span className="border-camel-brown/40 bg-camel-brown/10 text-pale-taupe inline-block rounded-full border px-3 py-1 font-sans text-[11px] font-semibold">
@@ -644,7 +634,7 @@ export default function TentangKamiContent() {
                             return (
                                 <div
                                     key={p.title}
-                                    className={`tt-reveal group from-blue-primary/30 to-navy-dark/95 hover:border-azure/50 relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:shadow-lg sm:p-8 ${p.colSpan}`}
+                                    className={`tt-reveal group hover:border-azure/50 bg-navy-dark relative flex flex-col justify-between overflow-hidden rounded-3xl border border-white/15 p-6 shadow-xl transition-all duration-300 hover:shadow-lg sm:p-8 ${p.colSpan}`}
                                 >
                                     {/* Supergraphic Watermark */}
                                     <div className="pointer-events-none absolute -right-6 -bottom-6 opacity-20 transition-all duration-500 group-hover:scale-110 group-hover:opacity-35">
@@ -700,7 +690,7 @@ export default function TentangKamiContent() {
                     SECTION 6: STRUKTUR 6 DIVISI & GATEWAY DIRECTORY
                    ======================================================== */}
                 <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8">
-                    <div className="tt-reveal rounded-3xl border border-white/15 bg-white/5 p-6 shadow-lg backdrop-blur-xl sm:p-10 lg:p-12">
+                    <div className="tt-reveal rounded-3xl border border-white/15 bg-white/5 p-6 shadow-lg sm:p-10 lg:p-12">
                         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
                             <div>
                                 <div className="border-camel-brown/40 bg-blue-primary/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
@@ -771,7 +761,7 @@ export default function TentangKamiContent() {
                         </div>
 
                         {/* Call to Action Banner ke Kegiatan */}
-                        <div className="from-blue-primary/40 via-navy-dark to-blue-primary/40 mt-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/10 bg-gradient-to-r p-6 text-center sm:flex-row sm:p-8 sm:text-left">
+                        <div className="bg-navy-dark mt-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/10 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
                             <div>
                                 <h3 className="font-serif text-xl font-bold text-white sm:text-2xl">
                                     Ingin Meninjau Program Kerja &amp; KEGMA?
@@ -783,7 +773,7 @@ export default function TentangKamiContent() {
                             </div>
                             <Link
                                 href="/kegiatan"
-                                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 font-sans text-xs font-semibold text-white shadow-lg backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/20 active:scale-95 sm:text-sm"
+                                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 font-sans text-xs font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20 active:scale-95 sm:text-sm"
                             >
                                 <span>Tinjau Kegiatan (KEGMA)</span>
                                 <ArrowRight size={15} />

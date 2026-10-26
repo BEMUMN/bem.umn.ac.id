@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { DivisionHeader } from "@/components/DivisionHeader";
 import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
+import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
 import { DivisionDetailClient } from "@/components/DivisionDetailClient";
 import { divisions } from "@/constants/divisionIndex";
@@ -52,7 +53,8 @@ export default async function DivisionDetailPage({ params }: PageProps) {
             {/* Tekstur Global */}
             <div className="super-bg fixed inset-0 -z-30 scale-125 bg-cover bg-center opacity-40"></div>
 
-            <Navbar />
+            <Navbar compact />
+            <ChapterTabs sub />
 
             <main className="relative z-10 pt-28 pb-16 md:pt-36">
                 {/* Breadcrumbs & Navigation */}

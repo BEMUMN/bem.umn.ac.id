@@ -14,7 +14,6 @@ export function MemberRoster({
     const [query, setQuery] = useState("");
     const id = useId();
     const rosterRef = useRef<HTMLDivElement>(null);
-    const [paused, setPaused] = useState(false);
     const [showGesture, setShowGesture] = useState(false);
     const hasGestures = members.some((member) => member.gestureImageUrl);
     useEffect(() => {
@@ -31,7 +30,6 @@ export function MemberRoster({
         reset();
         const timer = window.setInterval(() => {
             if (
-                !paused &&
                 hasGestures &&
                 visible &&
                 !document.hidden &&
@@ -46,7 +44,7 @@ export function MemberRoster({
             observer.disconnect();
             media.removeEventListener("change", reset);
         };
-    }, [paused, hasGestures, members]);
+    }, [hasGestures, members]);
     const filtered = useMemo(() => {
         const q = query.trim().toLocaleLowerCase("id");
         return members.filter((member) =>
@@ -90,25 +88,7 @@ export function MemberRoster({
                         )}
                     </div>
                 </div>
-                <p role="status" className="text-azure text-xs sm:pb-4">
-                    {filtered.length} dari {members.length} pengurus
-                </p>
             </div>
-            {hasGestures && (
-                <div className="text-azure mb-5 flex items-center justify-between gap-3 text-xs">
-                    <span>Potret & pose khas divisi</span>
-                    <button
-                        type="button"
-                        onClick={() => setPaused((current) => !current)}
-                        aria-pressed={paused}
-                        className="min-h-11 rounded-full border border-white/20 px-4 hover:bg-white/10 motion-reduce:hidden"
-                    >
-                        {paused
-                            ? "Putar pergantian foto"
-                            : "Jeda pergantian foto"}
-                    </button>
-                </div>
-            )}
             {filtered.length ? (
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {filtered.map((member) => (

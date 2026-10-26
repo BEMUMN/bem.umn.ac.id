@@ -115,8 +115,6 @@ p {
     min-height: 100svh;
 }
 @media (max-width: 639px) {
-    #tentang,
-    #nilai,
     #kegiatan {
         padding-block: 4rem;
     }
@@ -133,8 +131,6 @@ p {
 }
 
 /* Preserve the navy identity while keeping compact screens comfortable. */
-#tentang,
-#nilai,
 #kegiatan {
     padding-block: clamp(4rem, 7vw, 6rem);
 }
@@ -212,4 +208,182 @@ p {
         transition: none;
         transform: none !important;
     }
+}
+
+/* Colour rhythm: flat, hard-edged full-bleed bands behind a section, straight
+   from the GSM palette (no gradients or glows). Inner pages use these. */
+body {
+    overflow-x: clip;
+}
+.band-blue,
+.band-warm {
+    position: relative;
+}
+.band-blue::before,
+.band-warm::before {
+    content: "";
+    position: absolute;
+    inset-block: -2.5rem;
+    left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
+    z-index: -1;
+    pointer-events: none;
+}
+.band-blue::before {
+    background: #b3c3d1;
+}
+.band-warm::before {
+    background: #d2c7b8;
+}
+
+/* Apple Garamond ships regular + italic only; font-bold would fake a bold. */
+.font-serif {
+    font-synthesis-weight: none;
+}
+
+/* Themes. The site palette is the side-tab palette: concrete, linen, azure and
+   taupe grounds, navy ink, camel accent. .theme-paper flips the dark tokens
+   (navy surface, white text) to paper + ink; .theme-ink restores the originals
+   for the navbar, footer and any dark chapter nested inside a paper page. */
+.theme-paper {
+    --navy-dark: #eee5d9;
+    --navy-blue: #d2c7b8;
+    --steel-blue: #4b6482;
+    --azure: #2f486d;
+    --pale-taupe: #2f486d;
+    --concrete: #0f1e3f;
+    --cream-linen: #0f1e3f;
+    --color-white: #0f1e3f;
+    background-color: #f2f2f2;
+    background-image: url("/textures/paper-light.jpg");
+    background-size: 900px auto;
+    color: #0f1e3f;
+}
+.theme-ink {
+    --navy-dark: #0f1e3f;
+    --navy-blue: #2f486d;
+    --steel-blue: #6d86a0;
+    --azure: #b3c3d1;
+    --pale-taupe: #d2c7b8;
+    --concrete: #f2f2f2;
+    --cream-linen: #eee5d9;
+    --color-white: #ffffff;
+}
+
+/* ---- binder index tabs (desktop) ---- */
+.chapter-tabs {
+    display: none;
+}
+@media (min-width: 1024px) {
+    .chapter-tabs {
+        display: block;
+        position: fixed;
+        right: 0;
+        top: 50%;
+        z-index: 60;
+        transform: translateY(-50%);
+    }
+    .chapter-tabs ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 4px;
+    }
+    .chapter-tab {
+        --tab-bg: #f2f2f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 46px;
+        height: 92px;
+        padding-left: 6px;
+        border-radius: 12px 0 0 12px;
+        background: var(--tab-bg);
+        color: #0f1e3f;
+        box-shadow:
+            -2px 2px 6px rgb(15 30 63 / 0.3),
+            inset 1px 1px 0 rgb(255 255 255 / 0.7);
+        text-decoration: none;
+        transform: translateX(10px);
+        transition:
+            transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+            background-color 200ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .chapter-tab span {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-family: var(--font-garamond), serif;
+        font-size: 1.02rem;
+        letter-spacing: 0.01em;
+    }
+    .chapter-tab--linen {
+        --tab-bg: #eee5d9;
+    }
+    .chapter-tab--azure {
+        --tab-bg: #b3c3d1;
+    }
+    .chapter-tab--taupe {
+        --tab-bg: #d2c7b8;
+    }
+    .chapter-tab[aria-current="location"] {
+        transform: translateX(0);
+        --tab-bg: #0f1e3f;
+        color: #eee5d9;
+    }
+    .chapter-tab[aria-current="location"] span {
+        font-style: italic;
+    }
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+    .chapter-tab:hover {
+        transform: translateX(3px);
+    }
+    .chapter-tab[aria-current="location"]:hover {
+        transform: translateX(0);
+    }
+}
+
+/* Flat chapter grounds for the flow sections (GSM palette). */
+.sc-home .gnd-blue {
+    background-color: #2f486d;
+}
+.sc-home .gnd-linen {
+    background-color: #eee5d9;
+    background-image:
+        linear-gradient(rgb(238 229 217 / 0.82), rgb(238 229 217 / 0.82)),
+        url("/textures/paper-light.jpg");
+    background-size:
+        auto,
+        900px auto;
+    color: #0f1e3f;
+}
+
+/* Paper pages: cards are solid linen, not see-through over the paper texture. */
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-navy-dark/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-blue-primary/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-3xl"][class*="bg-white/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-navy-dark/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-blue-primary/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ),
+.theme-paper
+    [class*="rounded-2xl"][class*="bg-white/"]:not([class*="fixed"]):not(
+        [class*="absolute"]
+    ) {
+    background-color: #eee5d9;
 }

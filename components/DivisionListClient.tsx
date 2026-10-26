@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import Navbar from "@/layouts/Navbar";
+import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
 import { DivisionCard, DivisionItem } from "@/components/DivisionCard";
 import { MemberRoster } from "@/components/MemberRoster";
@@ -107,7 +108,8 @@ export const DivisionListClient = ({
             />
             <div className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(ellipse_at_top,rgba(47,72,109,0.35)_0%,rgba(15,30,63,0.95)_75%)]" />
 
-            <Navbar />
+            <Navbar compact />
+            <ChapterTabs sub />
 
             <main className="relative z-10 pt-28 pb-20 md:pt-36">
                 {/* ========================================================
@@ -154,7 +156,7 @@ export const DivisionListClient = ({
                         </p>
 
                         {/* Pilihan Kepengurusan Capsule Selector */}
-                        <div className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 p-1.5 backdrop-blur-md">
+                        <div className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 p-1.5">
                             {generations.map((gen) => {
                                 const isSelected =
                                     selectedGeneration === gen.id;
@@ -174,7 +176,6 @@ export const DivisionListClient = ({
                                     >
                                         <Calendar size={14} />
                                         <span>{gen.fullName}</span>
-
                                     </button>
                                 );
                             })}
@@ -244,7 +245,7 @@ export const DivisionListClient = ({
                             <button
                                 type="button"
                                 onClick={handleBackToDivisions}
-                                className="group border-azure/40 text-azure hover:bg-azure hover:text-navy-dark inline-flex cursor-pointer items-center gap-2 rounded-full border bg-white/10 px-6 py-2.5 font-sans text-xs font-bold shadow-md backdrop-blur-sm transition-all hover:scale-105 active:scale-95"
+                                className="group border-azure/40 text-azure hover:bg-azure hover:text-navy-dark inline-flex cursor-pointer items-center gap-2 rounded-full border bg-white/10 px-6 py-2.5 font-sans text-xs font-bold shadow-md transition-all hover:scale-105 active:scale-95"
                             >
                                 <ArrowLeft
                                     size={16}

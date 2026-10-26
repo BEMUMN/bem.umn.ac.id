@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
+import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
 import KegiatanClient from "@/components/KegiatanClient";
 import { kegmaList, prokerList } from "@/constants/workIndex";
@@ -15,18 +16,19 @@ export const metadata: Metadata = {
 export default function KegiatanPage() {
     return (
         <main className="bg-navy-dark selection:bg-azure selection:text-navy-dark relative min-h-screen text-white">
-            {/* Latar Belakang Tekstur Kanvas Halus GSM */}
+            {/* Latar navy gelap bertekstur */}
             <div
-                className="pointer-events-none fixed inset-0 -z-30 opacity-25"
+                className="pointer-events-none fixed inset-0 -z-30 opacity-20"
                 style={{
                     backgroundImage: `url('/pngs/texture/ASSET.webp')`,
                     backgroundRepeat: "repeat",
                     backgroundSize: "220px",
                 }}
             />
-            <div className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(ellipse_at_top,rgba(47,72,109,0.35)_0%,rgba(15,30,63,0.95)_75%)]" />
+            <div className="pointer-events-none fixed inset-0 -z-20 bg-[radial-gradient(ellipse_at_top,rgba(24,40,78,0.55)_0%,rgba(7,15,36,0.98)_70%)]" />
 
-            <Navbar />
+            <Navbar compact />
+            <ChapterTabs sub />
 
             {/* ========================================================
                 HERO SECTION: EDITORIAL AGENDA & MONOGRAPH

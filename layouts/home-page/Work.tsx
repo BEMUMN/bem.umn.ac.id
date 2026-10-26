@@ -77,11 +77,11 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
             <div className="w-full justify-around md:flex md:min-h-[42rem] md:gap-5">
                 {/* Left Text Section */}
                 <div className="scroll-reveal relative mb-10 shrink-0 basis-1/3 self-center px-6 pt-10 pr-10 md:mb-0 md:min-w-0 md:px-0">
-                    <div className="border-camel-brown/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border bg-white/5 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
+                    <div className="border-navy-dark/30 text-blue-primary bg-navy-dark/5 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
                         <span>03 · Program &amp; Kegiatan</span>
                     </div>
 
-                    <h2 className="mt-3 text-start font-serif text-3xl font-bold text-white drop-shadow sm:text-4xl md:text-5xl">
+                    <h2 className="text-navy-dark mt-3 text-start font-serif text-3xl font-bold sm:text-4xl md:text-5xl">
                         {(() => {
                             const activeSectionObj = subSections.find(
                                 (s) => s.id === activeSection,
@@ -91,7 +91,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             );
                         })()}
                     </h2>
-                    <p className="text-concrete/90 mt-4 font-sans text-sm leading-relaxed md:text-base">
+                    <p className="text-navy-dark/80 mt-4 font-sans text-sm leading-relaxed md:text-base">
                         {subSections.find((s) => s.id === activeSection)?.desc}
                     </p>
 
@@ -111,10 +111,10 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                     onClick={() =>
                                         changeSection(s.id as SectionId)
                                     }
-                                    className={`focus-visible:ring-azure min-h-11 rounded-full px-3.5 py-1.5 font-sans text-xs font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 active:scale-95 ${
+                                    className={`focus-visible:ring-navy-dark min-h-11 rounded-full px-3.5 py-1.5 font-sans text-xs font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 active:scale-95 ${
                                         isActive
-                                            ? "bg-azure text-navy-dark shadow-azure/20 border-azure border font-bold shadow-md"
-                                            : "text-pale-taupe border border-white/15 bg-white/5 hover:bg-white/10 hover:text-white"
+                                            ? "bg-navy-dark text-cream border-navy-dark border font-bold shadow-md"
+                                            : "text-navy-dark border-navy-dark/25 bg-navy-dark/5 hover:bg-navy-dark/10 border"
                                     }`}
                                 >
                                     {s.title}
@@ -126,7 +126,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                     <div className="mt-8 flex flex-wrap items-center gap-3">
                         <Link
                             href="/kegiatan"
-                            className="border-azure/50 bg-azure text-navy-dark focus-visible:ring-azure inline-flex items-center gap-2 rounded-full border px-6 py-3 font-sans text-xs font-bold shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white focus-visible:ring-2 focus-visible:outline-none active:scale-95 sm:text-sm"
+                            className="border-navy-dark bg-navy-dark text-cream focus-visible:ring-navy-dark hover:bg-blue-primary inline-flex items-center gap-2 rounded-full border px-6 py-3 font-sans text-xs font-bold shadow-xl transition-all duration-300 hover:scale-105 focus-visible:ring-2 focus-visible:outline-none active:scale-95 sm:text-sm"
                         >
                             <span>Jelajahi Seluruh Kegiatan</span>
                         </Link>
@@ -197,7 +197,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             type="button"
                             onClick={() => swiper?.slidePrev()}
                             aria-label="Item kegiatan sebelumnya"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15"
+                            className="border-navy-dark/30 bg-navy-dark/5 text-navy-dark hover:bg-navy-dark/10 flex h-11 w-11 items-center justify-center rounded-full border"
                         >
                             <ChevronLeft size={20} />
                         </button>
@@ -205,11 +205,11 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                             type="button"
                             onClick={() => swiper?.slideNext()}
                             aria-label="Item kegiatan berikutnya"
-                            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15"
+                            className="border-navy-dark/30 bg-navy-dark/5 text-navy-dark hover:bg-navy-dark/10 flex h-11 w-11 items-center justify-center rounded-full border"
                         >
                             <ChevronRight size={20} />
                         </button>
-                        <span className="text-azure ml-2 text-xs tabular-nums">
+                        <span className="text-blue-primary ml-2 text-xs tabular-nums">
                             {String(currentIndex).padStart(2, "0")}{" "}
                             <span className="mx-1 opacity-50">·</span>{" "}
                             {String(items.length).padStart(2, "0")}
@@ -223,7 +223,7 @@ const Work = ({ id, className }: { id: string; className?: string }) => {
                                     : "Jeda carousel kegiatan"
                             }
                             aria-pressed={paused}
-                            className="text-azure ml-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/20 hover:bg-white/10 motion-reduce:hidden"
+                            className="text-navy-dark border-navy-dark/30 hover:bg-navy-dark/10 ml-auto flex h-11 w-11 items-center justify-center rounded-full border motion-reduce:hidden"
                         >
                             {paused ? <Play size={17} /> : <Pause size={17} />}
                         </button>

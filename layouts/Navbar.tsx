@@ -7,7 +7,11 @@ import { usePathname } from "next/navigation";
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, X } from "lucide-react";
 
-const Navbar = () => {
+const tones = ["bg-concrete", "bg-cream", "bg-azure", "bg-pale-taupe"];
+const linkTone =
+    "aria-[current=page]:bg-navy-dark aria-[current=page]:text-cream aria-[current=page]:border-navy-dark";
+
+const Navbar = ({ compact = false }: { compact?: boolean }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [visible, setVisible] = useState(true);
     const lastScrollY = useRef(0);
@@ -75,14 +79,14 @@ const Navbar = () => {
     }, []);
 
     // Pertahankan header tetap tampak jika menu mobile sedang dibuka
-    const isVisible = visible || mobileMenuOpen;
+    const isVisible = compact || visible || mobileMenuOpen;
 
     return (
         <header
             ref={headerRef}
             data-nav-visible={isVisible}
             onFocusCapture={() => setVisible(true)}
-            className={`fixed top-0 left-0 z-50 w-full px-4 pt-4 transition-transform duration-300 ease-in-out motion-reduce:transition-none md:px-8 md:pt-6 ${
+            className={`theme-ink fixed top-0 left-0 z-50 w-full px-4 pt-4 transition-transform duration-300 ease-in-out motion-reduce:transition-none md:px-8 md:pt-6 ${compact ? "lg:px-[clamp(1.25rem,5vw,5.5rem)] lg:pt-2.5" : ""} ${
                 isVisible
                     ? "translate-y-0"
                     : "pointer-events-none -translate-y-full"
@@ -91,7 +95,7 @@ const Navbar = () => {
             <nav
                 id="navbar-capsule"
                 aria-label="Navigasi Utama"
-                className="from-dark-blue/80 via-blue-primary/70 to-dark-blue/80 mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/20 bg-gradient-to-r px-4 py-2.5 shadow-2xl backdrop-blur-xl transition-all duration-300 md:px-6 md:py-3"
+                className={`bg-concrete/90 border-navy-dark/15 flex items-center justify-between rounded-full border px-4 py-2.5 shadow-md backdrop-blur-sm transition-all duration-300 md:px-6 md:py-3 ${compact ? "lg:min-h-11 lg:w-fit lg:gap-6 lg:py-1 lg:pr-4 lg:pl-1.5" : "mx-auto max-w-7xl"}`}
             >
                 {/* Logo & Identitas (Bisa dijadikan tombol Home) */}
                 <Link
@@ -99,9 +103,11 @@ const Navbar = () => {
                     aria-label="Kembali ke Beranda BEM UMN"
                     className="group flex min-w-0 items-center gap-2 transition-opacity hover:opacity-90 sm:gap-3"
                 >
-                    <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 p-1 ring-1 ring-white/30 transition group-hover:scale-105 md:h-12 md:w-12">
+                    <div
+                        className={`relative flex shrink-0 items-center justify-center transition group-hover:scale-105 ${compact ? "h-[30px] w-[30px]" : "h-10 w-10 md:h-11 md:w-11"}`}
+                    >
                         <Image
-                            src="/svgs/LOGO_BEM.svg"
+                            src="/svgs/bem-logo-xvi.svg"
                             alt="Logo BEM UMN"
                             width={44}
                             height={44}
@@ -109,19 +115,33 @@ const Navbar = () => {
                             priority
                         />
                     </div>
-                    <div className="flex flex-col text-left font-sans">
-                        <span className="text-[10px] font-bold tracking-wide text-white drop-shadow-sm sm:text-sm md:text-base">
+                    <div
+                        className={`flex flex-col text-left font-sans ${compact ? "hidden" : ""}`}
+                    >
+                        <span className="text-navy-dark text-[10px] font-bold tracking-wide sm:text-sm md:text-base">
                             Badan Eksekutif Mahasiswa
                         </span>
-                        <span className="text-azure/90 text-[9px] font-medium tracking-wider sm:text-xs">
+                        <span className="text-blue-primary text-[9px] font-medium tracking-wider sm:text-xs">
                             Universitas Multimedia Nusantara
                         </span>
                     </div>
+                    {compact && (
+                        <div className="text-navy-dark flex items-baseline gap-2 pr-1 whitespace-nowrap">
+                            <span className="font-sans text-[0.95rem] font-bold tracking-[0.02em]">
+                                BEM UMN
+                            </span>
+                            <span className="text-blue-primary font-serif text-[1.05rem] italic">
+                                Gen XVI
+                            </span>
+                        </div>
+                    )}
                 </Link>
 
                 {/* Desktop Menu Capsule Buttons (Uniform Width w-32) */}
-                <ul className="hidden items-center gap-2 lg:flex lg:gap-3">
-                    {navLinks.map((link) => (
+                <ul
+                    className={`hidden items-center gap-2 lg:gap-3 ${compact ? "" : "lg:flex"}`}
+                >
+                    {navLinks.map((link, i) => (
                         <li key={link.id}>
                             <Link
                                 href={link.href}
@@ -132,7 +152,7 @@ const Navbar = () => {
                                         ? "page"
                                         : undefined
                                 }
-                                className="border-azure/30 bg-blue-primary/60 hover:bg-dark-blue inline-flex min-h-11 w-28 items-center justify-center rounded-full border py-2.5 font-sans text-xs font-semibold tracking-wider text-white shadow-sm backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white hover:shadow-md active:scale-95 xl:w-32"
+                                className={`${tones[i % tones.length]} ${linkTone} border-navy-dark/25 text-navy-dark inline-flex min-h-11 w-28 items-center justify-center rounded-full border py-2.5 font-sans text-xs font-semibold tracking-wider shadow-sm transition-all duration-300 hover:scale-105 hover:brightness-95 active:scale-95 xl:w-32`}
                             >
                                 {link.label}
                             </Link>
@@ -153,7 +173,7 @@ const Navbar = () => {
                                 ? "Tutup menu navigasi"
                                 : "Buka menu navigasi"
                         }
-                        className="flex min-h-11 min-w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 p-2 text-white transition hover:bg-white/20 active:scale-95"
+                        className="border-navy-dark/25 bg-concrete text-navy-dark hover:bg-pale-taupe flex min-h-11 min-w-11 items-center justify-center rounded-full border p-2 transition active:scale-95"
                     >
                         {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
                     </button>
@@ -164,10 +184,10 @@ const Navbar = () => {
             {mobileMenuOpen && (
                 <div
                     id="mobile-navigation"
-                    className="bg-dark-blue/95 mx-auto mt-2 max-w-sm rounded-3xl border border-white/20 p-4 shadow-2xl backdrop-blur-2xl lg:hidden"
+                    className="bg-cream border-navy-dark/20 mx-auto mt-2 max-w-sm rounded-3xl border p-4 shadow-2xl lg:hidden"
                 >
                     <ul className="flex flex-col gap-2">
-                        {navLinks.map((link) => (
+                        {navLinks.map((link, i) => (
                             <li key={link.id}>
                                 <Link
                                     href={link.href}
@@ -181,7 +201,7 @@ const Navbar = () => {
                                             : undefined
                                     }
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="border-azure/20 bg-blue-primary/40 hover:bg-blue-primary flex min-h-11 w-full items-center justify-center rounded-full border py-2.5 font-sans text-sm font-semibold tracking-wide text-white transition hover:text-white"
+                                    className={`${tones[i % tones.length]} ${linkTone} border-navy-dark/25 text-navy-dark flex min-h-11 w-full items-center justify-center rounded-full border py-2.5 font-sans text-sm font-semibold tracking-wide transition hover:brightness-95`}
                                 >
                                     {link.label}
                                 </Link>
