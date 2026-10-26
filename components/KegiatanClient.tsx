@@ -6,10 +6,7 @@ import {
     ExternalLink,
     X,
     Sparkles,
-    Calendar,
-    UserCheck,
     CheckCircle2,
-    ShieldCheck,
     Briefcase,
     Search,
     Layers,
@@ -360,153 +357,134 @@ export default function KegiatanClient({
                ======================================================== */}
             {selectedKegma && (
                 <ContentDialog
+                    wide
                     labelledBy="modal-kegma-title"
                     onClose={() => setSelectedKegma(null)}
                 >
-                    {/* Modal Window Container */}
-                    <div className="flex max-h-[90dvh] flex-col">
-                        {/* Modal Header */}
-                        <div className="bg-blue-primary/40 relative flex items-center justify-between border-b border-white/10 px-6 py-5 sm:px-8">
-                            <div className="flex items-center gap-4">
-                                <div className="bg-navy-dark/80 relative h-12 w-12 shrink-0 rounded-xl border border-white/20 p-1.5 shadow-md">
+                    <div className="relative flex max-h-[90dvh] flex-col md:flex-row">
+                        <button
+                            type="button"
+                            onClick={() => setSelectedKegma(null)}
+                            className="hover:border-azure absolute top-4 right-4 z-20 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-[#0a1530]/80 text-white/90 transition-colors hover:bg-white/20 hover:text-white"
+                            aria-label="Tutup jendela rincian kegiatan"
+                        >
+                            <X size={20} />
+                        </button>
+
+                        {/* Panel identitas */}
+                        <div className="relative flex shrink-0 flex-col justify-end overflow-hidden bg-[#0a1530] p-6 pt-20 sm:p-8 sm:pt-24 md:w-[22rem] md:pt-8">
+                            <Image
+                                src={selectedKegma.image}
+                                alt=""
+                                fill
+                                sizes="360px"
+                                className="object-cover opacity-30"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0a1530] via-[#0a1530]/80 to-[#0a1530]/40" />
+                            <div className="relative z-10 flex flex-row items-center gap-5 md:flex-col md:items-start md:gap-0">
+                                <div className="relative h-24 w-24 shrink-0 md:h-40 md:w-40">
                                     <Image
                                         src={selectedKegma.logo}
                                         alt={`Logo ${selectedKegma.title}`}
                                         fill
-                                        className="object-contain p-1"
+                                        sizes="160px"
+                                        className="object-contain drop-shadow-[0_8px_24px_rgba(0,0,0,0.45)]"
                                     />
                                 </div>
-                                <div>
-                                    <span className="border-camel-brown/40 bg-camel-brown/15 text-pale-taupe inline-block rounded-full border px-2.5 py-0.5 font-sans text-[10px] font-semibold tracking-wider uppercase">
+                                <div className="md:mt-8">
+                                    <span className="border-camel-brown/50 text-pale-taupe inline-block rounded-full border px-3 py-1 font-sans text-[10px] font-semibold tracking-wider uppercase">
                                         {selectedKegma.category}
                                     </span>
                                     <h3
                                         id="modal-kegma-title"
-                                        className="mt-0.5 font-serif text-xl font-bold tracking-wide text-white sm:text-2xl"
+                                        className="mt-3 font-serif text-3xl leading-tight text-white sm:text-4xl"
                                     >
                                         {selectedKegma.title}
                                     </h3>
+                                    <p className="text-pale-taupe mt-2 font-serif text-sm italic md:text-base">
+                                        &ldquo;{selectedKegma.tagline}&rdquo;
+                                    </p>
                                 </div>
                             </div>
-
-                            <button
-                                type="button"
-                                onClick={() => setSelectedKegma(null)}
-                                className="hover:border-azure flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-white/10 p-2 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
-                                aria-label="Tutup jendela rincian kegiatan"
-                            >
-                                <X size={20} />
-                            </button>
                         </div>
 
-                        {/* Modal Scrollable Body */}
-                        <div className="space-y-6 overflow-y-auto px-6 py-6 sm:px-8">
-                            {/* Full Name & Tagline */}
-                            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                                <p className="text-azure font-sans text-xs font-semibold tracking-wider uppercase">
-                                    Nama Resmi Kegiatan Mahasiswa
-                                </p>
-                                <h4 className="mt-1 font-serif text-lg font-semibold text-white">
-                                    {selectedKegma.fullName}
-                                </h4>
-                                <p className="text-pale-taupe mt-1 font-sans text-xs italic">
-                                    &ldquo;{selectedKegma.tagline}&rdquo;
-                                </p>
-                            </div>
+                        {/* Panel isi */}
+                        <div className="flex min-h-0 flex-1 flex-col">
+                            <div className="flex-1 space-y-8 overflow-y-auto p-6 sm:p-8">
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Nama resmi
+                                    </p>
+                                    <h4 className="mt-2 font-serif text-xl text-white sm:text-2xl">
+                                        {selectedKegma.fullName}
+                                    </h4>
+                                </div>
 
-                            {/* Penjelasan Lengkap */}
-                            <div>
-                                <h5 className="flex items-center gap-2 font-serif text-base font-semibold text-white">
-                                    <ShieldCheck
-                                        size={18}
-                                        className="text-azure"
-                                    />
-                                    Tentang Kegiatan
-                                </h5>
-                                <p className="text-concrete/90 mt-2 font-sans text-sm leading-relaxed">
-                                    {selectedKegma.fullDescription}
-                                </p>
-                            </div>
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Tentang kegiatan
+                                    </p>
+                                    <p className="text-concrete/90 mt-3 font-sans text-sm leading-7 sm:text-[15px]">
+                                        {selectedKegma.fullDescription}
+                                    </p>
+                                </div>
 
-                            {/* Poin-poin Utama */}
-                            <div>
-                                <h5 className="flex items-center gap-2 font-serif text-base font-semibold text-white">
-                                    <Sparkles
-                                        size={18}
-                                        className="text-camel-brown"
-                                    />
-                                    Sorotan &amp; Nilai Utama
-                                </h5>
-                                <ul className="mt-3 space-y-2">
-                                    {selectedKegma.highlights.map(
-                                        (point, index) => (
-                                            <li
-                                                key={index}
-                                                className="text-concrete/85 flex items-start gap-2.5 text-xs sm:text-sm"
-                                            >
-                                                <CheckCircle2
-                                                    size={16}
-                                                    className="text-azure mt-0.5 shrink-0"
-                                                />
-                                                <span>{point}</span>
-                                            </li>
-                                        ),
-                                    )}
-                                </ul>
-                            </div>
+                                <div>
+                                    <p className="text-azure font-sans text-[11px] font-semibold tracking-[0.18em] uppercase">
+                                        Sorotan &amp; nilai utama
+                                    </p>
+                                    <ol className="mt-3 divide-y divide-white/10 border-y border-white/10">
+                                        {selectedKegma.highlights.map(
+                                            (point, index) => (
+                                                <li
+                                                    key={index}
+                                                    className="flex items-start gap-4 py-3.5"
+                                                >
+                                                    <span className="text-camel-brown font-serif text-lg leading-6">
+                                                        {String(
+                                                            index + 1,
+                                                        ).padStart(2, "0")}
+                                                    </span>
+                                                    <span className="text-concrete/90 font-sans text-sm leading-6">
+                                                        {point}
+                                                    </span>
+                                                </li>
+                                            ),
+                                        )}
+                                    </ol>
+                                </div>
 
-                            {/* Informasi Kepengurusan & Naungan */}
-                            <div className="bg-navy-dark/60 grid grid-cols-1 gap-3 rounded-2xl border border-white/10 p-4 sm:grid-cols-2">
-                                <div className="flex items-center gap-3">
-                                    <UserCheck
-                                        size={20}
-                                        className="text-azure"
-                                    />
+                                <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                     <div>
-                                        <p className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
+                                        <dt className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
                                             Supervisor BEM
-                                        </p>
-                                        <p className="font-sans text-xs font-semibold text-white">
+                                        </dt>
+                                        <dd className="mt-1 font-sans text-sm font-semibold text-white">
                                             {selectedKegma.supervisor}
-                                        </p>
+                                        </dd>
                                     </div>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <Calendar
-                                        size={20}
-                                        className="text-camel-brown"
-                                    />
                                     <div>
-                                        <p className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
-                                            Divisi Pengawas
-                                        </p>
-                                        <p className="text-pale-taupe font-sans text-xs font-semibold">
+                                        <dt className="text-concrete/60 font-sans text-[10px] tracking-wider uppercase">
+                                            Divisi pengawas
+                                        </dt>
+                                        <dd className="text-pale-taupe mt-1 font-sans text-sm font-semibold">
                                             SUKMA BEM UMN Gen XVI
-                                        </p>
+                                        </dd>
                                     </div>
-                                </div>
+                                </dl>
                             </div>
-                        </div>
 
-                        {/* Modal Action Footer */}
-                        <div className="bg-blue-primary/20 flex flex-col-reverse gap-3 border-t border-white/10 px-6 py-4 sm:flex-row sm:items-center sm:justify-end sm:px-8">
-                            <button
-                                type="button"
-                                onClick={() => setSelectedKegma(null)}
-                                className="w-full cursor-pointer rounded-xl border border-white/20 bg-white/5 px-5 py-2.5 font-sans text-xs font-medium text-white transition hover:bg-white/15 sm:w-auto"
-                            >
-                                Tutup
-                            </button>
-
-                            <a
-                                href={selectedKegma.websiteUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="border-azure/40 bg-azure text-navy-dark shadow-azure/20 focus-visible:ring-azure inline-flex w-full items-center justify-center gap-2 rounded-xl border px-6 py-2.5 font-sans text-xs font-bold shadow-lg transition-all hover:scale-105 hover:bg-white focus:outline-none focus-visible:ring-2 sm:w-auto"
-                            >
-                                <span>Kunjungi Website Resmi</span>
-                                <ExternalLink size={15} />
-                            </a>
+                            <div className="border-t border-white/10 bg-[#0a1530] p-4 sm:px-8">
+                                <a
+                                    href={selectedKegma.websiteUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-pale-taupe text-navy-dark focus-visible:ring-azure inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 font-sans text-sm font-bold transition hover:bg-white focus:outline-none focus-visible:ring-2 active:scale-95 sm:w-auto"
+                                >
+                                    <span>Kunjungi website resmi</span>
+                                    <ExternalLink size={16} />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </ContentDialog>

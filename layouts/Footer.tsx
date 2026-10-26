@@ -8,9 +8,7 @@ import {
     Mail,
     MapPin,
     ArrowUpRight,
-    Building2,
-    Compass,
-    Sparkles,
+    ArrowRight,
 } from "lucide-react";
 import { navLinks } from "@/constants";
 import { contactConfig } from "@/constants/contactIndex";
@@ -51,10 +49,26 @@ const WhatsAppIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
     </svg>
 );
 
+const socialIcon = (id: string) => {
+    if (id === "instagram") return <Instagram size={16} />;
+    if (id === "linkedin") return <Linkedin size={16} />;
+    if (id === "facebook") return <Facebook size={16} />;
+    if (id === "tiktok") return <TikTokIcon className="h-4 w-4" />;
+    return null;
+};
+
+const channelIcon = (id: string) => {
+    if (id === "line") return <LineIcon className="h-4 w-4" />;
+    if (id === "whatsapp") return <WhatsAppIcon className="h-4 w-4" />;
+    return <Mail size={16} />;
+};
+
+const heading =
+    "text-pale-taupe font-sans text-[11px] font-semibold tracking-[0.22em] uppercase";
+
 const Footer = () => {
     return (
-        <footer className="theme-ink bg-navy-dark relative mt-24 w-full overflow-hidden border-t border-white/15 text-white">
-            {/* Latar Belakang Tekstur GSM Halus */}
+        <footer className="theme-ink relative mt-24 w-full overflow-hidden bg-[#0a1530] text-white">
             <div
                 className="pointer-events-none absolute inset-0 opacity-10"
                 style={{
@@ -64,230 +78,203 @@ const Footer = () => {
                 }}
                 aria-hidden="true"
             />
-
-            {/* Subtle Gradient Glow Bar di Bagian Atas */}
             <div className="via-azure/60 absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent to-transparent" />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-4 pt-16 pb-12 sm:px-6 lg:px-8">
-                {/* GRID UTAMA 4 KOLOM */}
-                <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-                    {/* KOLOM 1: IDENTITAS LEMBAGA & CO-BRANDING (Span 4) */}
-                    <div className="flex flex-col justify-between lg:col-span-4">
-                        <div>
-                            {/* Logo Co-branding BEM UMN & Universitas Multimedia Nusantara */}
-                            <div className="flex items-center gap-4">
-                                <Link
-                                    href="/"
-                                    className="group focus-visible:ring-azure flex items-center gap-2.5 rounded-xl p-1 focus:outline-none focus-visible:ring-2"
-                                    aria-label="Kembali ke Beranda BEM UMN"
-                                >
-                                    <Image
-                                        src="/svgs/LOGO_BEM.svg"
-                                        alt="Logo BEM UMN"
-                                        width={44}
-                                        height={44}
-                                        className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                                    />
-                                    <div className="flex flex-col">
-                                        <span className="font-serif text-sm font-bold tracking-wider text-white">
-                                            BEM UMN
-                                        </span>
-                                        <span className="text-azure font-sans text-[10px] font-bold tracking-widest uppercase">
-                                            GEN XVI
-                                        </span>
-                                    </div>
-                                </Link>
-
-                                <div className="h-8 w-px bg-white/20" />
-
-                                <div className="flex items-center">
-                                    <Image
-                                        src="/svgs/LOGO_UMN_WHITE.svg"
-                                        alt="Universitas Multimedia Nusantara"
-                                        width={90}
-                                        height={32}
-                                        className="h-8 w-auto object-contain opacity-90 transition-opacity hover:opacity-100"
-                                    />
-                                </div>
-                            </div>
-
-                            <p className="text-concrete/80 mt-4 max-w-sm font-sans text-sm leading-6">
-                                {contactConfig.description}
-                            </p>
-
-                            <div className="border-camel-brown/40 text-pale-taupe mt-4 inline-flex items-center gap-2 rounded-full border bg-white/5 px-3 py-1 font-sans text-[11px] font-semibold">
-                                <Sparkles
-                                    size={12}
-                                    className="text-camel-brown"
+            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                {/* Ajakan utama */}
+                <div className="grid gap-12 border-b border-white/10 py-16 lg:grid-cols-12 lg:items-end lg:py-24">
+                    <div className="lg:col-span-8">
+                        <p className={heading}>{contactConfig.tagline}</p>
+                        <h2 className="mt-5 font-serif text-4xl leading-[1.05] sm:text-5xl lg:text-7xl">
+                            Jelajahi seluruh{" "}
+                            <em className="text-pale-taupe">kegiatan</em> BEM
+                            UMN.
+                        </h2>
+                        <p className="text-concrete/80 mt-6 max-w-xl font-sans text-sm leading-7 sm:text-base">
+                            {contactConfig.description}
+                        </p>
+                        <div className="mt-9 flex flex-wrap gap-3">
+                            <Link
+                                href="/kegiatan"
+                                className="group bg-pale-taupe text-navy-dark focus-visible:ring-azure inline-flex min-h-12 items-center gap-2 rounded-full px-7 font-sans text-sm font-bold transition hover:bg-white focus:outline-none focus-visible:ring-2 active:scale-95"
+                            >
+                                Jelajahi seluruh kegiatan
+                                <ArrowRight
+                                    size={16}
+                                    className="transition-transform group-hover:translate-x-1"
                                 />
-                                <span>{contactConfig.tagline}</span>
-                            </div>
+                            </Link>
+                            <Link
+                                href="/divisi"
+                                className="focus-visible:ring-azure inline-flex min-h-12 items-center rounded-full border border-white/25 px-7 font-sans text-sm font-semibold text-white transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 active:scale-95"
+                            >
+                                Kenali divisi
+                            </Link>
                         </div>
                     </div>
+                    <div className="lg:col-span-4 lg:flex lg:justify-end">
+                        <Image
+                            src="/pngs/gen-xvi-light.webp"
+                            alt=""
+                            width={700}
+                            height={248}
+                            className="h-auto w-56 sm:w-64 lg:w-72"
+                        />
+                    </div>
+                </div>
 
-                    {/* KOLOM 2: NAVIGASI CEPAT (Span 2) */}
-                    <div className="lg:col-span-2">
-                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
-                            Navigasi
-                        </span>
-                        <ul className="text-concrete/85 mt-3 space-y-0 font-sans text-xs">
+                {/* Tautan */}
+                <div className="grid gap-12 py-14 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+                    <div className="lg:col-span-4">
+                        <div className="flex items-center gap-4">
+                            <Link
+                                href="/"
+                                aria-label="Kembali ke Beranda BEM UMN"
+                                className="focus-visible:ring-azure flex items-center gap-3 rounded-xl focus:outline-none focus-visible:ring-2"
+                            >
+                                <Image
+                                    src="/svgs/LOGO_BEM.svg"
+                                    alt="Logo BEM UMN"
+                                    width={44}
+                                    height={44}
+                                    className="h-11 w-auto object-contain"
+                                />
+                                <span className="flex flex-col">
+                                    <span className="font-serif text-base tracking-wider">
+                                        BEM UMN
+                                    </span>
+                                    <span className="text-azure font-sans text-[10px] font-bold tracking-widest uppercase">
+                                        Gen XVI
+                                    </span>
+                                </span>
+                            </Link>
+                            <span className="h-8 w-px bg-white/20" />
+                            <Image
+                                src="/svgs/LOGO_UMN_WHITE.svg"
+                                alt="Universitas Multimedia Nusantara"
+                                width={90}
+                                height={32}
+                                className="h-8 w-auto object-contain opacity-90"
+                            />
+                        </div>
+                        <a
+                            href={contactConfig.address.mapUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-concrete/80 hover:text-azure mt-6 flex items-start gap-3 font-sans text-xs leading-relaxed transition-colors"
+                        >
+                            <MapPin
+                                size={16}
+                                className="text-azure mt-0.5 shrink-0"
+                            />
+                            <span>
+                                <strong className="block font-medium text-white">
+                                    {contactConfig.address.campus}
+                                </strong>
+                                {contactConfig.address.street},{" "}
+                                {contactConfig.address.area},{" "}
+                                {contactConfig.address.city}
+                            </span>
+                        </a>
+                    </div>
+
+                    <nav aria-label="Navigasi footer" className="lg:col-span-2">
+                        <p className={heading}>Navigasi</p>
+                        <ul className="mt-4 space-y-1">
                             {navLinks.map((link) => (
                                 <li key={link.id}>
                                     <Link
                                         href={link.href}
-                                        className="hover:text-azure focus-visible:text-azure inline-flex min-h-11 items-center gap-1.5 transition-colors focus:outline-none focus-visible:underline"
+                                        className="hover:text-azure focus-visible:text-azure inline-flex min-h-11 items-center font-serif text-lg transition-colors focus:outline-none focus-visible:underline"
                                     >
-                                        <span className="text-white/40">›</span>
-                                        <span>{link.label}</span>
+                                        {link.label.charAt(0) +
+                                            link.label.slice(1).toLowerCase()}
                                     </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    <div className="lg:col-span-3">
+                        <p className={heading}>Kontak</p>
+                        <ul className="mt-4 space-y-3 font-sans text-xs">
+                            {contactConfig.channels.map((ch) => (
+                                <li
+                                    key={ch.id}
+                                    className="flex items-center justify-between gap-3 border-b border-white/10 pb-3"
+                                >
+                                    <span className="text-concrete/80 flex items-center gap-2.5">
+                                        <span className="text-azure">
+                                            {channelIcon(ch.id)}
+                                        </span>
+                                        {ch.name}
+                                    </span>
+                                    <span className="text-pale-taupe/90 text-[11px]">
+                                        {ch.value}
+                                    </span>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* KOLOM 3: SEKRETARIAT & KANAL KONTAK (Span 3) */}
                     <div className="lg:col-span-3">
-                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
-                            Sekretariat &amp; Kontak
-                        </span>
-
-                        {/* Alamat Resmi Kampus */}
-                        <div className="text-concrete/85 mt-4 flex items-start gap-2.5 text-xs">
-                            <MapPin
-                                size={16}
-                                className="text-azure mt-0.5 shrink-0"
-                            />
-                            <div className="font-sans leading-relaxed">
-                                <strong className="block font-medium text-white">
-                                    {contactConfig.address.campus}
-                                </strong>
-                                <span className="text-concrete/75 mt-0.5 block text-[11px]">
-                                    {contactConfig.address.full}
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Kanal Kontak Langsung */}
-                        <div className="mt-5 space-y-2 border-t border-white/10 pt-4">
-                            {contactConfig.channels.map((ch) => (
-                                <div
-                                    key={ch.id}
-                                    className="flex items-center justify-between gap-2 font-sans text-xs"
-                                >
-                                    <div className="text-concrete/80 flex items-center gap-2">
-                                        {ch.id === "line" && (
-                                            <LineIcon className="text-azure h-3.5 w-3.5" />
-                                        )}
-                                        {ch.id === "email" && (
-                                            <Mail
-                                                size={14}
-                                                className="text-azure"
-                                            />
-                                        )}
-                                        {ch.id === "whatsapp" && (
-                                            <WhatsAppIcon className="text-azure h-3.5 w-3.5" />
-                                        )}
-                                        <span>{ch.name}:</span>
-                                    </div>
-                                    <span className="text-pale-taupe/90 rounded-md border border-white/10 bg-white/5 px-2 py-0.5 text-[10px] font-medium">
-                                        {ch.value}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* KOLOM 4: MEDIA SOSIAL RESMI (Span 3) */}
-                    <div className="lg:col-span-3">
-                        <span className="text-pale-taupe font-serif text-xs font-bold tracking-widest uppercase">
-                            Media Sosial Resmi
-                        </span>
-                        <p className="text-concrete/70 mt-2 font-sans text-[11px]">
-                            Ikuti publikasi dan agenda resmi BEM UMN Gen XVI
-                            melalui kanal berikut:
-                        </p>
-
-                        <div className="mt-4 grid grid-cols-2 gap-2.5">
-                            {contactConfig.socials.map((s) => {
-                                const isExternal =
-                                    !s.isPlaceholder && s.href !== "#";
-
-                                const content = (
+                        <p className={heading}>Media sosial</p>
+                        <ul className="mt-4 space-y-3 font-sans text-xs">
+                            {contactConfig.socials.map((sc) => {
+                                const live = !sc.isPlaceholder && sc.href !== "#";
+                                const row = (
                                     <>
-                                        <div className="flex items-center gap-2">
-                                            {s.id === "instagram" && (
-                                                <Instagram
-                                                    size={15}
-                                                    className="text-azure"
-                                                />
-                                            )}
-                                            {s.id === "linkedin" && (
-                                                <Linkedin
-                                                    size={15}
-                                                    className="text-azure"
-                                                />
-                                            )}
-                                            {s.id === "tiktok" && (
-                                                <TikTokIcon className="text-azure h-3.5 w-3.5" />
-                                            )}
-                                            {s.id === "facebook" && (
-                                                <Facebook
-                                                    size={15}
-                                                    className="text-azure"
-                                                />
-                                            )}
-                                            <span className="font-sans text-xs font-semibold text-white">
-                                                {s.name}
-                                            </span>
-                                        </div>
-                                        {isExternal ? (
+                                        <span className="text-azure">
+                                            {socialIcon(sc.id)}
+                                        </span>
+                                        <span className="font-semibold text-white">
+                                            {sc.name}
+                                        </span>
+                                        {live ? (
                                             <ArrowUpRight
-                                                size={13}
-                                                className="text-azure/80 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                                                size={14}
+                                                className="text-azure/80 ml-auto transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                                             />
                                         ) : (
-                                            <span className="text-pale-taupe/70 rounded bg-white/5 px-1.5 py-0.5 font-sans text-[9px] font-medium">
-                                                Segera
+                                            <span className="text-pale-taupe/70 ml-auto text-[10px]">
+                                                Segera hadir
                                             </span>
                                         )}
                                     </>
                                 );
-
-                                if (isExternal) {
-                                    return (
-                                        <a
-                                            key={s.id}
-                                            href={s.href}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            aria-label={s.ariaLabel}
-                                            className="group hover:border-azure/60 hover:shadow-azure/10 focus-visible:ring-azure flex min-h-11 items-center justify-between gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2.5 transition-all duration-300 hover:bg-white/10 hover:shadow-lg focus:outline-none focus-visible:ring-2 active:scale-95"
-                                        >
-                                            {content}
-                                        </a>
-                                    );
-                                }
-
                                 return (
-                                    <div
-                                        key={s.id}
-                                        aria-label={s.ariaLabel}
-                                        className="flex cursor-default items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 opacity-75"
+                                    <li
+                                        key={sc.id}
+                                        className="border-b border-white/10 pb-3"
                                     >
-                                        {content}
-                                    </div>
+                                        {live ? (
+                                            <a
+                                                href={sc.href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label={sc.ariaLabel}
+                                                className="group hover:text-azure focus-visible:ring-azure flex items-center gap-2.5 rounded focus:outline-none focus-visible:ring-2"
+                                            >
+                                                {row}
+                                            </a>
+                                        ) : (
+                                            <div
+                                                aria-label={sc.ariaLabel}
+                                                className="flex items-center gap-2.5 opacity-70"
+                                            >
+                                                {row}
+                                            </div>
+                                        )}
+                                    </li>
                                 );
                             })}
-                        </div>
+                        </ul>
                     </div>
                 </div>
 
-                {/* BOTTOM BAR: COPYRIGHT & KREDIT RESMI */}
-                <div className="text-concrete/70 mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 font-sans text-xs sm:flex-row">
-                    <p className="order-1 text-center sm:text-left">
-                        Copyright &copy; 2026 BEM Gen XVI
-                    </p>
-                    <p className="text-pale-taupe order-2 text-center font-medium sm:text-right">
+                <div className="text-concrete/70 flex flex-col items-center justify-between gap-3 border-t border-white/10 py-6 font-sans text-xs sm:flex-row">
+                    <p>Copyright &copy; 2026 BEM Gen XVI</p>
+                    <p className="text-pale-taupe font-medium">
                         Design &amp; Develop by BEM Gen XVI
                     </p>
                 </div>

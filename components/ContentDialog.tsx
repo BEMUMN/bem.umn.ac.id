@@ -5,10 +5,12 @@ export function ContentDialog({
     labelledBy,
     onClose,
     children,
+    wide = false,
 }: {
     labelledBy: string;
     onClose: () => void;
     children: ReactNode;
+    wide?: boolean;
 }) {
     const ref = useRef<HTMLDialogElement>(null);
     useEffect(() => {
@@ -51,7 +53,7 @@ export function ContentDialog({
                     first?.focus();
                 }
             }}
-            className="border-azure/30 bg-navy-dark m-auto max-h-[90dvh] w-[calc(100%-2rem)] max-w-2xl overflow-hidden rounded-3xl border p-0 text-white shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm"
+            className={`border-azure/30 bg-navy-dark m-auto max-h-[90dvh] w-[calc(100%-2rem)] ${wide ? "max-w-4xl" : "max-w-2xl"} overflow-hidden rounded-3xl border p-0 text-white shadow-2xl backdrop:bg-black/75 backdrop:backdrop-blur-sm`}
         >
             {children}
         </dialog>

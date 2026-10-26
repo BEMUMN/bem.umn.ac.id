@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DivisionHeader } from "@/components/DivisionHeader";
+import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
 import "../../home-scroll.css";
 import { ChapterTabs } from "@/components/ChapterTabs";
-import { PageTurnHome } from "@/components/PageTurnHome";
+import { PageTurn } from "@/components/PageTurn";
 import Footer from "@/layouts/Footer";
 import { DivisionDetailClient } from "@/components/DivisionDetailClient";
 import { divisions } from "@/constants/divisionIndex";
@@ -46,6 +47,12 @@ export default async function DivisionDetailPage({ params }: PageProps) {
 
     const members = divisionMembers[divisionId];
     const leader = members[0];
+    const next =
+        divisions[
+            (divisions.findIndex((d) => d.id.toUpperCase() === divisionId) +
+                1) %
+                divisions.length
+        ];
     const otherDivisions = divisions.filter(
         (d) => d.id.toUpperCase() !== divisionId,
     );
@@ -146,7 +153,29 @@ export default async function DivisionDetailPage({ params }: PageProps) {
             </main>
 
             <Footer />
-            <PageTurnHome name={division.name} />
+            <PageTurn
+                href={`/divisi/${next.id.toLowerCase()}`}
+                label={`Lanjut ke divisi ${next.name}`}
+                under={
+                    <div className="under turnnext ground-navy">
+                        <div className="turnnext__photo">
+                            <Image
+                                src={next.imageUrl}
+                                alt=""
+                                fill
+                                sizes="(max-width: 860px) 100vw, 50vw"
+                            />
+                        </div>
+                        <div className="under__copy turnnext__copy">
+                            <p className="turnnext__kicker">Divisi berikutnya</p>
+                            <h2 className="under__title bem-display">
+                                {next.name}
+                            </h2>
+                            <p className="under__lead">{next.fullname}</p>
+                        </div>
+                    </div>
+                }
+            />
         </div>
     );
 }
