@@ -51,12 +51,10 @@ export default function Home() {
             <Kabinet id="kabinet" />
             <Divisi id="divisi" />
             <Work id="kegiatan" className="gnd-linen" />
-            {/* Tall screens: the footer is the last sheet and folds back to the cover.
-                Short or narrow screens would clip it, so they keep a plain footer. */}
-            <div className="turn-short">
+            {/* The footer scrolls in, then a copy stacked over its last screen
+                pins and folds back onto the cover. */}
+            <div className="turn-end">
                 <Footer />
-            </div>
-            <div className="turn-tall">
                 <PageTurn
                     mount={false}
                     href="/"

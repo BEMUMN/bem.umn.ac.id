@@ -1043,15 +1043,29 @@
     }
 }
 
-/* Footer as a folding sheet only where it fits the viewport. */
-.turn-tall {
-    display: none;
+/* Home end: both footers fill at least a screen with content at the bottom,
+   so the pinned copy (pulled up one screen) lies exactly over the real one. */
+.turn-end footer {
+    display: grid;
+    align-content: end;
+    min-height: 100svh;
+    margin-top: 0;
+    /* keeps the footer's z-10 content under the pinned copy */
+    isolation: isolate;
 }
-@media (min-width: 1024px) and (min-height: 760px) {
-    .turn-tall {
-        display: block;
-    }
-    .turn-short {
-        display: none;
-    }
+.turn-end footer > * {
+    width: 100%;
+}
+.turn-end .turnback__sheet {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 0;
+    letter-spacing: normal;
+}
+.turn-end .turnback__sheet > footer {
+    flex-shrink: 0;
+}
+.turn-end > .sc-home {
+    margin-top: -100svh;
 }
