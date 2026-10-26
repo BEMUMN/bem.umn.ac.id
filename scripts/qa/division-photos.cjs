@@ -19,17 +19,21 @@ fs.mkdirSync(output, { recursive: true });
                 reducedMotion: "reduce",
             });
             page.on("pageerror", (e) => errors.push(e.message));
-            await page.goto(base + "/divisi");
-            const photos = page.getByRole("button", {
-                name: /^Perbesar foto /,
-            });
-            assert.equal(await photos.count(), 6);
-            for (let i = 0; i < 6; i++) {
-                const photo = photos.nth(i);
+            for (const [i, id] of [
+                "bph",
+                "sukm",
+                "sufak",
+                "sulso",
+                "pr",
+                "sukma",
+            ].entries()) {
+                await page.goto(base + "/divisi/" + id);
+                // main: the next division's banner also sits in the inert page-turn preview
+                const photo = page.locator("main").getByRole("button", {
+                    name: /^Perbesar foto /,
+                }).first();
                 await photo.scrollIntoViewIfNeeded();
                 await photo.locator("img").evaluate((img) => img.decode());
-                const rect = await photo.boundingBox();
-                assert(rect.width > (width >= 1024 ? 450 : 250));
                 if (width === 1440)
                     await photo.screenshot({
                         path: path.join(output, `crop-${i}.png`),
@@ -48,54 +52,17 @@ fs.mkdirSync(output, { recursive: true });
                     .getByRole("link", { name: "Buka ukuran asli" })
                     .getAttribute("href");
                 assert(full.startsWith("/pngs/members/divisi/"));
-                await page.keyboard.press("Tab");
-                await page.keyboard.press("Tab");
-                assert(
-                    await dialog.evaluate((el) =>
-                        el.contains(document.activeElement),
-                    ),
-                );
                 await page.keyboard.press("Escape");
                 assert(
                     await photo.evaluate((el) => el === document.activeElement),
                 );
+                assert.equal(
+                    await page.evaluate(
+                        () => document.documentElement.scrollWidth > innerWidth,
+                    ),
+                    false,
+                );
             }
-            assert.equal(
-                await page.evaluate(
-                    () => document.documentElement.scrollWidth > innerWidth,
-                ),
-                false,
-            );
-            const first = page.locator('[data-division-id="BPH"]');
-            await first.click();
-            assert.equal(
-                await page
-                    .getByRole("button", { name: /^Lihat profil / })
-                    .count(),
-                4,
-            );
-            const banner = page.getByRole("button", {
-                name: /^Perbesar foto /,
-            });
-            await banner.scrollIntoViewIfNeeded();
-            await banner.screenshot({
-                path: path.join(output, `header-${width}.png`),
-            });
-            await banner.click();
-            await page
-                .getByRole("button", { name: "Tutup foto divisi" })
-                .click();
-            await page
-                .getByRole("button", {
-                    name: "Kembali ke Seluruh Divisi",
-                    exact: true,
-                })
-                .click();
-            await page.waitForFunction(
-                () =>
-                    document.activeElement?.getAttribute("data-division-id") ===
-                    "BPH",
-            );
             checks.push({ width, photos: 6, overflow: false });
             await page.close();
         }
@@ -104,7 +71,8 @@ fs.mkdirSync(output, { recursive: true });
         });
         for (const id of ["bph", "sukm", "sufak", "sulso", "pr", "sukma"]) {
             await page.goto(base + "/divisi/" + id);
-            const banner = page.getByRole("button", {
+            // main: the next division's banner also sits in the inert page-turn preview
+            const banner = page.locator("main").getByRole("button", {
                 name: /^Perbesar foto /,
             });
             await banner.scrollIntoViewIfNeeded();

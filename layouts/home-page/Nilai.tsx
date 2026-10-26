@@ -1,4 +1,5 @@
 import Motif, { type ValueId } from "./Motif";
+import { GutterThread } from "@/components/GutterThread";
 
 const values: { id: ValueId; name: string; body: string }[] = [
     {
@@ -47,6 +48,7 @@ export default function Nilai({ id }: { id: string }) {
                 </header>
 
                 <div className="nilai__grid">
+                    <GutterThread />
                     {columns.map((col, c) => (
                         <div
                             key={c}

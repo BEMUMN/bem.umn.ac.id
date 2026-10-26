@@ -21,7 +21,6 @@ fs.mkdirSync(output, { recursive: true });
             for (const route of [
                 "/",
                 "/tentang-kami",
-                "/divisi",
                 "/kegiatan",
                 ...["bph", "sukm", "sufak", "sulso", "pr", "sukma"].map(
                     (id) => `/divisi/${id}`,

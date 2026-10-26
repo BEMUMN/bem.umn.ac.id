@@ -192,16 +192,17 @@ export function initPeels(root: ParentNode = document): () => void {
   let raf = 0;
   let stopped = false;
   root.querySelectorAll<HTMLElement>('[data-peel]').forEach((el) => {
-    const q = <T extends Element>(sel: string) => el.querySelector(sel) as T;
+    // :scope > keeps a peel nested inside another's under from being read as its parts
+    const q = <T extends Element>(sel: string) => el.querySelector(`:scope > ${sel}`) as T;
     const s: PeelState = {
       el,
       act: el.closest<HTMLElement>('[data-sc-act]'),
       sheet: q<HTMLElement>('.peel__sheet'),
       under: q<HTMLElement>('.peel__under'),
       flap: q<SVGSVGElement>('.peel__flap'),
-      flapPoly: q<SVGPolygonElement>('.peel__flap-paper'),
-      flapShadowA: q<SVGPolygonElement>('.peel__flap-shadow-a'),
-      flapShadowB: q<SVGPolygonElement>('.peel__flap-shadow-b'),
+      flapPoly: q<SVGPolygonElement>('.peel__flap .peel__flap-paper'),
+      flapShadowA: q<SVGPolygonElement>('.peel__flap .peel__flap-shadow-a'),
+      flapShadowB: q<SVGPolygonElement>('.peel__flap .peel__flap-shadow-b'),
       flapGrad: q<SVGLinearGradientElement>('.peel__flap linearGradient'),
       cast: q<SVGSVGElement>('.peel__cast'),
       castPoly: q<SVGPolygonElement>('.peel__cast polygon'),

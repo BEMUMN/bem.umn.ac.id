@@ -1,20 +1,36 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Motif from "./Motif";
 
+const art = [
+    { cls: "art--solid", motif: "solid", rate: 0.7 },
+    { cls: "art--inclusive", motif: "inclusive", rate: 1.2 },
+    { cls: "art--collab", motif: "collaborative", rate: 0.9 },
+] as const;
+
 // The manual's cover: a printed title page, the sheet that peels away.
-export default function Cover() {
+// `still` is the copy shown at the end of the page: the art holds where the
+// engine parks it at the very top (p = 0), so looping back lands without a jump.
+export default function Cover({ still = false }: { still?: boolean }) {
     return (
         <div className="cover ground-paper">
             <div className="cover__art" aria-hidden="true">
-                <div className="art art--solid" data-sc-parallax="0.7">
-                    <Motif name="solid" />
-                </div>
-                <div className="art art--inclusive" data-sc-parallax="1.2">
-                    <Motif name="inclusive" />
-                </div>
-                <div className="art art--collab" data-sc-parallax="0.9">
-                    <Motif name="collaborative" />
-                </div>
+                {art.map((a) => (
+                    <div
+                        key={a.cls}
+                        className={`art ${a.cls}${still ? "art--still" : ""}`}
+                        data-sc-parallax={still ? undefined : a.rate}
+                        style={
+                            still
+                                ? ({
+                                      "--rest-y": `${a.rate * -50}px`,
+                                  } as CSSProperties)
+                                : undefined
+                        }
+                    >
+                        <Motif name={a.motif} />
+                    </div>
+                ))}
             </div>
 
             <div className="cover__title">

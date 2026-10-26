@@ -10,6 +10,8 @@ type PeelProps = {
     rest?: number;
     lift?: number;
     hover?: boolean;
+    /** the under page is only a preview of where the turn leads */
+    inertUnder?: boolean;
 };
 
 // The sheet folds back from the bottom-right corner (the XVI dog-ear) as the
@@ -24,6 +26,7 @@ export default function Peel({
     rest = 0,
     lift = 0.6,
     hover = false,
+    inertUnder = false,
 }: PeelProps) {
     return (
         <div
@@ -35,7 +38,9 @@ export default function Peel({
             data-peel-lift={lift}
             data-peel-hover={hover ? "" : undefined}
         >
-            <div className="peel__under">{under}</div>
+            <div className="peel__under" inert={inertUnder}>
+                {under}
+            </div>
             <svg
                 className="peel__fx peel__cast"
                 aria-hidden="true"

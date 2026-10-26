@@ -1,5 +1,4 @@
 import { DivisionPhoto } from "@/components/DivisionPhoto";
-import type { DivisionItem } from "@/components/DivisionCard";
 import type { Member } from "@/constants/divisionMembers";
 
 export function DivisionHeader({
@@ -8,7 +7,13 @@ export function DivisionHeader({
     heading = "h1",
     leader,
 }: {
-    division: DivisionItem;
+    division: {
+        id: string;
+        name: string;
+        fullname: string;
+        description: string;
+        imageUrl: string;
+    };
     count: number;
     heading?: "h1" | "h2";
     leader?: Member;

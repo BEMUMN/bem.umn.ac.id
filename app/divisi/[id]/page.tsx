@@ -127,16 +127,11 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                         divisionName={division.fullname}
                     />
                 </section>
-            </main>
 
-            <PageTurn
-                href={`/divisi/${next.id.toLowerCase()}`}
-                label={`Lanjut ke divisi ${next.name}`}
-                sheet={
-                <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <h3 className="font-serif text-3xl font-bold text-white sm:text-4xl">
+                <section className="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
+                    <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
                         Eksplorasi Divisi Lainnya
-                    </h3>
+                    </h2>
                     <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                         {otherDivisions.map((other) => (
                             <Link
@@ -154,40 +149,51 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                         ))}
                     </div>
                 </section>
-                }
-                under={
-                    <div className="bg-dark-blue relative h-full overflow-hidden pt-28 md:pt-36">
-                        <div className="super-bg absolute inset-0 scale-125 bg-cover bg-center opacity-40" />
-                        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-                            <div className="text-azure/80 flex flex-wrap items-center gap-2 font-sans text-xs">
-                                <span className="inline-flex min-h-11 items-center">
-                                    Beranda
-                                </span>
-                                <ChevronRight size={12} />
-                                <span className="inline-flex min-h-11 items-center">
-                                    Divisi
-                                </span>
-                                <ChevronRight size={12} />
-                                <span className="font-semibold text-white">
-                                    {next.name}
-                                </span>
-                            </div>
-                            <div className="text-azure mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-sans text-xs font-semibold">
-                                <ArrowLeft size={14} />
-                                <span>Kembali ke Seluruh Divisi</span>
-                            </div>
-                            <div className="mt-8">
-                                <DivisionHeader
-                                    division={next}
-                                    count={divisionMembers[nextKey].length}
-                                    leader={divisionMembers[nextKey][0]}
-                                />
+            </main>
+
+            {/* The footer scrolls in, then a copy over its last screen pins
+                and folds back onto the next division. */}
+            <div className="turn-end">
+                <Footer />
+                <PageTurn
+                    // a long pull, so turning to the next division is never by accident
+                    span={5}
+                    href={`/divisi/${next.id.toLowerCase()}`}
+                    label={`Lanjut ke divisi ${next.name}`}
+                    sheet={<Footer />}
+                    under={
+                        <div className="bg-dark-blue relative h-full overflow-hidden pt-28 md:pt-36">
+                            <div className="super-bg absolute inset-0 scale-125 bg-cover bg-center opacity-40" />
+                            <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                                <div className="text-azure/80 flex flex-wrap items-center gap-2 font-sans text-xs">
+                                    <span className="inline-flex min-h-11 items-center">
+                                        Beranda
+                                    </span>
+                                    <ChevronRight size={12} />
+                                    <span className="inline-flex min-h-11 items-center">
+                                        Divisi
+                                    </span>
+                                    <ChevronRight size={12} />
+                                    <span className="font-semibold text-white">
+                                        {next.name}
+                                    </span>
+                                </div>
+                                <div className="text-azure mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-sans text-xs font-semibold">
+                                    <ArrowLeft size={14} />
+                                    <span>Kembali ke Seluruh Divisi</span>
+                                </div>
+                                <div className="mt-8">
+                                    <DivisionHeader
+                                        division={next}
+                                        count={divisionMembers[nextKey].length}
+                                        leader={divisionMembers[nextKey][0]}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-            />
-            <Footer />
+                    }
+                />
+            </div>
         </div>
     );
 }

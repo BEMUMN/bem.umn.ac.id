@@ -18,7 +18,7 @@ npm run lint
 npm run build
 ```
 
-Pemeriksaan browser opsional memakai Playwright yang sudah terpasang di lingkungan alat:
+Pemeriksaan browser opsional memakai Playwright dan Chrome yang terpasang secara lokal:
 
 ```sh
 PLAYWRIGHT_MODULE=/absolute/path/to/playwright \
@@ -53,13 +53,13 @@ Potret disimpan di `public/pngs/members/anggota/<divisi>/` dan dipetakan melalui
 
 Untuk memeriksa pemetaan dan interaksi foto, jalankan `scripts/qa/member-photos.cjs` dengan variabel lingkungan Playwright/Chrome seperti contoh di atas. Hasilnya disimpan di `coverage/member-photos/`.
 
-Pemeriksaan UI: `scripts/qa/original-polish.cjs` mencakup 10 halaman pada lima lebar layar. `scripts/qa/ui-polish.cjs` memeriksa pencarian pengurus, pemulihan fokus, filter kegiatan, dialog, dan kategori beranda. Keduanya memakai variabel lingkungan alat yang sama seperti contoh di atas.
+Pemeriksaan UI: `scripts/qa/original-polish.cjs` mencakup 9 halaman pada lima lebar layar. `scripts/qa/ui-polish.cjs` memeriksa pencarian pengurus, filter kegiatan, dialog, dan kategori beranda. Keduanya memakai variabel lingkungan yang sama seperti contoh di atas.
 
 Foto grup divisi memakai crop tampilan yang diatur per divisi di `components/DivisionPhoto.tsx`. File asli tidak diubah; pengguna dapat membuka foto utuh atau ukuran aslinya. Pemeriksaan komponen ini tersedia melalui `scripts/qa/division-photos.cjs`, dengan hasil di `coverage/division-photos/`.
 
-Gerak halaman: navbar bersembunyi saat scroll turun dan muncul saat scroll naik. Filter kegiatan mengikuti alur halaman. Logo dekoratif beranda memakai kembali ukuran, posisi, animasi masuk, dan animasi scroll versi semula. Dekorasi disembunyikan mulai bagian Nilai & Identitas Kabinet masuk layar, termasuk Program & Kegiatan hingga footer, dan tampil kembali saat kembali ke bagian sebelumnya. Konten memakai reveal sekali saat masuk layar; dialog memakai transisi singkat. Preferensi reduced-motion dihormati. Pemeriksaan khusus tersedia di `scripts/qa/scroll-motion.cjs`.
+Gerak halaman: di halaman dalam, navbar bersembunyi saat scroll turun dan muncul saat scroll naik; beranda memakai navbar ringkas yang selalu tampil. Filter kegiatan mengikuti alur halaman. Konten memakai reveal sekali saat masuk layar; dialog memakai transisi singkat. Di akhir beranda, footer terlipat kembali ke sampul; sampul di balik lipatan sama persis dengan bagian atas halaman, jadi lompatan ke atas tidak terlihat. Di halaman detail divisi, footer terlipat ke divisi berikutnya. Garis tengah bagian Nilai (desktop) terisi mengikuti scroll, dengan tetesan yang jatuh ke ujung garis saat scroll turun (`components/GutterThread.tsx`). Preferensi reduced-motion dihormati. Pemeriksaan khusus tersedia di `scripts/qa/scroll-motion.cjs`.
 
-Potret individu kini memiliki versi studio dengan latar biru keabu-abuan (`*-studio.webp`) sebagai foto utama; 20 pose tangan studio ditambahkan sebagai foto kedua; foto asli tidak lagi ditampilkan di profil. Nama panggilan memakai nama depan sesuai persetujuan pengguna dan dapat diganti lewat `nickname` di `constants/divisionMembers.ts`.
+Potret individu kini memiliki versi studio dengan latar biru keabu-abuan (`*-studio.webp`) sebagai foto utama; 20 pose tangan studio ditambahkan sebagai foto kedua; foto asli tidak lagi ditampilkan di profil. Nama panggilan memakai nama depan dan dapat diganti lewat `nickname` di `constants/divisionMembers.ts`.
 
 Framing potret studio memakai crop 4:5 per orang (`portraitCrop`) agar ukuran dan posisi wajah konsisten pada kartu dan profil. Crop hanya mengatur tampilan; foto asli tetap utuh.
 

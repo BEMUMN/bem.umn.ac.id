@@ -11,39 +11,6 @@ const base = process.env.QA_URL || "http://localhost:3000";
             const page = await browser.newPage({
                 viewport: { width, height: 740 },
             });
-            await page.goto(base + "/divisi");
-            const division = page.locator('[data-division-id="bph" i]');
-            await division.click();
-            const search = page.getByRole("textbox", { name: "Cari pengurus" });
-            await search.fill("Josephin");
-            assert.equal(
-                await page
-                    .getByRole("button", { name: /^Lihat profil / })
-                    .count(),
-                1,
-            );
-            await search.fill("tidak-ada-pengurus");
-            await page
-                .getByText("Pengurus tidak ditemukan", { exact: true })
-                .waitFor();
-            await page
-                .getByRole("button", { name: "Reset pencarian", exact: true })
-                .click();
-            assert.equal(
-                await page
-                    .getByRole("button", { name: /^Lihat profil / })
-                    .count(),
-                4,
-            );
-            await page
-                .getByRole("button", {
-                    name: "Kembali ke Seluruh Divisi",
-                    exact: true,
-                })
-                .click();
-            assert(
-                await division.evaluate((el) => el === document.activeElement),
-            );
             await page.goto(base + "/divisi/sukma");
             await page
                 .getByRole("textbox", { name: "Cari pengurus" })
@@ -140,7 +107,7 @@ const base = process.env.QA_URL || "http://localhost:3000";
             await page.close();
         }
         console.log(
-            "PASS: roster search/reset/back focus, catalog filters/empty results/dialog, external URL, keyboard and homepage categories at 320/1440px.",
+            "PASS: roster search, catalog filters/empty results/dialog, external URL, keyboard and homepage categories at 320/1440px.",
         );
     } finally {
         await browser.close();

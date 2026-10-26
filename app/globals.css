@@ -57,18 +57,6 @@ body {
     }
 }
 
-@utility responsive-padding-x-sm {
-    @apply px-2 md:px-4 lg:px-8 xl:px-12;
-}
-
-@utility responsive-padding-x-md {
-    @apply px-4 md:px-8 lg:px-12 xl:px-16;
-}
-
-@utility responsive-padding-x-lg {
-    @apply px-6 md:px-10 lg:px-14 xl:px-20;
-}
-
 .super-bg {
     background-image:
         linear-gradient(rgba(15, 30, 63, 0.82), rgba(15, 30, 63, 0.96)),
@@ -111,14 +99,6 @@ h3 {
 p {
     text-wrap: pretty;
 }
-#hero {
-    min-height: 100svh;
-}
-@media (max-width: 639px) {
-    #kegiatan {
-        padding-block: 4rem;
-    }
-}
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -133,24 +113,6 @@ p {
 /* Preserve the navy identity while keeping compact screens comfortable. */
 #kegiatan {
     padding-block: clamp(4rem, 7vw, 6rem);
-}
-#hero .hero-content {
-    padding-block: 1rem;
-}
-@media (max-height: 760px) {
-    #hero {
-        padding-top: 7rem;
-        padding-bottom: 1.5rem;
-    }
-    #hero .hero-content > p:first-of-type {
-        margin-top: 1.25rem;
-    }
-    #hero .hero-mark {
-        height: clamp(5rem, 16svh, 8rem);
-    }
-    #hero .hero-actions {
-        margin-top: 1.25rem;
-    }
 }
 @media (prefers-reduced-motion: reduce) {
     button:hover,

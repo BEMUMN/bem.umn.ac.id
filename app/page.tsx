@@ -10,6 +10,7 @@ import Work from "@/layouts/home-page/Work";
 import Footer from "@/layouts/Footer";
 import { PageTurn } from "@/components/PageTurn";
 import Peel from "@/components/Peel";
+import { BackToKegiatan } from "@/components/BackToKegiatan";
 import { ChapterTabs } from "@/components/ChapterTabs";
 import { ScrollCraftMount } from "@/components/ScrollCraftMount";
 
@@ -24,12 +25,13 @@ export default function Home() {
             <div data-sc-progress aria-hidden="true" />
             <Navbar compact />
             <ChapterTabs />
+            <BackToKegiatan />
 
             <div id="sampul">
                 <section
                     data-sc-act="pin"
-                    data-sc-span="2"
-                    data-span-mobile="2.2"
+                    data-sc-span="3.5"
+                    data-span-mobile="3.7"
                     aria-label="Sampul"
                 >
                     <div data-sc-stage>
@@ -52,15 +54,28 @@ export default function Home() {
             <Divisi id="divisi" />
             <Work id="kegiatan" className="gnd-linen" />
             {/* The footer scrolls in, then a copy stacked over its last screen
-                pins and folds back onto the cover. */}
+                pins and folds back onto the cover. The cover underneath is the
+                top of this page at rest (same corner fold, same art position),
+                so the jump back up does not show. */}
             <div className="turn-end">
                 <Footer />
                 <PageTurn
                     mount={false}
                     href="/"
                     label="Kembali ke sampul"
+                    // a long pull, so the loop to the cover is never by accident
+                    span={6}
                     sheet={<Footer />}
-                    under={<Cover />}
+                    under={
+                        <Peel
+                            name="sampul-end"
+                            from={2}
+                            to={2}
+                            rest={120}
+                            sheet={<Cover still />}
+                            under={<HalamanBaru />}
+                        />
+                    }
                 />
             </div>
 

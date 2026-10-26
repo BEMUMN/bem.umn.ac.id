@@ -126,14 +126,14 @@ export default function KegiatanPage() {
 
                     <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                         <Link
-                            href="/divisi"
+                            href="/?dari=kegiatan#divisi"
                             className="border-azure bg-azure text-navy-dark shadow-azure/20 inline-flex items-center gap-2 rounded-full border px-7 py-3.5 font-sans text-xs font-bold shadow-xl transition-all hover:scale-105 hover:bg-white active:scale-95 sm:text-sm"
                         >
                             <Users size={16} />
                             <span>Buka Direktori Divisi BEM</span>
                         </Link>
                         <Link
-                            href="/tentang-kami"
+                            href="/tentang-kami?dari=kegiatan"
                             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3.5 font-sans text-xs font-semibold text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/20 active:scale-95 sm:text-sm"
                         >
                             <Layers size={16} />

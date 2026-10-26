@@ -237,6 +237,14 @@
     bottom: calc(var(--w) * -0.32);
 }
 
+/* The end-of-page copy of the cover: parked where the engine's parallax puts
+   the real art at p = 0 (rate * -50px), so the loop back to the top is exact. */
+@media (prefers-reduced-motion: no-preference) {
+    .art--still {
+        transform: translate3d(0, var(--rest-y), 0);
+    }
+}
+
 /* ---- title block ------------------------------------------------------- */
 .cover__title {
     position: relative;
@@ -583,6 +591,10 @@
     --fig: 68vw;
 }
 
+.thread {
+    display: none;
+}
+
 /* ---- desktop: asymmetric, staggered 2 x 2 --------------------------------- */
 @media (min-width: 860px) {
     .nilai__grid {
@@ -595,15 +607,16 @@
         align-items: start;
         margin-top: clamp(2rem, 4vw, 4rem);
     }
-    /* The gutter of the open book. A hairline that the motifs cross over. */
-    .nilai__grid::before {
-        content: "";
+    /* The gutter of the open book: a hairline the motifs cross over, filled
+       from the top as the reader scrolls (components/GutterThread.tsx). */
+    .thread {
+        display: block;
         position: absolute;
         top: 0;
         bottom: 0;
-        left: calc(50% - 0.5px);
-        width: 1px;
-        background: var(--sc-hairline);
+        left: calc(50% - 4px);
+        width: 8px;
+        pointer-events: none;
         mask-image: linear-gradient(
             to bottom,
             transparent,
@@ -612,11 +625,56 @@
             transparent
         );
     }
+    .thread {
+        --thread-ink: #1a3478; /* a bluer navy than the page ink, so the line reads as navy */
+    }
+    .thread::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 calc(50% - 0.5px);
+        width: 1px;
+        background: color-mix(in oklab, var(--thread-ink) 16%, transparent);
+    }
+    .thread__fill {
+        position: absolute;
+        inset: 0 auto 0 calc(50% - 1px);
+        width: 2px;
+        border-radius: 1px;
+        background: var(--thread-ink);
+        transform: scaleY(0);
+        transform-origin: 50% 0;
+        will-change: transform;
+    }
+    .thread__head,
+    .thread__drop {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        will-change: transform, opacity;
+    }
+    .thread__head {
+        width: 7px;
+        height: 7px;
+        margin: -3.5px 0 0 -3.5px;
+        border-radius: 50%;
+        background: var(--thread-ink);
+        box-shadow: 0 0 10px 2px color-mix(in oklab, var(--thread-ink) 45%, transparent);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    /* a falling line: bright head, tail fading out upward */
+    .thread__drop {
+        width: 2px;
+        height: 84px;
+        margin: -84px 0 0 -1px;
+        border-radius: 1px;
+        background: linear-gradient(to bottom, transparent, var(--thread-ink));
+    }
     .nilai__col {
         row-gap: clamp(3rem, 7vw, 7rem);
         position: relative;
         z-index: 1;
-    } /* above the hairline */
+    } /* above the gutter thread */
     .nilai__col--1 {
         padding-top: clamp(1rem, 3vw, 3rem);
         padding-bottom: 0;
@@ -1022,6 +1080,10 @@
     height: 3px;
     background: var(--bem-camel-500);
     z-index: 70;
+}
+/* Looping from the back cover to the front: the line runs back, not snaps. */
+.sc-looping .sc-home [data-sc-progress] {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ---- end of a page: blank sheet that folds back onto what comes next ---- */

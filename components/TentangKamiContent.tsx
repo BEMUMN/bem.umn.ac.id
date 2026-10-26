@@ -1,23 +1,20 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 
 import Navbar from "@/layouts/Navbar";
 import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
-import { divisions } from "@/constants/divisionIndex";
+import { BackToKegiatan } from "@/components/BackToKegiatan";
 import {
     Compass,
     Target,
     ArrowRight,
-    ArrowUpRight,
     Building2,
     Sparkles,
     Shield,
     Lightbulb,
     Share2,
     FileText,
-    Layers,
     Award,
     CheckCircle2,
     Palette,
@@ -147,6 +144,7 @@ export default function TentangKamiContent() {
             {/* Navigasi Utama */}
             <Navbar compact />
             <ChapterTabs sub />
+            <BackToKegiatan />
 
             <main className="relative z-10 pt-28 pb-20 md:pt-36">
                 {/* ========================================================
@@ -683,102 +681,6 @@ export default function TentangKamiContent() {
                                 </div>
                             );
                         })}
-                    </div>
-                </section>
-
-                {/* ========================================================
-                    SECTION 6: STRUKTUR 6 DIVISI & GATEWAY DIRECTORY
-                   ======================================================== */}
-                <section className="mx-auto mt-16 max-w-7xl px-4 sm:px-6 md:mt-20 lg:px-8">
-                    <div className="tt-reveal rounded-3xl border border-white/15 bg-white/5 p-6 shadow-lg sm:p-10 lg:p-12">
-                        <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-                            <div>
-                                <div className="border-camel-brown/40 bg-blue-primary/40 text-pale-taupe inline-flex items-center gap-2 rounded-full border px-4 py-1.5 font-sans text-xs font-semibold tracking-wider uppercase">
-                                    <Layers
-                                        size={14}
-                                        className="text-camel-brown"
-                                    />
-                                    <span>Pilar Fungsional Kabinet</span>
-                                </div>
-                                <h2 className="mt-3 font-serif text-3xl font-bold text-white sm:text-4xl">
-                                    Enam Divisi Strategis BEM UMN Gen XVI
-                                </h2>
-                                <p className="text-concrete/80 mt-2 max-w-2xl font-sans text-sm leading-relaxed sm:text-base">
-                                    Masing-masing divisi mengemban mandat
-                                    manajerial khusus demi menjamin kelancaran
-                                    operasional, pembinaan organisasi mahasiswa,
-                                    dan relasi publik.
-                                </p>
-                            </div>
-
-                            <Link
-                                href="/divisi"
-                                className="group border-azure bg-azure text-navy-dark shadow-azure/20 inline-flex items-center gap-2 rounded-full border px-6 py-3 font-sans text-xs font-bold shadow-xl transition-all duration-300 hover:scale-105 hover:bg-white active:scale-95 sm:text-sm"
-                            >
-                                <span>Buka Direktori Pengurus</span>
-                                <ArrowUpRight
-                                    size={16}
-                                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                                />
-                            </Link>
-                        </div>
-
-                        {/* Grid 6 Divisi Ringkas & Interaktif */}
-                        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {divisions.map((div) => (
-                                <Link
-                                    key={div.id}
-                                    href="/divisi"
-                                    className="group bg-navy-dark/70 hover:border-azure/50 hover:bg-navy-dark flex flex-col justify-between rounded-2xl border border-white/10 p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
-                                >
-                                    <div>
-                                        <div className="flex items-center justify-between">
-                                            <span className="bg-blue-primary/60 text-azure border-azure/20 rounded-full border px-3 py-1 font-serif text-xs font-bold">
-                                                {div.name}
-                                            </span>
-                                            <span className="text-concrete/60 font-sans text-[11px]">
-                                                Gen XVI
-                                            </span>
-                                        </div>
-
-                                        <h3 className="group-hover:text-azure mt-4 font-serif text-lg font-bold text-white transition-colors">
-                                            {div.fullname}
-                                        </h3>
-                                        <p className="text-concrete/80 mt-2 line-clamp-3 font-sans text-xs leading-relaxed">
-                                            {div.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="text-azure mt-6 flex items-center justify-between border-t border-white/10 pt-4 text-xs font-semibold">
-                                        <span>Lihat Pengurus Divisi</span>
-                                        <ArrowRight
-                                            size={14}
-                                            className="transition-transform group-hover:translate-x-1"
-                                        />
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-
-                        {/* Call to Action Banner ke Kegiatan */}
-                        <div className="bg-navy-dark mt-12 flex flex-col items-center justify-between gap-6 rounded-2xl border border-white/10 p-6 text-center sm:flex-row sm:p-8 sm:text-left">
-                            <div>
-                                <h3 className="font-serif text-xl font-bold text-white sm:text-2xl">
-                                    Ingin Meninjau Program Kerja &amp; KEGMA?
-                                </h3>
-                                <p className="text-concrete/80 mt-1 font-sans text-xs sm:text-sm">
-                                    Eksplorasi 6 Kegiatan Mahasiswa (KEGMA)
-                                    serta rangkaian inisiatif BEM UMN Gen XVI.
-                                </p>
-                            </div>
-                            <Link
-                                href="/kegiatan"
-                                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 font-sans text-xs font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-white/20 active:scale-95 sm:text-sm"
-                            >
-                                <span>Tinjau Kegiatan (KEGMA)</span>
-                                <ArrowRight size={15} />
-                            </Link>
-                        </div>
                     </div>
                 </section>
             </main>

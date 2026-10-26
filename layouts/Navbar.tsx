@@ -148,7 +148,7 @@ const Navbar = ({ compact = false }: { compact?: boolean }) => {
                                 aria-current={
                                     pathname === link.href ||
                                     (link.href !== "/" &&
-                                        pathname.startsWith(`${link.href}/`))
+                                        pathname.startsWith(`${link.href.replace("#", "")}/`))
                                         ? "page"
                                         : undefined
                                 }
@@ -195,7 +195,7 @@ const Navbar = ({ compact = false }: { compact?: boolean }) => {
                                         pathname === link.href ||
                                         (link.href !== "/" &&
                                             pathname.startsWith(
-                                                `${link.href}/`,
+                                                `${link.href.replace("#", "")}/`,
                                             ))
                                             ? "page"
                                             : undefined
