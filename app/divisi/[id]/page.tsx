@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { DivisionHeader } from "@/components/DivisionHeader";
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/layouts/Navbar";
 import "../../home-scroll.css";
@@ -53,6 +52,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                 1) %
                 divisions.length
         ];
+    const nextKey = next.id.toUpperCase() as DivisionKey;
     const otherDivisions = divisions.filter(
         (d) => d.id.toUpperCase() !== divisionId,
     );
@@ -134,20 +134,20 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                 label={`Lanjut ke divisi ${next.name}`}
                 sheet={
                 <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
-                    <h3 className="font-serif text-xl font-bold text-white">
+                    <h3 className="font-serif text-3xl font-bold text-white sm:text-4xl">
                         Eksplorasi Divisi Lainnya
                     </h3>
-                    <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+                    <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
                         {otherDivisions.map((other) => (
                             <Link
                                 key={other.id}
                                 href={`/divisi/${other.id.toLowerCase()}`}
-                                className="group hover:border-azure/40 flex flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-4 transition duration-300 hover:bg-white/10"
+                                className="group hover:border-azure/40 flex flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-5 transition duration-300 hover:bg-white/10 sm:p-6"
                             >
-                                <span className="group-hover:text-azure font-serif text-sm font-bold text-white transition">
+                                <span className="group-hover:text-azure font-serif text-2xl font-bold text-white transition">
                                     {other.name}
                                 </span>
-                                <span className="text-concrete/70 mt-2 line-clamp-1 font-sans text-[11px]">
+                                <span className="text-concrete/80 mt-3 line-clamp-2 font-sans text-sm leading-5">
                                     {other.fullname}
                                 </span>
                             </Link>
@@ -156,21 +156,33 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                 </section>
                 }
                 under={
-                    <div className="under turnnext ground-navy">
-                        <div className="turnnext__photo">
-                            <Image
-                                src={next.imageUrl}
-                                alt=""
-                                fill
-                                sizes="(max-width: 860px) 100vw, 50vw"
-                            />
-                        </div>
-                        <div className="under__copy turnnext__copy">
-                            <p className="turnnext__kicker">Divisi berikutnya</p>
-                            <h2 className="under__title bem-display">
-                                {next.name}
-                            </h2>
-                            <p className="under__lead">{next.fullname}</p>
+                    <div className="bg-dark-blue relative h-full overflow-hidden pt-28 md:pt-36">
+                        <div className="super-bg absolute inset-0 scale-125 bg-cover bg-center opacity-40" />
+                        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+                            <div className="text-azure/80 flex flex-wrap items-center gap-2 font-sans text-xs">
+                                <span className="inline-flex min-h-11 items-center">
+                                    Beranda
+                                </span>
+                                <ChevronRight size={12} />
+                                <span className="inline-flex min-h-11 items-center">
+                                    Divisi
+                                </span>
+                                <ChevronRight size={12} />
+                                <span className="font-semibold text-white">
+                                    {next.name}
+                                </span>
+                            </div>
+                            <div className="text-azure mt-4 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-sans text-xs font-semibold">
+                                <ArrowLeft size={14} />
+                                <span>Kembali ke Seluruh Divisi</span>
+                            </div>
+                            <div className="mt-8">
+                                <DivisionHeader
+                                    division={next}
+                                    count={divisionMembers[nextKey].length}
+                                    leader={divisionMembers[nextKey][0]}
+                                />
+                            </div>
                         </div>
                     </div>
                 }

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import "../home-scroll.css";
 import Navbar from "@/layouts/Navbar";
-import Cover from "@/layouts/home-page/Cover";
-import { PageTurn } from "@/components/PageTurn";
 import { ChapterTabs } from "@/components/ChapterTabs";
 import Footer from "@/layouts/Footer";
 import KegiatanClient from "@/components/KegiatanClient";
@@ -146,12 +143,7 @@ export default function KegiatanPage() {
                 </div>
             </section>
 
-            <PageTurn
-                href="/"
-                label="Kembali ke sampul beranda"
-                sheet={<Footer />}
-                under={<Cover />}
-            />
+            <Footer />
         </main>
     );
 }

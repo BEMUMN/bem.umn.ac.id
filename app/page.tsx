@@ -8,6 +8,7 @@ import Kabinet from "@/layouts/home-page/Kabinet";
 import Divisi from "@/layouts/home-page/Divisi";
 import Work from "@/layouts/home-page/Work";
 import Footer from "@/layouts/Footer";
+import { PageTurn } from "@/components/PageTurn";
 import Peel from "@/components/Peel";
 import { ChapterTabs } from "@/components/ChapterTabs";
 import { ScrollCraftMount } from "@/components/ScrollCraftMount";
@@ -50,7 +51,20 @@ export default function Home() {
             <Kabinet id="kabinet" />
             <Divisi id="divisi" />
             <Work id="kegiatan" className="gnd-linen" />
-            <Footer />
+            {/* Tall screens: the footer is the last sheet and folds back to the cover.
+                Short or narrow screens would clip it, so they keep a plain footer. */}
+            <div className="turn-short">
+                <Footer />
+            </div>
+            <div className="turn-tall">
+                <PageTurn
+                    mount={false}
+                    href="/"
+                    label="Kembali ke sampul"
+                    sheet={<Footer />}
+                    under={<Cover />}
+                />
+            </div>
 
             <ScrollCraftMount />
         </main>

@@ -1033,38 +1033,6 @@
     padding-top: calc(var(--bem-chrome-h) + 24px);
     overflow: hidden;
 }
-.turnnext {
-    padding-bottom: clamp(3rem, 12svh, 8rem);
-}
-.turnnext__photo {
-    position: absolute;
-    inset: calc(var(--bem-chrome-h) + 24px) var(--sc-gutter) auto auto;
-    width: min(46vw, 34rem);
-    height: min(60svh, 30rem);
-    overflow: hidden;
-    border-radius: var(--bem-r-card);
-    box-shadow: 0 0 0 1px var(--sc-hairline);
-    isolation: isolate;
-}
-.turnnext__photo img {
-    object-fit: cover;
-    object-position: 50% 58%;
-}
-.turnnext__kicker {
-    margin: 0 0 1rem;
-    font-size: var(--sc-t-sm);
-    letter-spacing: var(--sc-track-wide);
-    text-transform: uppercase;
-    color: var(--sc-ink-soft);
-}
-@media (max-width: 860px) {
-    .turnnext__photo {
-        inset: calc(var(--bem-chrome-h) + 16px) var(--sc-gutter) auto;
-        width: auto;
-        height: 38svh;
-    }
-}
-
 /* Phones: the lead keeps a readable column instead of 36vw (~140px). */
 @media (max-width: 860px) {
     .item--lead {
@@ -1072,5 +1040,18 @@
     }
     .divisi__title {
         font-size: clamp(2.6rem, 11vw, 3.4rem);
+    }
+}
+
+/* Footer as a folding sheet only where it fits the viewport. */
+.turn-tall {
+    display: none;
+}
+@media (min-width: 1024px) and (min-height: 760px) {
+    .turn-tall {
+        display: block;
+    }
+    .turn-short {
+        display: none;
     }
 }

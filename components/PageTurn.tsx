@@ -12,11 +12,14 @@ export function PageTurn({
     label,
     sheet,
     under,
+    mount = true,
 }: {
     href: string;
     label: string;
     sheet: ReactNode;
     under: ReactNode;
+    // false when the page already mounts the engine itself (the home page)
+    mount?: boolean;
 }) {
     const router = useRouter();
     const root = useRef<HTMLDivElement>(null);
@@ -34,7 +37,13 @@ export function PageTurn({
                 window.clearTimeout(timer);
                 timer = 0;
             } else if (armed && !timer) {
-                timer = window.setTimeout(() => router.push(href), 450);
+                timer = window.setTimeout(() => {
+                    if (location.pathname === href) {
+                        window.scrollTo({ top: 0, behavior: "instant" });
+                    } else {
+                        router.push(href);
+                    }
+                }, 450);
             }
         };
         check();
@@ -69,7 +78,7 @@ export function PageTurn({
                     />
                 </div>
             </section>
-            <ScrollCraftMount />
+            {mount && <ScrollCraftMount />}
         </div>
     );
 }
