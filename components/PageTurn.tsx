@@ -5,15 +5,17 @@ import { useRouter } from "next/navigation";
 import Peel from "@/components/Peel";
 import { ScrollCraftMount } from "@/components/ScrollCraftMount";
 
-// End of a page: one more screen of scroll folds the blank sheet back from the
-// bottom-right corner, shows `under`, then opens `href`.
+// End of a page: the last section is pinned as a sheet; more scroll folds it
+// back from the bottom-right corner, shows `under`, then opens `href`.
 export function PageTurn({
     href,
     label,
+    sheet,
     under,
 }: {
     href: string;
     label: string;
+    sheet: ReactNode;
     under: ReactNode;
 }) {
     const router = useRouter();
@@ -62,7 +64,7 @@ export function PageTurn({
                         to={0.85}
                         rest={90}
                         hover
-                        sheet={<div className="turnback__sheet ground-navy" />}
+                        sheet={<div className="turnback__sheet ground-navy">{sheet}</div>}
                         under={under}
                     />
                 </div>

@@ -127,9 +127,13 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                         divisionName={division.fullname}
                     />
                 </section>
+            </main>
 
-                {/* Divisi Lainnya */}
-                <section className="mx-auto mt-20 max-w-6xl px-4 sm:px-6 lg:px-8">
+            <PageTurn
+                href={`/divisi/${next.id.toLowerCase()}`}
+                label={`Lanjut ke divisi ${next.name}`}
+                sheet={
+                <section className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
                     <h3 className="font-serif text-xl font-bold text-white">
                         Eksplorasi Divisi Lainnya
                     </h3>
@@ -150,11 +154,7 @@ export default async function DivisionDetailPage({ params }: PageProps) {
                         ))}
                     </div>
                 </section>
-            </main>
-
-            <PageTurn
-                href={`/divisi/${next.id.toLowerCase()}`}
-                label={`Lanjut ke divisi ${next.name}`}
+                }
                 under={
                     <div className="under turnnext ground-navy">
                         <div className="turnnext__photo">

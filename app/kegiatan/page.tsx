@@ -146,10 +146,10 @@ export default function KegiatanPage() {
                 </div>
             </section>
 
-            <Footer />
             <PageTurn
                 href="/"
                 label="Kembali ke sampul beranda"
+                sheet={<Footer />}
                 under={<Cover />}
             />
         </main>
