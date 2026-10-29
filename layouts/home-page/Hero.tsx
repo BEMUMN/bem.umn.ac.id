@@ -1,112 +1,107 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ChevronDown, ArrowUpRight, Sparkles } from "lucide-react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-type HeroProps = {
-    id: string;
-    className?: string;
-};
+const statement = "Commit. Solid. Integrated.";
 
-const Hero = ({ id, className }: HeroProps) => {
+export default function Hero({ id }: { id: string }) {
+    const section = useRef<HTMLElement>(null);
+    const [typed, setTyped] = useState(statement);
+    const [typing, setTyping] = useState(false);
+
+    useEffect(() => {
+        const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let timer: ReturnType<typeof setTimeout>;
+        let position = 0;
+        const finish = () => {
+            clearTimeout(timer);
+            setTyped(statement);
+            setTyping(false);
+        };
+        const tick = () => {
+            position += 1;
+            setTyped(statement.slice(0, position));
+            if (position === statement.length) {
+                setTyping(false);
+                return;
+            }
+            timer = setTimeout(tick, statement[position - 1] === "." ? 750 : 85);
+        };
+        if (!preference.matches) {
+            setTyped("");
+            setTyping(true);
+            timer = setTimeout(tick, 350);
+        }
+        const onPreferenceChange = () => { if (preference.matches) finish(); };
+        preference.addEventListener("change", onPreferenceChange);
+        return () => {
+            clearTimeout(timer);
+            preference.removeEventListener("change", onPreferenceChange);
+        };
+    }, []);
+
+    useGSAP(() => {
+        const media = gsap.matchMedia();
+        media.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.fromTo(".home-hero-mark", { y: 14 }, { y: 0, duration: 1.1, ease: "power3.out" });
+        });
+        return () => media.revert();
+    }, { scope: section });
+
     return (
-        <section
-            id={id}
-            className={`relative flex min-h-screen w-full flex-col items-center justify-between overflow-hidden px-4 pt-28 pb-10 sm:px-6 md:pt-36 ${className}`}
-        >
-            {/* Latar Belakang Pelantikan dengan Gradasi & Tekstur */}
-            <div className="absolute inset-0 -z-20">
-                <Image
-                    src="/pngs/gallery/background.webp"
-                    alt="Pelantikan Organisasi BEM UMN GEN XVI"
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="object-cover object-center filter brightness-[0.35] contrast-125 saturate-60"
-                />
-            </div>
-
-            {/* Tekstur Kanvas Halus */}
-            <div
-                className="absolute inset-0 -z-15 opacity-20 pointer-events-none"
-                style={{
-                    backgroundImage: `url('/pngs/texture/ASSET.webp')`,
-                    backgroundRepeat: "repeat",
-                    backgroundSize: "220px",
-                }}
-            />
-
-            {/* Gradient Overlays */}
-            <div className="absolute inset-0 -z-10 bg-gradient-to-b from-navy-dark/85 via-navy-dark/65 to-navy-dark/95" />
-            <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(47,72,109,0.35)_0%,rgba(15,30,63,0.9)_100%)]" />
-
-            {/* CENTER CONTENT */}
-            <div className="scroll-reveal relative z-10 my-auto flex w-full max-w-5xl flex-col items-center text-center">
-                {/* Floating Micro-Badge */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-camel-brown/40 bg-white/10 px-4 py-1.5 font-sans text-xs font-semibold tracking-wider text-pale-taupe uppercase shadow-lg backdrop-blur-md">
-                    <Sparkles size={14} className="animate-pulse text-camel-brown" />
-                    <span>Universitas Multimedia Nusantara • Kabinet Generasi XVI</span>
+        <section ref={section} id={id} className="home-hero-transition" aria-labelledby="home-title">
+            <div className="home-hero-peel" data-home-peel>
+                <svg className="home-peel-cast" data-home-peel-cast aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="home-peel-cast-gradient" data-home-peel-cast-gradient gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stopColor="var(--navy-dark)" stopOpacity="0.42" />
+                            <stop offset="0.35" stopColor="var(--navy-dark)" stopOpacity="0.16" />
+                            <stop offset="1" stopColor="var(--navy-dark)" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <polygon data-home-peel-cast-polygon fill="url(#home-peel-cast-gradient)" points="" />
+                </svg>
+                <div className="home-hero-sheet" data-home-hero-sheet>
+                    <div className="home-brand-stamp">
+                        <Image src="/svgs/WHITE_LOGO_BEM.svg" alt="" width={28} height={28} />
+                        <span>BEM UMN <span>Gen XVI</span></span>
+                    </div>
+                    <Image className="home-motif home-motif-solid" src="/svgs/SOLID_supergrafik_4.svg" alt="" width={340} height={340} aria-hidden="true" />
+                    <Image className="home-motif home-motif-collaborative" src="/svgs/COLLABORATIVE_supergrafik_1.svg" alt="" width={340} height={340} aria-hidden="true" />
+                    <div className="home-hero-center">
+                        <p className="home-typing">
+                            <span className="sr-only">{statement}</span>
+                            <span className="home-typing-space" aria-hidden="true">{statement}</span>
+                            <span className="home-typing-ink" aria-hidden="true">{typed}<span className={typing ? "home-caret" : "home-caret home-caret-done"} /></span>
+                        </p>
+                        <h1 id="home-title" className="home-hero-mark">
+                            <span className="sr-only">BEM UMN Generasi XVI</span>
+                            <span className="home-hero-bem" aria-hidden="true">BEM</span>
+                            <Image className="home-hero-gen" src="/pngs/gen-xvi-light.webp" alt="" width={700} height={248} priority />
+                        </h1>
+                        <p className="home-tagline">Inclusive for Innovation</p>
+                    </div>
+                    <div className="home-hero-colophon">
+                        <p>Badan Eksekutif Mahasiswa Universitas Multimedia Nusantara</p>
+                    </div>
                 </div>
-
-                {/* Label Nama Lembaga di Atas Logo (Diturunkan Lebih Rapat ke Logo) */}
-                <p className="mt-8 font-serif text-lg font-bold italic tracking-wide text-white drop-shadow-md sm:mt-9 sm:text-xl md:mt-10 md:text-2xl mb-0">
-                    Badan Eksekutif Mahasiswa
-                </p>
-
-                {/* Centerpiece: Logo BEM Gen XVI — h1 untuk semantik halaman, tampilan identik */}
-                <h1 className="relative mt-0.5 mb-4 sm:mt-1 md:mt-1.5 flex items-center justify-center">
-                    <span className="sr-only">BEM UMN Generasi XVI — Inclusive for Innovation</span>
-                    <Image
-                        src="/svgs/BEM_GEN_16_LOGO_LIGHT.svg"
-                        alt=""
-                        aria-hidden="true"
-                        width={540}
-                        height={250}
-                        priority
-                        className="h-20 w-auto drop-shadow-[0_15px_35px_rgba(0,0,0,0.85)] sm:h-28 md:h-36 lg:h-40 xl:h-44"
-                    />
-                </h1>
-
-                {/* Subtitle Deskripsi */}
-                <p className="mx-auto mt-2 max-w-2xl font-sans text-sm leading-relaxed text-concrete/90 sm:text-base md:text-lg">
-                    Lembaga eksekutif mahasiswa tertinggi di Universitas Multimedia Nusantara.
-                    Merangkul keberagaman ide dan sudut pandang untuk menciptakan inovasi
-                    yang berdampak nyata bagi seluruh civitas akademika.
-                </p>
-
-                {/* Tagline Resmi Sebagai Hashtag di Bawah Deskripsi */}
-                <div className="mt-3">
-                    <span className="font-serif text-base font-bold italic tracking-wider text-azure underline decoration-azure/40 underline-offset-4 sm:text-lg md:text-xl">
-                        #InclusiveforInnovation
-                    </span>
-                </div>
-
-                {/* Action Button: Single Centered CTA */}
-                <div className="mt-8 flex w-full items-center justify-center">
-                    <Link
-                        href="/tentang-kami"
-                        className="group inline-flex items-center gap-2.5 rounded-full border border-azure bg-azure px-8 py-3.5 font-sans text-xs font-bold text-navy-dark shadow-xl shadow-azure/25 transition-all duration-300 hover:scale-105 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-azure active:scale-95 sm:text-sm"
-                    >
-                        <span>Kenali BEM Gen XVI</span>
-                        <ArrowUpRight size={17} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
-                </div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div className="scroll-reveal relative z-10 mt-8 mb-2 flex w-full justify-center">
-                <a
-                    href="#tentang"
-                    aria-label="Scroll ke bagian Tentang Kami"
-                    className="group inline-flex flex-col items-center gap-1 text-azure/70 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-azure rounded-full p-2"
-                >
-                    <span className="font-sans text-[10px] font-medium tracking-widest uppercase text-pale-taupe/80 group-hover:text-azure transition-colors">
-                        Gulir
-                    </span>
-                    <ChevronDown size={16} className="animate-bounce text-azure" />
-                </a>
+                <svg className="home-peel-flap" data-home-peel-flap aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="home-peel-flap-gradient" data-home-peel-flap-gradient gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stopColor="var(--camel-brown)" />
+                            <stop offset="0.1" stopColor="var(--cream-linen)" />
+                            <stop offset="0.45" stopColor="var(--white)" />
+                            <stop offset="1" stopColor="var(--cream-linen)" />
+                        </linearGradient>
+                    </defs>
+                    <polygon data-home-peel-flap-shadow-far fill="var(--navy-dark)" fillOpacity="0.07" points="" />
+                    <polygon data-home-peel-flap-shadow-near fill="var(--navy-dark)" fillOpacity="0.12" points="" />
+                    <polygon data-home-peel-flap-paper fill="url(#home-peel-flap-gradient)" stroke="var(--white)" strokeOpacity="0.55" strokeWidth="1" points="" />
+                </svg>
             </div>
         </section>
     );
-};
-
-export default Hero;
+}

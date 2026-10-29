@@ -11,15 +11,50 @@ import { Menu, X } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Navbar = () => {
+type NavbarProps = {
+    readonly revealAfterHeroId?: string;
+};
+
+const Navbar = ({ revealAfterHeroId }: NavbarProps) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [visible, setVisible] = useState(true);
+    const [pastHero, setPastHero] = useState(!revealAfterHeroId);
     const lastScrollY = useRef(0);
+
+    useEffect(() => {
+        if (!revealAfterHeroId) {
+            return;
+        }
+
+        const hero = document.getElementById(revealAfterHeroId);
+        if (!hero) {
+            setPastHero(true);
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setPastHero(!entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    setMobileMenuOpen(false);
+                }
+            },
+            { threshold: 0.05 },
+        );
+
+        observer.observe(hero);
+        return () => observer.disconnect();
+    }, [revealAfterHeroId]);
 
     // Deteksi arah scroll untuk slide-out saat scroll ke bawah dan slide-in saat scroll ke atas
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = Math.max(0, window.scrollY);
+
+            if (!pastHero) {
+                setVisible(false);
+                return;
+            }
 
             // Selalu tampilkan jika berada di dekat puncak halaman
             if (currentScrollY <= 60) {
@@ -45,7 +80,7 @@ const Navbar = () => {
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+    }, [pastHero]);
 
     useGSAP(() => {
         const navTween = gsap.timeline({
@@ -67,10 +102,12 @@ const Navbar = () => {
     });
 
     // Pertahankan header tetap tampak jika menu mobile sedang dibuka
-    const isVisible = visible || mobileMenuOpen;
+    const isVisible = pastHero && (visible || mobileMenuOpen);
 
     return (
         <header
+            aria-hidden={!isVisible}
+            inert={!isVisible}
             className={`fixed top-0 left-0 z-50 w-full px-4 pt-4 md:px-8 md:pt-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
                 isVisible ? "translate-y-0" : "-translate-y-full pointer-events-none"
             }`}
