@@ -1,66 +1,107 @@
-import { ChevronDown } from "lucide-react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
-type HeroProps = {
-    id: string;
-    className?: string;
-};
+const statement = "Commit. Solid. Integrated.";
 
-const Hero = ({ id, className }: HeroProps) => {
+export default function Hero({ id }: { id: string }) {
+    const section = useRef<HTMLElement>(null);
+    const [typed, setTyped] = useState(statement);
+    const [typing, setTyping] = useState(false);
+
+    useEffect(() => {
+        const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+        let timer: ReturnType<typeof setTimeout>;
+        let position = 0;
+        const finish = () => {
+            clearTimeout(timer);
+            setTyped(statement);
+            setTyping(false);
+        };
+        const tick = () => {
+            position += 1;
+            setTyped(statement.slice(0, position));
+            if (position === statement.length) {
+                setTyping(false);
+                return;
+            }
+            timer = setTimeout(tick, statement[position - 1] === "." ? 750 : 85);
+        };
+        if (!preference.matches) {
+            setTyped("");
+            setTyping(true);
+            timer = setTimeout(tick, 350);
+        }
+        const onPreferenceChange = () => { if (preference.matches) finish(); };
+        preference.addEventListener("change", onPreferenceChange);
+        return () => {
+            clearTimeout(timer);
+            preference.removeEventListener("change", onPreferenceChange);
+        };
+    }, []);
+
+    useGSAP(() => {
+        const media = gsap.matchMedia();
+        media.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.fromTo(".home-hero-mark", { y: 14 }, { y: 0, duration: 1.1, ease: "power3.out" });
+        });
+        return () => media.revert();
+    }, { scope: section });
+
     return (
-        <section
-            id={id}
-            className={`text-foreground relative flex min-h-screen w-full items-center justify-center overflow-hidden ${className} font-monospace`}
-        >
-            <div className="relative max-w-5xl px-4 text-center sm:px-6">
-                {/* Logo + Title */}
-                <div className="pl-6 flex items-baseline justify-center gap-2 pb-5 md:pl-0 md:gap-4 md:pb-6">
-                    <h1 className="text-primary text-start text-3xl font-bold text-balance sm:text-4xl md:block md:text-center md:text-6xl">
-                        BEM UMN
-                    </h1>
-                    <Image
-                        src="/svgs/gen-logo.svg"
-                        alt="Hero Graphic"
-                        width={210}
-                        height={210}
-                        className="w-28 drop-shadow-lg sm:w-40 md:w-[210px]"
-                        priority
-                    />
+        <section ref={section} id={id} className="home-hero-transition" aria-labelledby="home-title">
+            <div className="home-hero-peel" data-home-peel>
+                <svg className="home-peel-cast" data-home-peel-cast aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="home-peel-cast-gradient" data-home-peel-cast-gradient gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stopColor="var(--navy-dark)" stopOpacity="0.42" />
+                            <stop offset="0.35" stopColor="var(--navy-dark)" stopOpacity="0.16" />
+                            <stop offset="1" stopColor="var(--navy-dark)" stopOpacity="0" />
+                        </linearGradient>
+                    </defs>
+                    <polygon data-home-peel-cast-polygon fill="url(#home-peel-cast-gradient)" points="" />
+                </svg>
+                <div className="home-hero-sheet" data-home-hero-sheet>
+                    <div className="home-brand-stamp">
+                        <Image src="/svgs/WHITE_LOGO_BEM.svg" alt="" width={28} height={28} />
+                        <span>BEM UMN <span>Gen XVI</span></span>
+                    </div>
+                    <Image className="home-motif home-motif-solid" src="/svgs/SOLID_supergrafik_4.svg" alt="" width={340} height={340} aria-hidden="true" />
+                    <Image className="home-motif home-motif-collaborative" src="/svgs/COLLABORATIVE_supergrafik_1.svg" alt="" width={340} height={340} aria-hidden="true" />
+                    <div className="home-hero-center">
+                        <p className="home-typing">
+                            <span className="sr-only">{statement}</span>
+                            <span className="home-typing-space" aria-hidden="true">{statement}</span>
+                            <span className="home-typing-ink" aria-hidden="true">{typed}<span className={typing ? "home-caret" : "home-caret home-caret-done"} /></span>
+                        </p>
+                        <h1 id="home-title" className="home-hero-mark">
+                            <span className="sr-only">BEM UMN Generasi XVI</span>
+                            <span className="home-hero-bem" aria-hidden="true">BEM</span>
+                            <Image className="home-hero-gen" src="/pngs/gen-xvi-light.webp" alt="" width={700} height={248} priority />
+                        </h1>
+                        <p className="home-tagline">Inclusive for Innovation</p>
+                    </div>
+                    <div className="home-hero-colophon">
+                        <p>Badan Eksekutif Mahasiswa Universitas Multimedia Nusantara</p>
+                    </div>
                 </div>
-
-                {/* Tagline */}
-                <h1
-                    className={`text-primary sfont-mono min-h-[50px] text-2xl leading-tight font-semibold text-balance drop-shadow-lg/30 sm:text-3xl md:min-h-[80px] md:pb-6 md:text-6xl md:leading-tight`}
-                >
-                    Commit<span className="text-secondary">.</span> Solid
-                    <span className="text-secondary">.</span> Integrated
-                    <span className="text-secondary">.</span>
-                </h1>
-                <h2
-                    className={`text-accent drop-shadow-accent min-h-[50px] pb-3 font-serif text-lg leading-snug tracking-wide drop-shadow-md/30 sm:text-xl md:min-h-[60px] md:pb-10 md:text-3xl`}
-                >
-                    Contribute to Collaborate
-                </h2>
-
-                {/* Description */}
-                <p className="text-foreground/70 mx-auto max-w-3xl px-2 pb-6 text-sm leading-5 sm:text-base md:pb-14 md:text-xl md:leading-relaxed">
-                    Badan Eksekutif Mahasiswa Universitas Multimedia Nusantara
-                    merupakan organisasi kemahasiswaan resmi tingkat universitas
-                    di bawah Rektorat Bidang Kemahasiswaan.
-                </p>
-
-                <Link href="https://bit.ly/DAFTARBEMUMN2025">
-                    <button className="bg-secondary text-background transition-500 cursor-pointer rounded-xl px-4 py-2 text-sm font-normal shadow-md/30 duration-500 hover:scale-105 hover:shadow-lg/30 active:scale-95 sm:px-5 sm:py-2.5 sm:text-base md:px-6 md:py-3 md:text-lg md:font-medium">
-                        Join Now!
-                    </button>
-                </Link>
-            </div>
-            <div className="text-accent absolute bottom-24 left-0 flex w-full justify-center py-5 md:bottom-0">
-                <ChevronDown className="scale-125 animate-bounce" />
+                <svg className="home-peel-flap" data-home-peel-flap aria-hidden="true" focusable="false" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="home-peel-flap-gradient" data-home-peel-flap-gradient gradientUnits="userSpaceOnUse">
+                            <stop offset="0" stopColor="var(--camel-brown)" />
+                            <stop offset="0.1" stopColor="var(--cream-linen)" />
+                            <stop offset="0.45" stopColor="var(--white)" />
+                            <stop offset="1" stopColor="var(--cream-linen)" />
+                        </linearGradient>
+                    </defs>
+                    <polygon data-home-peel-flap-shadow-far fill="var(--navy-dark)" fillOpacity="0.07" points="" />
+                    <polygon data-home-peel-flap-shadow-near fill="var(--navy-dark)" fillOpacity="0.12" points="" />
+                    <polygon data-home-peel-flap-paper fill="url(#home-peel-flap-gradient)" stroke="var(--white)" strokeOpacity="0.55" strokeWidth="1" points="" />
+                </svg>
             </div>
         </section>
     );
-};
-
-export default Hero;
+}

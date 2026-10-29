@@ -6,6 +6,7 @@ import React, { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
 import MemberSwiper from "@/components/MemberSwiper";
 import Link from "next/link";
+import { ArrowRight, Grid } from "lucide-react";
 
 type MemberProps = {
     id: string;
@@ -13,88 +14,19 @@ type MemberProps = {
 };
 
 const Member = ({ id, className }: MemberProps) => {
-    const cardRefs = useRef<(HTMLButtonElement | null)[]>([]);
-    const lightRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
     useEffect(() => {
         cardRefs.current.forEach((card) => {
             if (!card) return;
-            const randomRotate = gsap.utils.random(-10, 10);
+            const randomRotate = gsap.utils.random(-4, 4);
             gsap.set(card, {
                 rotate: randomRotate,
                 transformStyle: "preserve-3d",
             });
         });
     }, []);
-
-    const handleEnter = (index: number) => {
-        const card = cardRefs.current[index];
-        const light = lightRefs.current[index];
-        if (!card) return;
-
-        gsap.to(card, { duration: 0.8, scale: 1.1, ease: "power4.out" });
-        if (light) {
-            gsap.to(light, {
-                opacity: 0.35,
-                duration: 0.6,
-                ease: "power2.out",
-            });
-        }
-    };
-
-    const handleLeave = (index: number) => {
-        const card = cardRefs.current[index];
-        const light = lightRefs.current[index];
-        if (!card) return;
-
-        gsap.to(card, {
-            duration: 0.8,
-            scale: 1,
-            rotateX: 0,
-            rotateY: flippedIndex === index ? 180 : 0,
-            rotate: gsap.utils.random(-10, 10),
-            ease: "power4.inOut",
-        });
-        if (light) {
-            gsap.to(light, {
-                opacity: 0,
-                duration: 0.6,
-                ease: "power2.inOut",
-            });
-        }
-    };
-
-    const handleMove = (e: React.MouseEvent, index: number) => {
-        const card = cardRefs.current[index];
-        const light = lightRefs.current[index];
-        if (!card || !light) return;
-
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = ((y - centerY) / centerY) * 12;
-        const rotateY = ((x - centerX) / centerX) * 12;
-
-        gsap.to(card, {
-            rotateX: -rotateX,
-            rotateY: (flippedIndex === index ? 180 : 0) + rotateY / 2,
-            transformPerspective: 1200,
-            transformOrigin: "center",
-            duration: 0.5,
-            ease: "power2.out",
-        });
-
-        gsap.to(light, {
-            x: (x - centerX) / 4,
-            y: (y - centerY) / 4,
-            ease: "power2.out",
-            duration: 0.3,
-        });
-    };
 
     const handleFlip = (index: number) => {
         const prevIndex = flippedIndex;
@@ -104,7 +36,7 @@ const Member = ({ id, className }: MemberProps) => {
             if (prevCard) {
                 gsap.to(prevCard, {
                     rotateY: 0,
-                    duration: 0.8,
+                    duration: 0.6,
                     ease: "power3.inOut",
                 });
             }
@@ -113,14 +45,14 @@ const Member = ({ id, className }: MemberProps) => {
         if (prevIndex === index) {
             gsap.to(cardRefs.current[index], {
                 rotateY: 0,
-                duration: 0.8,
+                duration: 0.6,
                 ease: "power3.inOut",
             });
             setFlippedIndex(null);
         } else {
             gsap.to(cardRefs.current[index], {
                 rotateY: 180,
-                duration: 0.8,
+                duration: 0.6,
                 ease: "power3.inOut",
             });
             setFlippedIndex(index);
@@ -130,92 +62,124 @@ const Member = ({ id, className }: MemberProps) => {
     return (
         <section
             id={id}
-            className={`relative flex max-h-screen min-h-screen w-full flex-col items-center pt-10 font-mono md:flex-row md:justify-end md:px-12 md:pt-0 ${className}`}
+            className={`relative flex min-h-screen w-full flex-col items-center justify-center px-4 py-20 font-sans md:px-12 ${className}`}
         >
-            <div className="items-top max-w-2xl px-6 pt-10 md:h-screen md:p-20 md:pr-0">
-                <h2 className="text-start text-4xl font-bold drop-shadow-lg/30 md:text-6xl">
-                    Divisi BEM UMN
-                </h2>
-                <p className="text-foreground/70 mt-4 text-justify text-base md:text-lg">
-                    BEM UMN memiliki 6 divisi yang masing-masing memiliki peran
-                    dan tanggung jawab yang berbeda.
-                </p>
-            </div>
+            <div className="mx-auto flex w-full max-w-7xl flex-col items-center">
+                {/* Header Section */}
+                <div className="flex w-full flex-col items-center justify-between gap-6 md:flex-row md:items-end">
+                    <div className="text-center md:text-left">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-azure/30 bg-blue-primary/40 px-4 py-1.5 text-xs font-semibold tracking-wider text-azure uppercase">
+                            <Grid size={14} />
+                            <span>Struktur Organisasi</span>
+                        </div>
+                        <h2 className="mt-3 font-serif text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+                            Divisi BEM UMN Gen XVI
+                        </h2>
+                        <p className="mt-2 max-w-2xl text-sm text-azure/90 md:text-base">
+                            Enam divisi utama yang berdedikasi menggerakkan roda organisasi dan menaungi aspirasi seluruh mahasiswa UMN.
+                        </p>
+                    </div>
 
-            {/* === Desktop Grid (default) === */}
-            <div className="hidden w-full max-w-7xl px-12 md:block">
-                <div className="w-full max-w-7xl px-12">
+                    <Link
+                        href="/divisi"
+                        className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-blue-primary/80 px-5 py-2.5 text-xs font-semibold text-white shadow-lg backdrop-blur-md transition-all hover:scale-105 hover:bg-dark-blue sm:text-sm"
+                    >
+                        <span>Lihat Seluruh Anggota & Divisi</span>
+                        <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </Link>
+                </div>
+
+                {/* Desktop Grid 6 Divisi */}
+                <div className="mt-12 hidden w-full md:block">
                     <div
-                        className="grid grid-cols-3 justify-items-end gap-10"
+                        className="grid grid-cols-2 gap-8 lg:grid-cols-3"
                         style={{ perspective: "2000px" }}
                     >
                         {divisions.map((division, index) => (
-                            <button
+                            <div
                                 key={division.id}
                                 ref={(el) => {
                                     cardRefs.current[index] = el;
                                 }}
-                                onMouseEnter={() => handleEnter(index)}
-                                onMouseLeave={() => handleLeave(index)}
-                                onMouseMove={(e) => handleMove(e, index)}
                                 onClick={() => handleFlip(index)}
-                                className="relative h-[340px] w-[280px] cursor-pointer rounded-xl shadow-xl [transform-style:preserve-3d] bg-transparent border-none p-0 focus:outline-none"
-                                type="button"
-                                aria-label={`Flip card for ${division.name}`}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        handleFlip(index);
+                                    }
+                                }}
+                                aria-label={`Detail divisi ${division.fullname}`}
+                                className="relative h-[360px] w-full cursor-pointer rounded-2xl border border-white/20 bg-transparent p-0 shadow-2xl [transform-style:preserve-3d] transition-shadow duration-300 hover:shadow-cyan-900/30 focus:outline-none"
                             >
-                                {/* Lighting Overlay */}
-                                <div
-                                    ref={(el) => {
-                                        lightRefs.current[index] = el;
-                                    }}
-                                    className="from-background/60 pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-tr to-transparent opacity-0"
-                                />
-
                                 {/* Front Side */}
-                                <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl bg-stone-200 p-3 pt-0 shadow-md/20 duration-300 [backface-visibility:hidden]">
-                                    <div className="relative h-[260px] w-full overflow-hidden rounded-sm">
+                                <div className="absolute inset-0 flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-dark-blue/90 via-blue-primary/50 to-dark-blue/90 p-5 shadow-xl [backface-visibility:hidden]">
+                                    <div className="relative h-[200px] w-full overflow-hidden rounded-xl border border-white/10">
                                         <Image
                                             src={division.imageUrl}
                                             alt={division.name}
                                             fill
-                                            sizes="280px"
-                                            className="scale-105 object-cover"
-                                            unoptimized
+                                            sizes="(max-width: 768px) 100vw, 380px"
+                                            className="object-cover object-center transition-transform duration-500 hover:scale-105"
                                         />
+                                        <div className="absolute top-2 right-2 rounded-full bg-dark-blue/80 px-2.5 py-1 text-[10px] font-bold text-azure backdrop-blur-sm">
+                                            GEN XVI
+                                        </div>
                                     </div>
-                                    <p className="text-secondary mt-2 text-xl font-semibold">
-                                        {division.name}
-                                    </p>
 
-                                    <p className="text-foreground/70 mt-2 text-sm font-normal">
-                                        Click Me !
-                                    </p>
+                                    <div className="mt-3">
+                                        <h3 className="font-serif text-xl font-bold text-white">
+                                            {division.name}
+                                        </h3>
+                                        <p className="text-xs font-medium text-azure">
+                                            {division.fullname}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-3 flex items-center justify-between border-t border-white/10 pt-3 text-[11px] text-concrete/70">
+                                        <span>Klik untuk membalik kartu</span>
+                                        <span className="font-semibold text-azure">Balik &rarr;</span>
+                                    </div>
                                 </div>
+
                                 {/* Back Side */}
-                                <div className="absolute inset-0 flex [transform:rotateY(180deg)] flex-col items-center justify-center rounded-xl bg-stone-200 p-4 shadow-md [backface-visibility:hidden]">
-                                    <h3 className="mb-2 text-center text-lg font-bold text-gray-800">
-                                        {division.fullname || division.name}
-                                    </h3>
+                                <div className="absolute inset-0 flex [transform:rotateY(180deg)] flex-col justify-between rounded-2xl border border-azure/30 bg-gradient-to-b from-dark-blue via-blue-primary to-dark-blue p-6 shadow-2xl [backface-visibility:hidden]">
+                                    <div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="rounded-full bg-white/10 px-3 py-1 font-serif text-xs font-bold text-cream">
+                                                {division.name}
+                                            </span>
+                                            <span className="text-[11px] text-azure">Divisi Resmi</span>
+                                        </div>
 
-                                    <div className="group relative">
-                                        <button className="text-background hover:bg-accent/90 disabled:bg-accent/30 disabled:hover:n bg-accent cursor-pointer rounded-md px-4 py-2 shadow transition hover:scale-105 hover:shadow-lg/20 active:scale-90 disabled:shadow-none disabled:hover:scale-100 disabled:active:scale-100">
-                                            <Link
-                                                href={`/members/${division.id}`}
-                                            >
-                                                View Members
-                                            </Link>
-                                        </button>
+                                        <h3 className="mt-4 font-serif text-lg font-bold text-white">
+                                            {division.fullname}
+                                        </h3>
+                                        <p className="mt-3 text-xs leading-relaxed text-concrete/90">
+                                            {division.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-white/15">
+                                        <Link
+                                            href={`/members/${division.id}`}
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-azure py-2.5 font-sans text-xs font-bold text-dark-blue shadow-lg transition-all hover:bg-white hover:shadow-xl active:scale-95"
+                                        >
+                                            <span>Lihat Susunan Pengurus</span>
+                                            <ArrowRight size={14} />
+                                        </Link>
                                     </div>
                                 </div>
-                            </button>
+                            </div>
                         ))}
                     </div>
                 </div>
-            </div>
 
-            {/* === Mobile Carousel (scroll-snap) === */}
-            <div className="block w-full md:hidden">
-                <MemberSwiper divisions={divisions} />
+                {/* Mobile Carousel */}
+                <div className="mt-8 block w-full md:hidden">
+                    <MemberSwiper divisions={divisions} />
+                </div>
             </div>
         </section>
     );

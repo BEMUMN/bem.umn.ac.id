@@ -1,28 +1,12 @@
-import { DivisionKey, divisionMembers } from "@/constants/divisionMembers";
-import { notFound } from "next/navigation";
-import React from "react";
+import { redirect } from "next/navigation";
 
-const Division = ({ params }: { params: { division: string } }) => {
-    const divisionKey = params.division.toUpperCase() as DivisionKey;
+type PageProps = {
+    params: Promise<{ division: string }>;
+};
 
-    if (!(divisionKey in divisionMembers)) return notFound();
-
-    const members = divisionMembers[divisionKey];
-
-    return (
-        <div>
-            <h1>Division: {divisionKey}</h1>
-            <ul>
-                {members.map((member) => (
-                    <li key={member.name}>
-                        <img src={member.imageUrl} alt={member.name} />
-                        <h2>{member.name}</h2>
-                        <p>{member.role}</p>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+const Division = async ({ params }: PageProps) => {
+    const resolvedParams = await params;
+    redirect(`/divisi/${resolvedParams.division.toLowerCase()}`);
 };
 
 export default Division;
