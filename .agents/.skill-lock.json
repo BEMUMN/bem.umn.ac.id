@@ -1,0 +1,731 @@
+{
+  "version": 3,
+  "skills": {
+    "impeccable": {
+      "source": "pbakaus/impeccable",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/pbakaus/impeccable.git",
+      "skillPath": ".agents/skills/impeccable/SKILL.md",
+      "skillFolderHash": "8305acdb8704446cfd0a3e6d7f29fbab836eb746",
+      "installedAt": "2026-10-28T01:24:42.763Z",
+      "updatedAt": "2026-10-28T01:24:42.763Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-10-28T01:24:45.845Z",
+      "updatedAt": "2026-10-28T01:24:45.845Z"
+    },
+    "apple-design": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/emilkowalski/skills.git",
+      "skillPath": "skills/apple-design/SKILL.md",
+      "skillFolderHash": "cd509ae729c86487d352e17a26651217a4c25711",
+      "installedAt": "2026-10-28T01:25:44.827Z",
+      "updatedAt": "2026-10-28T01:25:44.827Z"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/Leonxlnx/taste-skill.git",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "skillFolderHash": "844f3cf223d25a29e75f7965d095a093938282df",
+      "pluginName": "taste-skill",
+      "installedAt": "2026-10-28T01:27:29.899Z",
+      "updatedAt": "2026-10-28T01:27:29.899Z"
+    },
+    "architect": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/architect/SKILL.md",
+      "skillFolderHash": "1e45921405304d20fec53f17e9fdcf488c30507d",
+      "installedAt": "2026-10-28T01:32:31.007Z",
+      "updatedAt": "2026-10-28T01:32:31.007Z"
+    },
+    "arena": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/arena/SKILL.md",
+      "skillFolderHash": "e1fd4f00d1fc565c4e401bbaddde1ed668321dd5",
+      "installedAt": "2026-10-28T01:32:31.075Z",
+      "updatedAt": "2026-10-28T01:32:31.075Z"
+    },
+    "automate-me": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/automate-me/SKILL.md",
+      "skillFolderHash": "3af678cf29dab19e59e48d72c6db05507cfe87e2",
+      "installedAt": "2026-10-28T01:32:31.093Z",
+      "updatedAt": "2026-10-28T01:32:31.093Z"
+    },
+    "babysit": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/babysit/SKILL.md",
+      "skillFolderHash": "4cec4b5de6506c6c2ae72ae6800b290aca99395e",
+      "installedAt": "2026-10-28T01:32:31.125Z",
+      "updatedAt": "2026-10-28T01:32:31.125Z"
+    },
+    "benchmark-checklist": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/benchmark-checklist/SKILL.md",
+      "skillFolderHash": "00f155bbc52acf66f48d9b7355b51c9a6fae3863",
+      "installedAt": "2026-10-28T01:32:31.144Z",
+      "updatedAt": "2026-10-28T01:32:31.144Z"
+    },
+    "blast-radius": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/blast-radius/SKILL.md",
+      "skillFolderHash": "dd255edd92bafe9915159d7ffb9591126b09d101",
+      "installedAt": "2026-10-28T01:32:31.170Z",
+      "updatedAt": "2026-10-28T01:32:31.170Z"
+    },
+    "bro": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/bro/SKILL.md",
+      "skillFolderHash": "dfcc3113bd7ec0a923c3be0797788fb62cc62975",
+      "installedAt": "2026-10-28T01:32:31.218Z",
+      "updatedAt": "2026-10-28T01:32:31.218Z"
+    },
+    "correct": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/correct/SKILL.md",
+      "skillFolderHash": "03dd746c3574587d033b71b4a3bb1af0f69430fe",
+      "installedAt": "2026-10-28T01:32:31.240Z",
+      "updatedAt": "2026-10-28T01:32:31.240Z"
+    },
+    "create-formal-verification-skill": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/create-formal-verification-skill/SKILL.md",
+      "skillFolderHash": "efae7829e71643e847721f3f4f814eaec21473f9",
+      "installedAt": "2026-10-28T01:32:31.254Z",
+      "updatedAt": "2026-10-28T01:32:31.254Z"
+    },
+    "create-verification-skill": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/create-verification-skill/SKILL.md",
+      "skillFolderHash": "0091b9f736fa7485b104dba0659aa40e6ba99f03",
+      "installedAt": "2026-10-28T01:32:31.276Z",
+      "updatedAt": "2026-10-28T01:32:31.276Z"
+    },
+    "deslop": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/deslop/SKILL.md",
+      "skillFolderHash": "ac9ba043f9dd3b3a8850de6624ec5bc12e375599",
+      "installedAt": "2026-10-28T01:32:31.305Z",
+      "updatedAt": "2026-10-28T01:32:31.305Z"
+    },
+    "figure-it-out": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/figure-it-out/SKILL.md",
+      "skillFolderHash": "623b950bff0bd7bfe906bda41351b9696d372839",
+      "installedAt": "2026-10-28T01:32:31.327Z",
+      "updatedAt": "2026-10-28T01:32:31.327Z"
+    },
+    "fix-ci": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/fix-ci/SKILL.md",
+      "skillFolderHash": "22d79ed45a382df99b95e1135f13ad0170500511",
+      "installedAt": "2026-10-28T01:32:31.344Z",
+      "updatedAt": "2026-10-28T01:32:31.344Z"
+    },
+    "fix-merge-conflicts": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/fix-merge-conflicts/SKILL.md",
+      "skillFolderHash": "9a539a5c5359e25c9a57df5a741e42524f2fe3c8",
+      "installedAt": "2026-10-28T01:32:31.360Z",
+      "updatedAt": "2026-10-28T01:32:31.360Z"
+    },
+    "get-pr-comments": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/get-pr-comments/SKILL.md",
+      "skillFolderHash": "5664b99671eeabafef1159cdb663cb162ace770d",
+      "installedAt": "2026-10-28T01:32:31.394Z",
+      "updatedAt": "2026-10-28T01:32:31.394Z"
+    },
+    "how": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/how/SKILL.md",
+      "skillFolderHash": "b7d83adddcadd7a46f46dfe19b694595317dd25b",
+      "installedAt": "2026-10-28T01:32:31.440Z",
+      "updatedAt": "2026-10-28T01:32:31.440Z"
+    },
+    "in-your-own-words": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/in-your-own-words/SKILL.md",
+      "skillFolderHash": "0cd7412dd7727a7c5c585a3571f480128a71705a",
+      "installedAt": "2026-10-28T01:32:31.454Z",
+      "updatedAt": "2026-10-28T01:32:31.454Z"
+    },
+    "interrogate": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/interrogate/SKILL.md",
+      "skillFolderHash": "acfc4e402bdac321cc212c26c36e8628b924bbe0",
+      "installedAt": "2026-10-28T01:32:31.461Z",
+      "updatedAt": "2026-10-28T01:32:31.461Z"
+    },
+    "ketchup": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/ketchup/SKILL.md",
+      "skillFolderHash": "bb1ebed6833b14d4990bbbfd399878ef86b7a6f4",
+      "installedAt": "2026-10-28T01:32:31.523Z",
+      "updatedAt": "2026-10-28T01:32:31.523Z"
+    },
+    "ketchup-video": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/ketchup-video/SKILL.md",
+      "skillFolderHash": "f7997864e20b3625e8cc7afa2aa815ecba425841",
+      "installedAt": "2026-10-28T01:32:31.570Z",
+      "updatedAt": "2026-10-28T01:32:31.570Z"
+    },
+    "maintain-formal-verification-skill": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/maintain-formal-verification-skill/SKILL.md",
+      "skillFolderHash": "47b1c16ae7b2b4ed8c9d7c986a63814995e79388",
+      "installedAt": "2026-10-28T01:32:31.649Z",
+      "updatedAt": "2026-10-28T01:32:31.649Z"
+    },
+    "maintain-verification-skill": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/maintain-verification-skill/SKILL.md",
+      "skillFolderHash": "cf04dec3271af6c0dbcc6732403b62f1ef2b5993",
+      "installedAt": "2026-10-28T01:32:31.709Z",
+      "updatedAt": "2026-10-28T01:32:31.709Z"
+    },
+    "make-pr-easy-to-review": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/make-pr-easy-to-review/SKILL.md",
+      "skillFolderHash": "30493c1d9b061827149f0caafca027a9016f67c6",
+      "installedAt": "2026-10-28T01:32:32.452Z",
+      "updatedAt": "2026-10-28T01:32:32.452Z"
+    },
+    "no-comments": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/no-comments/SKILL.md",
+      "skillFolderHash": "57b71a7623ef1624002e8c494a4756f3904d6fa4",
+      "installedAt": "2026-10-28T01:32:32.465Z",
+      "updatedAt": "2026-10-28T01:32:32.465Z"
+    },
+    "poteto-help": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/poteto-help/SKILL.md",
+      "skillFolderHash": "540bfa7f01b84354cc12769af98db4494305f6b7",
+      "installedAt": "2026-10-28T01:32:32.472Z",
+      "updatedAt": "2026-10-28T01:32:32.472Z"
+    },
+    "poteto-mode": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/poteto-mode/SKILL.md",
+      "skillFolderHash": "9ecb9c9a30a92694f4912fe1068b05a9f5267fc7",
+      "installedAt": "2026-10-28T01:32:32.485Z",
+      "updatedAt": "2026-10-28T01:32:32.485Z"
+    },
+    "principle-attack-the-premise": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-attack-the-premise/SKILL.md",
+      "skillFolderHash": "7d5a66860aede2b3ffcca0f4f3f2b7d27b3810aa",
+      "installedAt": "2026-10-28T01:32:32.522Z",
+      "updatedAt": "2026-10-28T01:32:32.522Z"
+    },
+    "principle-boundary-discipline": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-boundary-discipline/SKILL.md",
+      "skillFolderHash": "8c7ce90e19f7647e857268a5a1b9ffba914a802b",
+      "installedAt": "2026-10-28T01:32:32.528Z",
+      "updatedAt": "2026-10-28T01:32:32.528Z"
+    },
+    "principle-build-the-lever": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-build-the-lever/SKILL.md",
+      "skillFolderHash": "3cf5ca35711e902f8fe5197fdaa1f708739832ed",
+      "installedAt": "2026-10-28T01:32:32.541Z",
+      "updatedAt": "2026-10-28T01:32:32.541Z"
+    },
+    "principle-encode-lessons-in-structure": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+      "skillFolderHash": "25037b6a9082ad0882c293f6fbb00fc99ca60eec",
+      "installedAt": "2026-10-28T01:32:32.560Z",
+      "updatedAt": "2026-10-28T01:32:32.560Z"
+    },
+    "principle-exhaust-the-design-space": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+      "skillFolderHash": "106a319a520c5148ad42fe318bbea17578b8b799",
+      "installedAt": "2026-10-28T01:32:32.573Z",
+      "updatedAt": "2026-10-28T01:32:32.573Z"
+    },
+    "principle-experience-first": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-experience-first/SKILL.md",
+      "skillFolderHash": "85b31a1be2d079d48571ad5d01cacc697bb126fd",
+      "installedAt": "2026-10-28T01:32:32.582Z",
+      "updatedAt": "2026-10-28T01:32:32.582Z"
+    },
+    "principle-explain-the-number": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-explain-the-number/SKILL.md",
+      "skillFolderHash": "e12eb1fa2aa36ece3ae7e31840900115761b6f9f",
+      "installedAt": "2026-10-28T01:32:32.599Z",
+      "updatedAt": "2026-10-28T01:32:32.599Z"
+    },
+    "principle-fix-root-causes": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-fix-root-causes/SKILL.md",
+      "skillFolderHash": "09d26b8ffe291125ebd5d512943d54477b5a6270",
+      "installedAt": "2026-10-28T01:32:32.622Z",
+      "updatedAt": "2026-10-28T01:32:32.622Z"
+    },
+    "principle-foundational-thinking": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-foundational-thinking/SKILL.md",
+      "skillFolderHash": "b4c9189ee194bfb46142fb36aabe1fdc57266e4a",
+      "installedAt": "2026-10-28T01:32:32.629Z",
+      "updatedAt": "2026-10-28T01:32:32.629Z"
+    },
+    "principle-guard-the-context-window": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-guard-the-context-window/SKILL.md",
+      "skillFolderHash": "3ed78a30297d01c21d1a3c9fd44280ab58edd81e",
+      "installedAt": "2026-10-28T01:32:32.636Z",
+      "updatedAt": "2026-10-28T01:32:32.636Z"
+    },
+    "principle-laziness-protocol": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-laziness-protocol/SKILL.md",
+      "skillFolderHash": "f23bc74d512be58af1fa207865206c5a8918d456",
+      "installedAt": "2026-10-28T01:32:32.687Z",
+      "updatedAt": "2026-10-28T01:32:32.687Z"
+    },
+    "principle-make-operations-idempotent": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-make-operations-idempotent/SKILL.md",
+      "skillFolderHash": "9ef427aa3b12ecf2f3315e529368469eb1806ae3",
+      "installedAt": "2026-10-28T01:32:32.693Z",
+      "updatedAt": "2026-10-28T01:32:32.693Z"
+    },
+    "principle-migrate-callers-then-delete-legacy-apis": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+      "skillFolderHash": "50faf16024d386772674d73b388f6a9423abb16e",
+      "installedAt": "2026-10-28T01:32:32.700Z",
+      "updatedAt": "2026-10-28T01:32:32.700Z"
+    },
+    "principle-minimize-reader-load": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-minimize-reader-load/SKILL.md",
+      "skillFolderHash": "c27640f8842abb87c31bb1c98aff1b75ab58bed9",
+      "installedAt": "2026-10-28T01:32:32.710Z",
+      "updatedAt": "2026-10-28T01:32:32.710Z"
+    },
+    "principle-model-the-domain": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-model-the-domain/SKILL.md",
+      "skillFolderHash": "a87ae75c42941dfd4da4d653e0d8f3e0118bf94b",
+      "installedAt": "2026-10-28T01:32:32.724Z",
+      "updatedAt": "2026-10-28T01:32:32.724Z"
+    },
+    "principle-never-block-on-the-human": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "skillFolderHash": "7a69ae6066125ad0ff7b56d2064f6c504bfb05b0",
+      "installedAt": "2026-10-28T01:32:32.762Z",
+      "updatedAt": "2026-10-28T01:32:32.762Z"
+    },
+    "principle-outcome-oriented-execution": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-outcome-oriented-execution/SKILL.md",
+      "skillFolderHash": "78c2698fa12adf2cbedd0639293039fae3bb864b",
+      "installedAt": "2026-10-28T01:32:32.778Z",
+      "updatedAt": "2026-10-28T01:32:32.778Z"
+    },
+    "principle-prove-it-works": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-prove-it-works/SKILL.md",
+      "skillFolderHash": "64e6ad9d3150c60cc8b1502284ae6a47b99801e6",
+      "installedAt": "2026-10-28T01:32:32.808Z",
+      "updatedAt": "2026-10-28T01:32:32.808Z"
+    },
+    "principle-redesign-from-first-principles": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+      "skillFolderHash": "e170aee44c527419f5a8890ca2f32440e229ee9d",
+      "installedAt": "2026-10-28T01:32:32.826Z",
+      "updatedAt": "2026-10-28T01:32:32.826Z"
+    },
+    "principle-separate-before-serializing-shared-state": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+      "skillFolderHash": "b2667e7dde81c669eadd137f04cd83376c368048",
+      "installedAt": "2026-10-28T01:32:32.837Z",
+      "updatedAt": "2026-10-28T01:32:32.837Z"
+    },
+    "principle-sequence-verifiable-units": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "skillFolderHash": "a6aad1402ece412475d5fd847ee7b84bb560a9e0",
+      "installedAt": "2026-10-28T01:32:32.844Z",
+      "updatedAt": "2026-10-28T01:32:32.844Z"
+    },
+    "principle-subtract-before-you-add": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-subtract-before-you-add/SKILL.md",
+      "skillFolderHash": "1f16a709dd46d49e42c925c85dcbb6f90e06ff88",
+      "installedAt": "2026-10-28T01:32:32.866Z",
+      "updatedAt": "2026-10-28T01:32:32.866Z"
+    },
+    "principle-test-behavior-not-implementation": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "skillFolderHash": "119498d3b1b205cf52cae5768e2efbca37e860be",
+      "installedAt": "2026-10-28T01:32:32.880Z",
+      "updatedAt": "2026-10-28T01:32:32.880Z"
+    },
+    "principle-type-system-discipline": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/principle-type-system-discipline/SKILL.md",
+      "skillFolderHash": "cadf190e6608475be9235c06709ea6dc6e991692",
+      "installedAt": "2026-10-28T01:32:32.896Z",
+      "updatedAt": "2026-10-28T01:32:32.896Z"
+    },
+    "recall": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/recall/SKILL.md",
+      "skillFolderHash": "a7d3deb653a48a793a333c263160384e16f68ea4",
+      "installedAt": "2026-10-28T01:32:32.906Z",
+      "updatedAt": "2026-10-28T01:32:32.906Z"
+    },
+    "reflect": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/reflect/SKILL.md",
+      "skillFolderHash": "173f955290fb09323736da7fa19d900440b1e72c",
+      "installedAt": "2026-10-28T01:32:32.920Z",
+      "updatedAt": "2026-10-28T01:32:32.920Z"
+    },
+    "setup-pstack": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/setup-pstack/SKILL.md",
+      "skillFolderHash": "16516845a4f82346160bd8db3c7ecb08c4a20463",
+      "installedAt": "2026-10-28T01:32:32.939Z",
+      "updatedAt": "2026-10-28T01:32:32.939Z"
+    },
+    "sharpen": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/sharpen/SKILL.md",
+      "skillFolderHash": "d4911c2a9a8b6f87c4a4d999289aa418d95f2344",
+      "installedAt": "2026-10-28T01:32:32.948Z",
+      "updatedAt": "2026-10-28T01:32:32.948Z"
+    },
+    "show-me-your-work": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/show-me-your-work/SKILL.md",
+      "skillFolderHash": "a5588ac35a87e8fcdd5b1e7193fdff166cc03644",
+      "installedAt": "2026-10-28T01:32:32.955Z",
+      "updatedAt": "2026-10-28T01:32:32.955Z"
+    },
+    "statechart": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/statechart/SKILL.md",
+      "skillFolderHash": "fbcb2bd5c7af4bdc10397cb05943fd993627fb5f",
+      "installedAt": "2026-10-28T01:32:32.962Z",
+      "updatedAt": "2026-10-28T01:32:32.962Z"
+    },
+    "swarm": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/swarm/SKILL.md",
+      "skillFolderHash": "72a20d1fe654961b839878f0595b0cf79e34d5be",
+      "installedAt": "2026-10-28T01:32:32.971Z",
+      "updatedAt": "2026-10-28T01:32:32.971Z"
+    },
+    "tdd": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/tdd/SKILL.md",
+      "skillFolderHash": "5347e133627a3268ec4b11768c9f4ea00b79186b",
+      "installedAt": "2026-10-28T01:32:32.978Z",
+      "updatedAt": "2026-10-28T01:32:32.978Z"
+    },
+    "teach": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/teach/SKILL.md",
+      "skillFolderHash": "58c9a8df63ab8d8c08a7cce162071149ec055826",
+      "installedAt": "2026-10-28T01:32:32.987Z",
+      "updatedAt": "2026-10-28T01:32:32.987Z"
+    },
+    "technical-writing": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/technical-writing/SKILL.md",
+      "skillFolderHash": "ae30298408ad370a7ae79280227184c09dd1d971",
+      "installedAt": "2026-10-28T01:32:32.995Z",
+      "updatedAt": "2026-10-28T01:32:32.995Z"
+    },
+    "thermo-nuclear-code-quality-review": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "skillFolderHash": "c21b980a084de912e26c17fe8bc7488ec524eead",
+      "installedAt": "2026-10-28T01:32:33.004Z",
+      "updatedAt": "2026-10-28T01:32:33.004Z"
+    },
+    "thermo-nuclear-review": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/thermo-nuclear-review/SKILL.md",
+      "skillFolderHash": "fadf64c1bc8ee5ff685dfb43995b1946c708e974",
+      "installedAt": "2026-10-28T01:32:33.011Z",
+      "updatedAt": "2026-10-28T01:32:33.011Z"
+    },
+    "thermos": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/thermos/SKILL.md",
+      "skillFolderHash": "5af950aec329a83395ad658396a629c0a2626864",
+      "installedAt": "2026-10-28T01:32:33.022Z",
+      "updatedAt": "2026-10-28T01:32:33.022Z"
+    },
+    "typescript-best-practices": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/typescript-best-practices/SKILL.md",
+      "skillFolderHash": "b7fb78dc1f92dc3c5dd9dc18e82f878488305689",
+      "installedAt": "2026-10-28T01:32:33.031Z",
+      "updatedAt": "2026-10-28T01:32:33.031Z"
+    },
+    "unslop": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/unslop/SKILL.md",
+      "skillFolderHash": "0c1e9c3014f788044725640bb0159562b5543068",
+      "installedAt": "2026-10-28T01:32:33.042Z",
+      "updatedAt": "2026-10-28T01:32:33.042Z"
+    },
+    "what-did-i-get-done": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/what-did-i-get-done/SKILL.md",
+      "skillFolderHash": "953a0fb2b6d763e4149da38a543778aed3091368",
+      "installedAt": "2026-10-28T01:32:33.051Z",
+      "updatedAt": "2026-10-28T01:32:33.051Z"
+    },
+    "why": {
+      "source": "michael-denyer/pstack-claude",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/michael-denyer/pstack-claude.git",
+      "ref": "main",
+      "skillPath": "plugins/pstack/skills/why/SKILL.md",
+      "skillFolderHash": "546a5d4d017316675252373af63278a2c9e9da8c",
+      "installedAt": "2026-10-28T01:32:33.058Z",
+      "updatedAt": "2026-10-28T01:32:33.058Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "cline",
+    "codex",
+    "cursor",
+    "droid",
+    "fx",
+    "gemini-cli",
+    "github-copilot",
+    "kilo",
+    "kimi-code-cli",
+    "opencode",
+    "pi",
+    "warp",
+    "zed"
+  ]
+}

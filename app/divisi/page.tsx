@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function DivisiPage() {
-    // Hitung jumlah anggota dan cari pimpinan masing-masing divisi
     const enrichedDivisions = divisions.map((d) => {
         const key = d.id as DivisionKey;
         const members = divisionMembers[key] || [];
@@ -23,7 +22,6 @@ export default function DivisiPage() {
         };
     });
 
-    // Flatten daftar seluruh anggota untuk pencarian global
     const allMembers = Object.entries(divisionMembers).flatMap(
         ([divKey, members]) => {
             return members.map((m, idx) => ({
